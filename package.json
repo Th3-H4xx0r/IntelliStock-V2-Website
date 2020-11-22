@@ -1,0 +1,32 @@
+{
+  "name": "intellistock_v2-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "build": "node server.js",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Th3-H4xx0r/IntelliStockV2-Node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Th3-H4xx0r/IntelliStockV2-Node/issues"
+  },
+  "homepage": "https://github.com/Th3-H4xx0r/IntelliStockV2-Node#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "^8.1.1",
+    "firebase-admin": "^9.4.1",
+    "nodemon": "^2.0.6",
+    "request": "^2.88.2",
+    "socket-io": "^1.0.0",
+    "socket.io": "^3.0.3"
+  }
+}
