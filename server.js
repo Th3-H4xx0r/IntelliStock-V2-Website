@@ -53,6 +53,12 @@ router.get('/signup',function(req,res){
   
 });
 
+router.get('/dashboard',function(req,res){
+    res.sendFile(path.join(__dirname+'/dashboard.html'));
+  
+});
+
+
 
 
 

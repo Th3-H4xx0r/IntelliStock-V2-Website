@@ -26,7 +26,7 @@ function login() {
                 console.log("LOGIN VALID")
                 error.innerHTML = ''
 
-                window.location = '/'
+                window.location = '/dashboard'
 
 
             }).catch(err => {
