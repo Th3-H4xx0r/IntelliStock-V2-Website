@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Th3-H4xx0r/IntelliStockV2-Node#readme",
   "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^1.4.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^8.1.1",
