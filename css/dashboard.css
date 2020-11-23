@@ -1,0 +1,6 @@
+body{
+    background-color: rgb(21,21,21);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Quicksand';
+}
