@@ -19,16 +19,16 @@
     <script src="js/auth.js"></script>
 
 
-        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-
-        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-
-        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-        <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
       
-        <!-- Add Firebase products that you want to use -->
-        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
       
       
   <script src="https://api.intellistock.protosystems.net/init.js"></script>
@@ -46,6 +46,7 @@
         crossorigin="anonymous"></script>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
     <title>Signup</title>
   </head>
   <body>
@@ -74,46 +75,64 @@
 
     </nav>
 
+    <section id = 'signup-content' >
 
-
-    <div class="d-flex justify-content-center" style="margin-top: 10rem;">
-        <center style="color: white; font-weight: 700; font-size: 45px; max-width: 20%;">Automated trading starts here</center>
-
-    </div>
-
+        <div class="d-flex justify-content-center" style="margin-top: 10rem;">
+            <center style="color: white; font-weight: 700; font-size: 45px; max-width: 20%;">Automated trading starts here</center>
     
-    <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Email" id = 'email'/>
+        </div>
+    
+        
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Email" id = 'email'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Name" id = 'name'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Password" type="password" id = 'password'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes"  placeholder="Repeat password" type="password" id = 'repeatPassword'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <button class="signup-btn" onclick="signup()" id = 'signup-btn'>Sign up</button>
+    
+        </div>
 
-    </div>
+        <center>
+            <p style="color: red;" id="error"></p>
+        </center>
+    
+        <center style="margin-top: 1rem;">
+            <p style="color: white;">Have an account? <a href="/login">Login</a></p>
+        </center>
+    </section>
 
-    <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Name" id = 'name'/>
+    <section id = 'signup-success' style="display: none;">
 
-    </div>
+        <div class="d-flex justify-content-center" style="margin-top: 18rem;">
+            <i class="far fa-check-circle" style="color: #00CF98; font-size: 7rem;"></i>
+        </div>
+        <center>
+            <h1 style="color: white; margin-top: 1rem;">Account Created</h1>
+            <p style="color: white;"><a href="/login">Login</a> to continue</p>
+        </center>
 
-    <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Password" type="password" id = 'password'/>
+    </section>
 
-    </div>
 
-    <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes"  placeholder="Repeat password" type="password" id = 'repeatPassword'/>
 
-    </div>
 
-    <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <button class="signup-btn" onclick="signup()" id = 'signup-btn'>Sign up</button>
 
-    </div>
-
-    <center>
-        <p style="color: red;" id="error"></p>
-    </center>
-
-    <center style="margin-top: 1rem;">
-        <p style="color: white;">Have an account? <a href="/login">Login</a></p>
-    </center>
 
  
 

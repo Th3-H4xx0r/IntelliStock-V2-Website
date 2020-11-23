@@ -57,19 +57,17 @@ function signup() {
     document.getElementById('signup-btn').innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
     document.getElementById('signup-btn').disabled = true;
 
-    var error = document.getElementById('error');
+    var errorMSG = document.getElementById('error');
 
     var email = document.getElementById('email').value
     var password = document.getElementById('password').value
     var name = document.getElementById('name').value
     var repeatPassword = document.getElementById('repeatPassword').value
 
-    console.log("WORKING")
-
     if (email && password && name && repeatPassword) {
 
         if (password == repeatPassword) {
-            error.innerHTML = ''
+            errorMSG.innerHTML = ''
 
                 firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
                     var errorCode = error.code;
@@ -79,14 +77,18 @@ function signup() {
     
                     console.log(errorMessage);
     
-                    error.innerHTML = "Incorrect credentials";
+                    errorMSG.innerHTML = errorMessage;
     
                     document.getElementById('signup-btn').innerHTML = `Login`
                     document.getElementById('signup-btn').disabled = false;
+                }).then(() => {
+                    document.getElementById('signup-content').style.display = "none"
+                    document.getElementById('signup-success').style.display = "initial"
+
                 })
             
         } else {
-            error.innerHTML = 'Password and repeat password do not match'
+            errorMSG.innerHTML = 'Password and repeat password do not match'
             document.getElementById('signup-btn').innerHTML = `Login`
             document.getElementById('signup-btn').disabled = false;
         }
@@ -96,6 +98,6 @@ function signup() {
     } else {
         document.getElementById('signup-btn').innerHTML = `Login`
         document.getElementById('signup-btn').disabled = false;
-        error.innerHTML = "You cannot leave any fields blank"
+        errorMSG.innerHTML = "You cannot leave any fields blank"
     }
 }
