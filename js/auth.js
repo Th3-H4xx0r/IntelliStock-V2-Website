@@ -73,38 +73,32 @@ function signup() {
 
             try {
 
-                firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-                    error.innerHTML = ''
-
-                    window.location = '/'
-
-
-                }).catch(err => {
-
-                    console.log(err)
-
-                    error.innerHTML = "Incorrect credentials";
-
-                    authValid = false;
-
-                    document.getElementById('login-btn').innerHTML = `Login`
-                    document.getElementById('login-btn').disabled = false;
-
-                })
+                firebase.auth().createUserWithEmailAndPassword(email, password)
             } catch (error) {
+
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
                 console.log(error)
 
                 console.log(errorMessage);
+
+                error.innerHTML = "Incorrect credentials";
+
+                document.getElementById('signup-btn').innerHTML = `Login`
+                document.getElementById('signup-btn').disabled = false;
             }
         } else {
             error.innerHTML = 'Password and repeat password do not match'
+            document.getElementById('signup-btn').innerHTML = `Login`
+            document.getElementById('signup-btn').disabled = false;
         }
 
 
 
     } else {
-        document.getElementById('login-btn').innerHTML = `Login`
-        document.getElementById('login-btn').disabled = false;
+        document.getElementById('signup-btn').innerHTML = `Login`
+        document.getElementById('signup-btn').disabled = false;
         error.innerHTML = "You cannot leave any fields blank"
     }
 }
