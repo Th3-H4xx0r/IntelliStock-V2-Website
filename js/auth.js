@@ -64,6 +64,8 @@ function signup() {
     var name = document.getElementById('name').value
     var repeatPassword = document.getElementById('repeatPassword').value
 
+    var authValid = true
+
     if (email && password && name && repeatPassword) {
 
         if (password == repeatPassword) {
@@ -81,9 +83,14 @@ function signup() {
     
                     document.getElementById('signup-btn').innerHTML = `Login`
                     document.getElementById('signup-btn').disabled = false;
+
+                    authValid = false
                 }).then(() => {
-                    document.getElementById('signup-content').style.display = "none"
-                    document.getElementById('signup-success').style.display = "initial"
+                    if(authValid == true){
+                        document.getElementById('signup-content').style.display = "none"
+                        document.getElementById('signup-success').style.display = "initial"
+                    }
+
 
                 })
             
