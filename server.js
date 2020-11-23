@@ -42,203 +42,20 @@ router.get('/',function(req,res){
   
 });
 
-function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
-
-
-router.get('/updatePrice',function(req,res){
-    //res.sendFile(path.join(__dirname+'/serverError.html'));
-
-    var ticker = req.query.ticker
-
-    var timestamp = req.query.timestamp
-    
-    var strTime = req.query.strTime
-
-    var price = req.query.price
-
-    if(ticker && timestamp && strTime && price){
-
-        ticker = ticker.toUpperCase();
-
-        var update = [strTime, parseFloat(price), parseInt(timestamp)]
-
-        var rawData = fs.readFileSync("data.json");
-
-        var jsonData = JSON.parse(rawData);
-
-        var tickerData = jsonData[ticker]
-
-        console.log(isEmpty(jsonData))
-
-        if (isEmpty(jsonData)){
-
-            tickerDataRaw = {}
-
-            tickerDataRaw[ticker] = {
-                "todayPrices": [
-                    update
-                ]
-            }
-
-            tickerData = JSON.stringify(tickerDataRaw)
-
-            fs.writeFileSync('data.json', tickerData)
-
-            res.send({code: 200, status: "success", message: "Updated data"})
-        } else if(tickerData == undefined){
-    
-                jsonData[ticker] = {
-                    "todayPrices": [
-                        update
-                    ]
-                }
-    
-                writeData = JSON.stringify(jsonData)
-    
-                fs.writeFileSync('data.json', writeData)
-    
-                res.send({code: 200, status: "success", message: "Updated data"})
-        } else if(tickerData != undefined){
-            console.log(tickerData)
-            pricesData = tickerData['todayPrices']
-
-            console.log(pricesData)
-
-            if(pricesData != undefined){
-                pricesData.push(update);
-            } else{
-                tickerData['todayPrices'] = [update];
-            }
-
-            console.log(jsonData)
-
-            writeData = JSON.stringify(jsonData)
-    
-            fs.writeFileSync('data.json', writeData)
-
-            res.send({code: 200, status: "success", message: "Updated Data"})
-        }
-
-    } else {
-        res.send({code: 200, status: "failed", message:"Missing parameters"})
-    }
+  
+router.get('/login',function(req,res){
+    res.sendFile(path.join(__dirname+'/login.html'));
   
 });
 
-router.get('/updateTransaction',function(req,res){
-    //res.sendFile(path.join(__dirname+'/serverError.html'));
-
-    var ticker = req.query.ticker
-
-    var timestamp = req.query.timestamp
-    
-    var strTime = req.query.strTime
-
-    var price = req.query.price
-
-    var action = req.query.action
-
-    if(ticker && timestamp && strTime && price && action){
-
-        var update = [strTime, action, parseFloat(price), parseInt(timestamp)]
-
-        var rawData = fs.readFileSync("data.json");
-
-        var jsonData = JSON.parse(rawData);
-
-        var tickerData = jsonData[ticker]
-
-        if (isEmpty(jsonData)){
-
-            tickerDataRaw = {}
-
-            tickerDataRaw[ticker] = {
-                "transactions": [
-                    update
-                ]
-            }
-
-            tickerData = JSON.stringify(tickerDataRaw)
-
-            fs.writeFileSync('data.json', tickerData)
-
-            res.send({code: 200, status: "success", message: "Updated data"})
-        } else if(tickerData == undefined){
-    
-                jsonData[ticker] = {
-                    "transactions": [
-                        update
-                    ]
-                }
-    
-                writeData = JSON.stringify(jsonData)
-    
-                fs.writeFileSync('data.json', writeData)
-    
-                res.send({code: 200, status: "success", message: "Updated data"})
-        } else if(tickerData != undefined){
-            console.log(tickerData)
-            pricesData = tickerData['transactions']
-
-            console.log(pricesData)
-
-            if(pricesData != undefined){
-                pricesData.push(update);
-            } else{
-                tickerData['transactions'] = [update];
-            }
-
-            console.log(jsonData)
-
-            writeData = JSON.stringify(jsonData)
-    
-            fs.writeFileSync('data.json', writeData)
-
-            res.send({code: 200, status: "success", message: "Updated Data"})
-        }
-
-    } else {
-        res.send({code: 200, status: "failed", message:"Missing parameters"})
-    }
+router.get('/signup',function(req,res){
+    res.sendFile(path.join(__dirname+'/signup.html'));
   
 });
 
-router.get('/getData',function(req,res){
-    //res.sendFile(path.join(__dirname+'/serverError.html'));
-
-    var ticker = req.query.ticker
 
 
-    if(ticker){
 
-        var rawData = fs.readFileSync("data.json");
-
-        var jsonData = JSON.parse(rawData);
-
-        var tickerData = jsonData[ticker]
-
-        if (isEmpty(jsonData)){
-
-            tickerDataRaw = {}
-
-            res.send({code: 200, status: "success", message: tickerDataRaw})
-        }  else if(tickerData == undefined){
-            res.send({code: 200, status: "success", message: {}})
-        } else{
-            res.send({code: 200, status: "success", message: tickerData})
-        }
-
-    } else {
-        res.send({code: 200, status: "failed", message:"Missing parameters"})
-    }
-  
-});
 /////////////////////////
 //STATIC ASSETS HANDLER
 /////////////////////////
@@ -263,7 +80,7 @@ app.get('*', function(req, res){
 });
 
 http.listen(3102, () => {
-  console.log('listening on *:3101');
+  console.log('listening on *:3102');
 });
 
 

@@ -28,13 +28,20 @@
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
-
+  <script src="https://api.intellistock.protosystems.net/init.js"></script>
 
 
 
     <title>Signup</title>
   </head>
   <body>
+
+    <script>
+        $( document ).ready(function() {
+            init();
+        });
+    </script>
+
 
     <nav class=" navbar navbar-expand-lg navbar-dark bg-custom">
 
@@ -62,29 +69,33 @@
 
     
     <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Email"/>
+        <input class="authboxes" placeholder="Email" id = 'email'/>
 
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Name"/>
+        <input class="authboxes" placeholder="Name" id = 'name'/>
 
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes" placeholder="Password" type="password"/>
+        <input class="authboxes" placeholder="Password" type="password" id = 'password'/>
 
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <input class="authboxes"  placeholder="Repeat password" type="password"/>
+        <input class="authboxes"  placeholder="Repeat password" type="password" id = 'repeatPassword'/>
 
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <button class="signup-btn">Sign up</button>
+        <button class="signup-btn" onclick="signup()" id = 'signup-btn'>Sign up</button>
 
     </div>
+
+    <center>
+        <p style="color: red;" id="error"></p>
+    </center>
 
     <center style="margin-top: 1rem;">
         <p style="color: white;">Have an account? <a href="/login">Login</a></p>
