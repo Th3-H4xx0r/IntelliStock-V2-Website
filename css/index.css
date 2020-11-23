@@ -13,8 +13,16 @@ body{
     width: 150px;
     font-family: 'Quicksand';
     border-radius: 10px;
+    transition: ease-in 0.2s;
 }
 
+.get-started-btn:hover{
+    background-color: #58ffd2;
+}
+
+.get-started-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
 .odometer .odometer-inside:before {
     content: "$"
 } 
@@ -52,6 +60,15 @@ body{
     width: 200px;
     font-family: 'Quicksand';
     border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.createAccount-btn:hover{
+    background-color: #58ffd2;
+}
+
+.createAccount-btn:focus, textarea:focus, select:focus{
+    outline: none;
 }
 
 /* Extra small devices (phones, 600px and down) */
