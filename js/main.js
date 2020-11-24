@@ -46,9 +46,17 @@ function getUserInstances(){
               </a>
            </div>`
 
+           var instanceStatus = data['running']
+
               if(selectedInstance){
                 if(selectedInstance == doc.id){
                     $(selectedHTML).appendTo('.first-bar');
+                    document.getElementById('instance-name').innerHTML = `Instance ${instanceNum}`
+
+                    if(instanceStatus == false){
+                        document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_SERVER_ICON_red.png'  style="margin-top: 3rem;" />`
+                    }
+
                   } else {
                     $(nonSelectedHTML).appendTo('.first-bar');
                   }
