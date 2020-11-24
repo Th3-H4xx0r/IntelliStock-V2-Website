@@ -68,24 +68,38 @@ router.get('/getBalance',function(req,res){
 
   var secret = headers['secret']
 
+  var error = false
+
   if(key && secret){
-    const alpaca = new Alpaca({
-      keyId: key, //'PKVA3SOZ46HMS516041U'
-      secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
-      paper: true,
-      usePolygon: false
-    })
-  
-  
-    alpaca.getPortfolioHistory({
-      date_start: "2020-11-24",
-      period: '1D',
-      timeframe: '1Min',
-      extended_hours: false
-    }).then(val => {
-      //console.log(val)
-      res.send(val)
-    })
+
+      const alpaca = new Alpaca({
+        keyId: key, //'PKVA3SOZ46HMS516041U'
+        secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
+        paper: true,
+        usePolygon: false
+      })
+    
+    
+      alpaca.getPortfolioHistory({
+        date_start: "2020-11-24",
+        period: '1D',
+        timeframe: '1Min',
+        extended_hours: false
+      }).catch(e => {
+        error = true
+        res.send({code: 200, status: "failed", message: e.message, data: e})
+
+
+      }).then(val => {
+        //console.log(val)
+
+        if(error == false){
+          res.send({code: 200, status: "success", message: val})
+        }
+
+      })
+
+   
   } else {
     res.send({code: 200, status: "failed", message:"Missing headers"})
   }
