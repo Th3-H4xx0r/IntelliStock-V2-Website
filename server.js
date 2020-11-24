@@ -82,8 +82,8 @@ router.get('/getBalance',function(req,res){
     
       alpaca.getPortfolioHistory({
         date_start: "2020-11-24",
-        period: '1D',
-        timeframe: '1Min',
+        period: 'intraday',
+        timeframe: '1m',
         extended_hours: false
       }).catch(e => {
         error = true

@@ -1,5 +1,79 @@
-function getAccountHistory(){
-    var alpaca = require('alpaca')
+function getAccountHistory(key, secret){
+    var Http = new XMLHttpRequest();
+    const url = 'http://localhost:3102/getBalance'
+    Http.open("GET", url)
+    Http.setRequestHeader('key', key)
+    Http.setRequestHeader('secret', secret)
+    Http.send()
+
+    Http.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+
+        var response = JSON.parse(Http.responseText)
+
+        var message = response['message']
+
+        var values = message['equity']
+
+        var rawTimes = message['timestamp']
+
+        
+        var points = []
+
+
+
+        for(var i = 0; i <= rawTimes.length; i++){
+          if(rawTimes[i] != null && values[i] != null){
+            points.push({t: new Date(rawTimes[i] * 1000), y: values[i]})
+          }
+
+        }
+
+        console.log(points)
+
+
+/*
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'hour'
+                    }
+                }]
+            }
+*/
+
+var ctx = document.getElementById("myChart").getContext("2d");
+
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Equity',
+      data: points,
+      backgroundColor: [
+        '#151515'
+      ],
+      borderColor: [
+        '#00CF98',
+
+      ],
+      borderWidth: 5
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear'
+      }]
+    }
+  }
+});
+      }
+    }
+
+
 }
 
 function getUserInstances(){
@@ -52,6 +126,8 @@ function getUserInstances(){
                 if(selectedInstance == doc.id){
                     $(selectedHTML).appendTo('.first-bar');
                     document.getElementById('instance-name').innerHTML = `Instance ${instanceNum}`
+
+                    getAccountHistory(data['key'], data['secret'])
 
                     if(instanceStatus == false){
                         document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_SERVER_ICON_red.png'  style="margin-top: 3rem;" />`

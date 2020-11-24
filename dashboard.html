@@ -48,6 +48,11 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+
 
     <title>Login</title>
   </head>
@@ -57,7 +62,7 @@
         $( document ).ready(function() {
             init();
             getUserInstances();
-            //getAccountHistory()
+            getAccountHistory()
         });
     </script>
 
@@ -129,7 +134,7 @@
             <div class="row" style="margin-top: 3rem; margin-left: 3rem;">
                 
                 <div style="margin-right: 6rem; text-align: center;">
-                    <h3 style="color: white;">15Hrs 20m 2s</h3>
+                    <h4 style="color: white;">15Hrs 20m 2s</h4>
                     <h5 style="color: gray;">Uptime</h5>
 
                 </div>
@@ -137,29 +142,35 @@
 
                 
                 <div style="margin-right: 6rem; text-align: center;">
-                    <h3 style="color: white;">15</h3>
+                    <h4 style="color: white;">15</h4>
                     <h5 style="color: gray;">Today's Transactions</h5>
 
                 </div>
 
                 
                 <div style="margin-right: 6rem; text-align: center;">
-                    <h3 style="color: white;">15</h3>
+                    <h4 style="color: white;">15</h4>
                     <h5 style="color: gray;">Buy Orders</h5>
 
                 </div>
 
                 <div style="margin-right: 6rem; text-align: center;">
-                    <h3 style="color: white;">15</h3>
+                    <h4 style="color: white;">15</h4>
                     <h5 style="color: gray;">Sell Orders</h5>
 
                 </div>
 
             </div>
 
+                <h3 style="color: white; margin-top: 4rem; margin-left: 3rem;">Today's Equity</h3>
 
-                            
-            <h3 style="color: white; margin-top: 4rem; margin-left: 3rem;">Latest Transactions</h3>
+                
+                <canvas id="myChart" width="200" height="50"></canvas>
+
+
+
+                                            
+            <h3 style="color: white; margin-top: 2rem; margin-left: 3rem;">Latest Transactions</h3>
 
 
             <div class="row" style="margin-top: 1rem; margin-left: 3rem;">
@@ -211,7 +222,22 @@
                 </div>
 
             </div>
+
+               </div>
+
+
+
+
         </section>
+
+
+
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+           
+            </script>
+
+
     </div>
 
 
