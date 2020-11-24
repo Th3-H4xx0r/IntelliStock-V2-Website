@@ -33,6 +33,9 @@
 
   <script src="https://api.intellistock.protosystems.net/init.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -48,7 +51,7 @@
 
     <title>Login</title>
   </head>
-  <body style="background-color: #333333;">
+  <body style="background-color: #151515;">
 
     <script>
         $( document ).ready(function() {
@@ -66,6 +69,8 @@
         </section>
 
         <section class="second-bar">
+
+        
             <center>
                 <a class="navbar-brand" href="#"><img src='Assets/Group 1.png' width="70%" /></a>
 
@@ -75,8 +80,8 @@
 
 
                 <center>
-                    <h1 style="color: white; margin-top: 1rem;" id = 'instance-name'><div style="height: 1.8rem; width: 11rem; background-color: gray;"></div></h1>
-                    <h4 style="color: #8D8D8D; margin-top: 0rem;">Paper trading</h4>
+                    <h2 style="color: white; margin-top: 1rem;" id = 'instance-name'><div style="height: 1.8rem; width: 11rem; background-color: gray;"></div></h2>
+                    <h5 style="color: #8D8D8D; margin-top: 0rem;">Paper trading</h5>
                 </center>
 
                 <div class="d-flex justify-content-center" style="margin-top: 3rem; margin-right: 3rem; text-align: left;">
@@ -84,14 +89,25 @@
                         <div class="row">
                             <div class="selected-menu-bar"></div>
 
-                            <i class="fas fa-rocket"></i>
-                            
-                            <a href="/dashboard"><h5 style="color: white;">Dashboard</h5></a>
+                            <i class="fas fa-tachometer-alt" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
+
+                         
+                            <a href="/dashboard"><h6 style="color: white;">Dashboard</h5></a>
                         </div>
 
-                        <a href="/stocks" ><h5 style="color: white; margin-top: 1.5rem;">Stocks</h5></a>
 
-                        <a href="/history" ><h5 style="color: white; margin-top: 2rem;">History</h5></a>
+                        <div class="row" style="margin-top: 1.5rem; margin-left: 0rem;">
+                            <i class="fas fa-chart-line" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
+                            <a href="/stocks" ><h6 style="color: white;">Stocks</h6></a>
+
+                        </div>
+
+                        <div class="row" style="margin-top: 1.5rem; margin-left: 0rem;">
+                            <i class="fas fa-history" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
+                        <a href="/history" ><h6 style="color: white;">History</h5></a>
+
+                        </div>
+
 
 
                     </div>
@@ -100,6 +116,7 @@
                 </div>
 
             </center>
+
         </section>
     </div>
 

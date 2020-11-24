@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(21,21,21);
+    background-color: #151515;
     overflow-x: hidden;
     overflow-y: hidden;
     font-family: 'Quicksand';
@@ -9,13 +9,13 @@ body{
 .first-bar{
     height: 100rem;
     width: 6%;
-    background-color: #595959;
+    background-color: #151515;
 }
 
 .second-bar{
     height: 100rem;
-    width: 20%;
-    background-color: #151515;
+    width: 17%;
+    background-color: #272727;
 }
 
 .selected-menu-bar{
@@ -54,8 +54,8 @@ body{
 }
 .instance-profile-bar{
     height: 2rem;
-    width: 0.4rem;
-    margin-left: 0.4rem;
+    width: 0.3rem;
+    margin-left: 0.3rem;
     margin-top: 1.9rem;
     background-color: #00CF98;
 }
