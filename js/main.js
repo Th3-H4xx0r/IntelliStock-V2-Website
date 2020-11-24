@@ -35,14 +35,14 @@ function getUserInstances(){
                <a href="#" onclick = 'changeInstanceClicked("${doc.id}")' style = 'text-decoration: none'>
                 <div class="row" >
                     <div class="instance-profile-bar"></div>
-                    <div class="instance-profile-selected"><h1 style = 'color: white; margin-left: 1.7rem; padding-top: 0.8rem'>${instanceNum}</h1></div>
+                    <div class="instance-profile-selected"><center><h1 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h1></center></div>
                 </div>
                </a>
             </div>`
 
               var nonSelectedHTML = `<div class="d-flex justify-content-center">
               <a href="#" onclick = 'changeInstanceClicked("${doc.id}")' style = 'text-decoration: none'>
-                   <div class="instance-profile"><h1 style = 'color: white; margin-left: 1.7rem; padding-top: 0.8rem'>${instanceNum}</h1></div>
+                   <div class="instance-profile"><center><h1 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h1></center></div>
               </a>
            </div>`
 
