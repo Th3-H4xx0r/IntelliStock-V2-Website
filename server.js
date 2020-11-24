@@ -8,7 +8,8 @@ const firebase = require('firebase');
 var admin = require('firebase-admin');
 const request = require('request');
 const { json } = require('express');
-const Alpaca = require('@alpacahq/alpaca-trade-api')
+const Alpaca = require('@alpacahq/alpaca-trade-api');
+const { StringDecoder } = require('string_decoder');
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -60,24 +61,37 @@ router.get('/dashboard',function(req,res){
 
 
 router.get('/getBalance',function(req,res){
-  const alpaca = new Alpaca({
-    keyId: 'PKVA3SOZ46HMS516041U',
-    secretKey: 'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9',
-    paper: true,
-    usePolygon: false
-  })
+
+  var headers = req.headers
+
+  var key = headers['key']
+
+  var secret = headers['secret']
+
+  if(key && secret){
+    const alpaca = new Alpaca({
+      keyId: key, //'PKVA3SOZ46HMS516041U'
+      secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
+      paper: true,
+      usePolygon: false
+    })
+  
+  
+    alpaca.getPortfolioHistory({
+      date_start: "2020-11-24",
+      period: '1D',
+      timeframe: '1Min',
+      extended_hours: false
+    }).then(val => {
+      //console.log(val)
+      res.send(val)
+    })
+  } else {
+    res.send({code: 200, status: "failed", message:"Missing headers"})
+  }
 
 
-  alpaca.getPortfolioHistory({
-    date_start: "2020-11-24",
-    period: '1D',
-    timeframe: '1Min',
-    extended_hours: false
-  }).then(val => {
-    console.log(val)
-  })
 
-  //res.send(history)
 
 });
 
