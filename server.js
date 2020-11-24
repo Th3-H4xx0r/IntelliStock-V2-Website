@@ -8,10 +8,10 @@ const firebase = require('firebase');
 var admin = require('firebase-admin');
 const request = require('request');
 const { json } = require('express');
+const Alpaca = require('@alpacahq/alpaca-trade-api')
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-
 app.use(cors())
 
 app.use(function (req, res, next) {
@@ -58,6 +58,28 @@ router.get('/dashboard',function(req,res){
   
 });
 
+
+router.get('/getBalance',function(req,res){
+  const alpaca = new Alpaca({
+    keyId: 'PKVA3SOZ46HMS516041U',
+    secretKey: 'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9',
+    paper: true,
+    usePolygon: false
+  })
+
+
+  alpaca.getPortfolioHistory({
+    date_start: "2020-11-24",
+    period: '1D',
+    timeframe: '1Min',
+    extended_hours: false
+  }).then(val => {
+    console.log(val)
+  })
+
+  //res.send(history)
+
+});
 
 
 
