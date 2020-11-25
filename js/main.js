@@ -497,7 +497,7 @@ function addStock(){
     error.innerHTML = ""
 
     var Http = new XMLHttpRequest();
-    const url = 'http://localhost:3102/verifyTicker'
+    const url = 'https://intellistock.protosystems.net/verifyTicker'
     Http.open("GET", url)
     Http.setRequestHeader('ticker', ticker)
     Http.send()
