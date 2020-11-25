@@ -108,6 +108,50 @@ router.get('/getBalance',function(req,res){
   } else {
     res.send({code: 200, status: "failed", message:"Missing headers"})
   }
+});
+
+router.get('/verifyCreds',function(req,res){
+
+  var headers = req.headers
+
+  var key = headers['key']
+
+  var secret = headers['secret']
+
+  var error = false
+
+  if(key && secret){
+
+      const alpaca = new Alpaca({
+        keyId: key, //'PKVA3SOZ46HMS516041U'
+        secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
+        paper: true,
+        usePolygon: false
+      })
+
+      try{
+
+        account = alpaca.getAccount().catch(e => {
+          res.send({code: 200, status: "failed", message:"Invalid", data: e})
+          error = true
+
+        }).then(() => {
+          if(error == false){
+            res.send({code: 200, status: "success", message:"Valid", data: account})
+
+          }
+        });
+
+        
+      } catch(e){
+        res.send({code: 200, status: "failed", message:"Invalid", data: e})
+      }
+
+
+   
+  } else {
+    res.send({code: 200, status: "failed", message:"Missing headers"})
+  }
 
 
 

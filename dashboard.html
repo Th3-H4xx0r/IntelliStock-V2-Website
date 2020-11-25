@@ -56,7 +56,7 @@
 
     <title>Login</title>
   </head>
-  <body style="background-color: #151515;">
+  <body style="background-color: #151515;" id = 'page-main'>
 
     <script>
         $( document ).ready(function() {
@@ -68,7 +68,11 @@
 
     <div class="row">
         <section class="first-bar" id = 'instances-list'>
-
+            <div class="d-flex justify-content-center">
+                <a href="#" onclick = 'createInstancePopup()' style = 'text-decoration: none'>
+                     <div class="instance-profile-add"><center><h1 style = 'color: white;'>+</h1></center></div>
+                </a>
+             </div>
 
         </section>
 

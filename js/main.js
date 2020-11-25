@@ -132,6 +132,8 @@ function getUserInstances(pageType){
 
            var instanceStatus = data['running']
 
+           localStorage.setItem('maxInstanceNum', data['instanceNum'])
+
               if(selectedInstance){
                 if(selectedInstance == doc.id){
                     $(selectedHTML).appendTo('.first-bar');
@@ -172,6 +174,14 @@ function getUserInstances(pageType){
 
               currentIndex += 1;
           })
+
+          var addInstanceHTML = `<div class="d-flex justify-content-center">
+          <a href="#" onclick = 'createInstancePopup()' style = 'text-decoration: none'>
+               <div class="instance-profile-add"><center><h1 style = 'color: white;'>+</h1></center></div>
+          </a>
+       </div>`
+
+       $(addInstanceHTML).appendTo('.first-bar');
       })
     } else {
         console.log("Signed out")
@@ -227,9 +237,147 @@ function getInstanceStocks(){
         $(cardHTML).appendTo('#instance-stocks');
       }
     })
+
+    
+
+
   })
 }
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function createInstancePopup(){
+  var modalHTML = `
+  <!-- Modal -->
+  <div class="modal fade" id="createInstanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = 'background-color: #272727; color: white'>
+        <h5 class="modal-title" id="exampleModalLabel">Create Instance</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style = 'background-color: #272727; color: white'>
+
+      <h4>Instance Type</h4>
+
+      <input type="radio" id="alpaca" name="alpaca" value="alpaca">
+<label for="alpaca">Alpaca</label><br>
+
+<input type="radio" id="webull" name="webull" value="webull" disabled>
+<label for="webull">Webull (Comming soon)</label><br>
+
+
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Alpaca Key</label>
+            <input type="text" class="form-control" id="alpaca-key" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Alpaca Secret</label>
+            <input type="password" class="form-control" id="alpaca-secret" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
+          </div>
+
+
+        <p id = 'error-create-instance' style = "color: red"></p>
+      </div>
+      <div class="modal-footer" style = 'background-color: #272727; color: white'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+        <button class="create-btn" id = 'create-btn' onclick="createInstance()">Create Instance</button>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+
+  $(modalHTML).appendTo('#page-main')
+
+  $('#createInstanceModal').modal('toggle')
+
+
+}
+
+function createInstance(){
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+      
+  var key = document.getElementById('alpaca-key').value
+  var secret = document.getElementById('alpaca-secret').value
+
+  var error = document.getElementById('error-create-instance')
+
+  var button = document.getElementById('create-btn')
+
+  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+
+  //console.log(key)
+  //console.log(secret)
+
+  if(key && secret){
+    //firebase.firestore().collection("Instances").doc().set({})
+    error.innerHTML = ""
+
+    var Http = new XMLHttpRequest();
+    const url = 'http://localhost:3102/verifyCreds'
+    Http.open("GET", url)
+    Http.setRequestHeader('key', key)
+    Http.setRequestHeader('secret', secret)
+    Http.send()
+
+    Http.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+
+        var response = JSON.parse(Http.responseText)
+
+        var message = response['message']
+
+        var num =  parseInt(localStorage.getItem('maxInstanceNum')) + 1
+
+        if(message == 'Valid'){
+          firebase.firestore().collection('Instances').doc().set({
+            'key': key,
+            'secret': secret, 
+            'user': email,
+            'running': false,
+            'runCommand': true,
+            'instanceNum': num
+
+          }).then(() => {
+            setTimeout(function(){ 
+              window.location.reload()
+             }, 2000);
+
+          })
+        } else {
+          error.innerHTML = "Alpaca credentials are invalid"
+          button.innerHTML = `Create Instance`
+        }
+    }
+
+  } 
+}else { 
+    error.innerHTML = "Fields cannnot be left blank"
+    button.innerHTML = `Create Instance`
+
+
+  }
+
+
+    } else {
+      var error = document.getElementById('error-create-instance')
+
+      error.innerHTML = "Auth error: User not signed in"
+    }
+  })
+
+
 }
