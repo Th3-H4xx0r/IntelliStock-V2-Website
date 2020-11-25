@@ -199,6 +199,12 @@ function getInstanceStocks(){
 
       console.log(data)
 
+      if(data['ticker'].length < 4){
+        for(var i = 0; i <= 4 -data['ticker'].length; i++){
+          data['ticker'] = data['ticker'] + " "
+        }
+      }
+
       if(data){
         var cardHTML = `
         
