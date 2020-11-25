@@ -340,7 +340,13 @@ function createInstance(){
 
         var message = response['message']
 
-        var num =  parseInt(localStorage.getItem('maxInstanceNum')) + 1
+        var numRaw = localStorage.getItem('maxInstanceNum')
+
+        var num = 1
+
+        if(numRaw){
+          num =  parseInt(numRaw) + 1
+        } 
 
         if(message == 'Valid'){
           firebase.firestore().collection('Instances').doc().set({
