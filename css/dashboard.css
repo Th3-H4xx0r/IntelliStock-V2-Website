@@ -196,3 +196,22 @@ margin-top: 1rem;
 .create-btn:hover{
     background-color: #68ecc9;
 }
+
+.create-instance-starter-btn{
+  width: 12rem;
+  height: 2.3rem;
+  margin-bottom: 1rem;
+  background-color: #00CF98;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.create-instance-starter-btn:focus, textarea:focus, select:focus{
+  outline: none;
+}
+
+.create-instance-starter-btn:hover{
+  background-color: #68ecc9;
+}

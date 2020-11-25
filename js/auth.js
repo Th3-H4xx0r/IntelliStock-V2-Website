@@ -87,9 +87,18 @@ function signup() {
                     authValid = false
                 }).then(() => {
                     if(authValid == true){
-                        document.getElementById('signup-content').style.display = "none"
-                        document.getElementById('signup-success').style.display = "initial"
+
+
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            'name': name,
+                            'email': email
+                        }).then(() => {
+                            document.getElementById('signup-content').style.display = "none"
+                            document.getElementById('signup-success').style.display = "initial"
+                        })
                     }
+
+
 
 
                 })

@@ -100,13 +100,19 @@ function getUserInstances(pageType){
 
       var currentIndex = 0;
 
+      var instanceCount = 0;
+
       firebase.firestore().collection('Instances').where('user', '==', email).orderBy('instanceNum', 'asc').onSnapshot(snap => {
+
+        localStorage.removeItem('maxInstanceNum')
         console.log("GOT DATA")
 
         document.getElementById('instances-list').innerHTML = ''
 
         var selectedInstance = localStorage.getItem('selectedInstance')
           snap.forEach(doc => {
+
+            instanceCount += 1;
 
             var data = doc.data()
               console.log(data)
@@ -174,6 +180,22 @@ function getUserInstances(pageType){
 
               currentIndex += 1;
           })
+
+          setTimeout(function(){
+            if(instanceCount == 0){
+              console.log("No instances")
+              //document.getElementById('loading-page').style.display = 'none'
+              //document.getElementById('no-instances').style.display = 'initial'
+              document.getElementById('content-main-page').style.display = 'none'
+            } else {
+              console.log("YES instances")
+              //document.getElementById('no-instances').style.display = 'none'
+              document.getElementById('loading-page').style.display = 'none'
+             document.getElementById('content-main-page').style.display = 'initial'
+            }
+           }, 2000);
+
+
 
           var addInstanceHTML = `<div class="d-flex justify-content-center">
           <a href="#" onclick = 'createInstancePopup()' style = 'text-decoration: none'>
@@ -386,4 +408,13 @@ function createInstance(){
   })
 
 
+}
+
+
+function logout(){
+  firebase.auth().signOut().then(function() {
+    window.location = '/'
+  }).catch(function(error) {
+    console.log("An error occured: " + error.toString())
+  })
 }
