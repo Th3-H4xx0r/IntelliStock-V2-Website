@@ -184,12 +184,12 @@ function getUserInstances(pageType){
           setTimeout(function(){
             if(instanceCount == 0){
               console.log("No instances")
-              //document.getElementById('loading-page').style.display = 'none'
-              //document.getElementById('no-instances').style.display = 'initial'
+              document.getElementById('loading-page').style.display = 'none'
+              document.getElementById('no-instances').style.display = 'initial'
               document.getElementById('content-main-page').style.display = 'none'
             } else {
               console.log("YES instances")
-              //document.getElementById('no-instances').style.display = 'none'
+              document.getElementById('no-instances').style.display = 'none'
               document.getElementById('loading-page').style.display = 'none'
              document.getElementById('content-main-page').style.display = 'initial'
             }
