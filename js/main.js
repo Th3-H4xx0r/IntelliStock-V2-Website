@@ -250,7 +250,9 @@ function getInstanceStocks(){
             <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 15%; ">$${numberWithCommas(data['maxValue'])}</h5>
 
 
-            <button class="stock-card-option-btn" style="margin-left: 31%;" onclick = "removeStock('${currentInstance}', '${data['ticker']}')">Remove</button>
+            <button class="stock-card-option-btn" style="margin-left: 23%;" onclick = "removeStock('${currentInstance}', '${data['ticker']}')">Remove</button>
+
+            <button class="stock-card-option-btn" style="margin-left: 1%" onclick = "viewDetails('${currentInstance}', '${data['ticker']}')">View</button>
 
         </div>
     </div>
