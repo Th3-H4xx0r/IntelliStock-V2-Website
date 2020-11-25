@@ -250,7 +250,7 @@ function getInstanceStocks(){
             <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 15%; ">$${numberWithCommas(data['maxValue'])}</h5>
 
 
-            <button class="stock-card-option-btn" style="margin-left: 31%;">Remove</button>
+            <button class="stock-card-option-btn" style="margin-left: 31%;" onclick = "removeStock('${currentInstance}', '${data['ticker']}')">Remove</button>
 
         </div>
     </div>
@@ -408,6 +408,147 @@ function createInstance(){
   })
 
 
+}
+
+function addStockPopup(){
+  var modalHTML = `
+  <!-- Modal -->
+  <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = 'background-color: #272727; color: white'>
+        <h5 class="modal-title" id="exampleModalLabel">Add Stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style = 'background-color: #272727; color: white'>
+
+      <h4>Watch Type</h4>
+
+      <input type="radio" id="alpaca" name="alpaca" value="alpaca" disabled>
+<label for="alpaca">Long Term (Comming soon)</label><br>
+
+<input type="radio" id="webull" name="webull" value="webull">
+<label for="webull">Short Term</label><br>
+
+
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Ticker</label>
+            <input type="text" class="form-control" id="tickerInput" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Max Spend Value</label>
+            <input type="number" class="form-control" id="maxValue" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
+          </div>
+
+
+        <p id = 'error-add-stock' style = "color: red"></p>
+      </div>
+      <div class="modal-footer" style = 'background-color: #272727; color: white'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+        <button class="create-btn" id = 'add-stock-btn' onclick="addStock()">Add Stock</button>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+
+  $(modalHTML).appendTo('#page-main')
+
+  $('#addStockModal').modal('toggle')
+
+
+}
+
+
+function getFormattedDate(date) {
+  let year = date.getFullYear();
+  let month = (1 + date.getMonth()).toString().padStart(2, '0');
+  let day = date.getDate().toString().padStart(2, '0');
+
+  return month + '/' + day + '/' + year;
+}
+
+function addStock(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var email = user.email;
+
+      
+    var ticker = document.getElementById('tickerInput').value
+    var maxValue = document.getElementById('maxValue').value
+
+    var error = document.getElementById('error-add-stock')
+
+    var button = document.getElementById('add-stock-btn')
+
+  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+
+  //console.log(key)
+  //console.log(secret)
+
+  if(ticker && maxValue){
+    //firebase.firestore().collection("Instances").doc().set({})
+    error.innerHTML = ""
+
+    var Http = new XMLHttpRequest();
+    const url = 'http://localhost:3102/verifyTicker'
+    Http.open("GET", url)
+    Http.setRequestHeader('ticker', ticker)
+    Http.send()
+
+    var currentInstance = localStorage.getItem('selectedInstance')
+
+    Http.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+
+        var response = JSON.parse(Http.responseText)
+
+        var message = response['message']
+
+        if(message == 'Valid'){
+          firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).set({
+            'currentStatus': false,
+            "maxValue": maxValue.toString(),
+            'run': true,
+            "ticker": ticker,
+            'added': getFormattedDate(new Date())
+
+          }).then(() => {
+            setTimeout(function(){ 
+              window.location.reload()
+             }, 1000);
+
+          })
+        } else {
+          error.innerHTML = "Ticker is not valid"
+          button.innerHTML = `Add Stock`
+        }
+    }
+
+  } 
+}else { 
+    error.innerHTML = "Fields cannnot be left blank"
+    button.innerHTML = `Create Instance`
+
+
+  }
+
+
+    } else {
+      var error = document.getElementById('error-create-instance')
+
+      error.innerHTML = "Auth error: User not signed in"
+    }
+  })
+
+}
+
+function removeStock(instanceID, ticker){
+  firebase.firestore().collection("Instances").doc(instanceID).collection("Stocks").doc(ticker).delete()
 }
 
 

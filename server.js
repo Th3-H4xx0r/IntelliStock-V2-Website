@@ -10,6 +10,7 @@ const request = require('request');
 const { json } = require('express');
 const Alpaca = require('@alpacahq/alpaca-trade-api');
 const { StringDecoder } = require('string_decoder');
+var cts = require('check-ticker-symbol');
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -157,6 +158,28 @@ router.get('/verifyCreds',function(req,res){
 
 
 });
+
+router.get('/verifyTicker',function(req,res){
+
+  var headers = req.headers
+
+  var ticker = headers['ticker']
+
+  var error = false
+
+  if(ticker){
+
+    if(cts.valid(ticker)) { // returns TRUE
+      res.send({code: 200, status: "success", message:"Valid"})
+      } else {
+        res.send({code: 200, status: "success", message:"Invalid"})
+      }
+
+  } else {
+    res.send({code: 200, status: "failed", message:"Missing headers"})
+  }
+});
+
 
 
 

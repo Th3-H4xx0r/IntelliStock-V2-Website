@@ -56,7 +56,7 @@
 
     <title>Login</title>
   </head>
-  <body style="background-color: #151515;">
+  <body style="background-color: #151515;" id = 'page-main'>
 
     <script>
         $( document ).ready(function() {
@@ -128,8 +128,13 @@
 
         <!-- Stocks MAIN -->
         <section style="width: 75%;"> 
-            <h1 style="color: white; margin-top: 3rem; margin-left: 3rem;">My Stocks</h1>
 
+            <div class="row">
+                <h1 style="color: white; margin-top: 3rem; margin-left: 3rem;">My Stocks</h1>
+
+                <button class = 'create-instance-starter-btn' style="margin-top: 3.5rem; margin-left: 2rem;" onclick="addStockPopup()">Add Stock</button>
+            </div>
+           
             <div class="row" style="margin-left: 6rem; margin-top: 2rem;">
                 <p style="color: gray;">Ticker</p>
                 <p style="color: gray; margin-left: 15%;">Date Added</p>
