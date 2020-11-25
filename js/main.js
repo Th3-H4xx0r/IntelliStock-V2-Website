@@ -327,7 +327,7 @@ function createInstance(){
     error.innerHTML = ""
 
     var Http = new XMLHttpRequest();
-    const url = 'http://localhost:3102/verifyCreds'
+    const url = 'https://intellistock.protosystems.net/verifyCreds'
     Http.open("GET", url)
     Http.setRequestHeader('key', key)
     Http.setRequestHeader('secret', secret)
