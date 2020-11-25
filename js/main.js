@@ -1,6 +1,6 @@
 function getAccountHistory(key, secret){
     var Http = new XMLHttpRequest();
-    const url = 'http://localhost:3102/getBalance'
+    const url = 'https://intellistock.protosystems.net/getBalance'
     Http.open("GET", url)
     Http.setRequestHeader('key', key)
     Http.setRequestHeader('secret', secret)
@@ -62,6 +62,16 @@ var myChart = new Chart(ctx, {
     }]
   },
   options: {
+    legend: {
+      display: false
+  },
+  tooltips: {
+    callbacks: {
+       label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+       }
+    }
+},
     scales: {
       xAxes: [{
         type: 'time',
@@ -76,7 +86,7 @@ var myChart = new Chart(ctx, {
 
 }
 
-function getUserInstances(){
+function getUserInstances(pageType){
 
     console.log("WORKING")
     
@@ -127,10 +137,19 @@ function getUserInstances(){
                     $(selectedHTML).appendTo('.first-bar');
                     document.getElementById('instance-name').innerHTML = `Instance ${instanceNum}`
 
-                    getAccountHistory(data['key'], data['secret'])
+                    if(pageType == 'dashboard'){
+                      getAccountHistory(data['key'], data['secret'])
+                    } else if(pageType == 'stocks-screen'){
+                      getInstanceStocks()
+                    }
+
+
 
                     if(instanceStatus == false){
                         document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_SERVER_ICON_red.png'  style="margin-top: 3rem;" />`
+                    } else if(instanceStatus == true){
+                      document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_server_cion_green.png'  style="margin-top: 3rem;" />`
+
                     }
 
                   } else {
@@ -140,8 +159,12 @@ function getUserInstances(){
                 if(currentIndex == 0){
                     localStorage.setItem('selectedInstance', doc.id);
                       $(selectedHTML).appendTo('.first-bar');
-                } else {
-  
+
+                      if(pageType == 'dashboard'){
+                        getAccountHistory(data['key'], data['secret'])
+                      } else if(pageType == 'stocks-screen'){
+                        getInstanceStocks()
+                      }
                 }
               }
 
@@ -159,4 +182,48 @@ function getUserInstances(){
 function changeInstanceClicked(instanceID){
     localStorage.setItem('selectedInstance', instanceID)
     window.location = '/dashboard'
+}
+
+function getInstanceStocks(){
+  var currentInstance = localStorage.getItem('selectedInstance')
+
+  console.log(currentInstance)
+
+  firebase.firestore().collection("Instances").doc(currentInstance).collection('Stocks').onSnapshot(snap => {
+    document.getElementById('instance-stocks').innerHTML = ``
+
+    snap.forEach(doc => {
+
+
+      var data = doc.data();
+
+      console.log(data)
+
+      if(data){
+        var cardHTML = `
+        
+        <div class="stock-card-manage">
+
+        <div class="row">
+            <h4 style="color: white; padding-top: 2%; margin-left: 5%;">${data['ticker']}</h4>
+
+            <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 14%;">${data['added']}</h5>
+
+            <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 15%; ">$${numberWithCommas(data['maxValue'])}</h5>
+
+
+            <button class="stock-card-option-btn" style="margin-left: 31%;">Remove</button>
+
+        </div>
+    </div>
+        `
+
+        $(cardHTML).appendTo('#instance-stocks');
+      }
+    })
+  })
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

@@ -59,6 +59,11 @@ router.get('/dashboard',function(req,res){
   
 });
 
+router.get('/stocks',function(req,res){
+  res.sendFile(path.join(__dirname+'/stocks.html'));
+
+});
+
 
 router.get('/getBalance',function(req,res){
 
@@ -84,7 +89,7 @@ router.get('/getBalance',function(req,res){
         date_start: "2020-11-24",
         period: 'intraday',
         timeframe: '1m',
-        extended_hours: false
+        extended_hours: true
       }).catch(e => {
         error = true
         res.send({code: 200, status: "failed", message: e.message, data: e})

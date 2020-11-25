@@ -61,7 +61,7 @@
     <script>
         $( document ).ready(function() {
             init();
-            getUserInstances('dashboard');
+            getUserInstances('stocks-screen');
         });
     </script>
 
@@ -90,14 +90,14 @@
 
                 <div class="d-flex justify-content-center" style="margin-top: 3rem; margin-right: 3rem; text-align: left;">
                     <div>
-                        <div class="row">
-                            <div class="selected-menu-bar"></div>
+                        <div class="row" style=" margin-left: 0rem;">
                             <i class="fas fa-tachometer-alt" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
                             <a href="/dashboard"><h6 style="color: white;">Dashboard</h5></a>
                         </div>
 
 
-                        <div class="row" style="margin-top: 1.5rem; margin-left: 0rem;">
+                        <div class="row" style="margin-top: 1.5rem; margin-left: -0.4rem;">
+                            <div class="selected-menu-bar"></div>
                             <i class="fas fa-chart-line" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
                             <a href="/stocks" ><h6 style="color: white;">Stocks</h6></a>
 
@@ -126,115 +126,22 @@
 
         </section>
 
-        <!-- DASHBOARD MAIN -->
-        <section> 
-            <h1 style="color: white; margin-top: 3rem; margin-left: 3rem;">Dashboard</h1>
+        <!-- Stocks MAIN -->
+        <section style="width: 75%;"> 
+            <h1 style="color: white; margin-top: 3rem; margin-left: 3rem;">My Stocks</h1>
 
-            <div class="row" style="margin-top: 3rem; margin-left: 3rem;">
-                
-                <div style="margin-right: 6rem; text-align: center;">
-                    <h4 style="color: white;">15Hrs 20m 2s</h4>
-                    <h5 style="color: gray;">Uptime</h5>
-
-                </div>
-
-
-                
-                <div style="margin-right: 6rem; text-align: center;">
-                    <h4 style="color: white;">15</h4>
-                    <h5 style="color: gray;">Today's Transactions</h5>
-
-                </div>
-
-                
-                <div style="margin-right: 6rem; text-align: center;">
-                    <h4 style="color: white;">15</h4>
-                    <h5 style="color: gray;">Buy Orders</h5>
-
-                </div>
-
-                <div style="margin-right: 6rem; text-align: center;">
-                    <h4 style="color: white;">15</h4>
-                    <h5 style="color: gray;">Sell Orders</h5>
-
-                </div>
-
+            <div class="row" style="margin-left: 6rem; margin-top: 2rem;">
+                <p style="color: gray;">Ticker</p>
+                <p style="color: gray; margin-left: 15%;">Date Added</p>
+                <p style="color: gray; margin-left: 15%;">Max Value</p>
+                <p style="color: gray; margin-left: 32%;">Actions</p>
             </div>
 
-                <h3 style="color: white; margin-top: 4rem; margin-left: 3rem;">Today's Equity</h3>
-
-                
-                <canvas id="myChart" width="200" height="50" style="margin-left: 3rem;"></canvas>
-
-
-
-                                            
-            <h3 style="color: white; margin-top: 2rem; margin-left: 3rem;">Latest Transactions</h3>
-
-
-            <div class="row" style="margin-top: 1rem; margin-left: 3rem;">
-
-
-                <div class="latest-transactions-box">
-                    <center style="margin-top: 4rem;">
-                        <h3 style="color: white;">TSLA</h3>
-                    </center>
-
-                    <center style="margin-top: -10px;">
-                        <h5 style="color: gray;">Buy</h5>
-                    </center>
-
-                    <center style="margin-top: 1rem;">
-                        <h4 style="color: white;">$12,111</h4>
-                    </center>
-
-                </div>
-
-                <div class="latest-transactions-box">
-                    <center style="margin-top: 4rem;">
-                        <h3 style="color: white;">TSLA</h3>
-                    </center>
-
-                    <center style="margin-top: -10px;">
-                        <h5 style="color: gray;">Buy</h5>
-                    </center>
-
-                    <center style="margin-top: 1rem;">
-                        <h4 style="color: white;">+$12,111</h4>
-                    </center>
-
-                </div>
-
-                <div class="latest-transactions-box">
-                    <center style="margin-top: 4rem;">
-                        <h3 style="color: white;">TSLA</h3>
-                    </center>
-
-                    <center style="margin-top: -10px;">
-                        <h5 style="color: gray;">Sell</h5>
-                    </center>
-
-                    <center style="margin-top: 1rem;">
-                        <h4 style="color: white;">-$12,111</h4>
-                    </center>
-
-                </div>
-
-            </div>
-
-               </div>
-
-
-
+            <div id="instance-stocks"></div>
 
         </section>
-
 
 
     </div>
 
 
-
-
-</body>
-</html>
