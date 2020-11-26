@@ -120,14 +120,14 @@ function getUserInstances(pageType){
                <a href="#" onclick = 'changeInstanceClicked("${doc.id}")' style = 'text-decoration: none'>
                 <div class="row" >
                     <div class="instance-profile-bar"></div>
-                    <div class="instance-profile-selected"><center><h1 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h1></center></div>
+                    <div class="instance-profile-selected"><center><h2 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h2></center></div>
                 </div>
                </a>
             </div>`
 
               var nonSelectedHTML = `<div class="d-flex justify-content-center">
               <a href="#" onclick = 'changeInstanceClicked("${doc.id}")' style = 'text-decoration: none'>
-                   <div class="instance-profile"><center><h1 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h1></center></div>
+                   <div class="instance-profile"><center><h2 style = 'color: white; padding-top: 0.5rem'>${instanceNum}</h2></center></div>
               </a>
            </div>`
 
