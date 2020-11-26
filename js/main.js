@@ -147,6 +147,7 @@ function getUserInstances(pageType){
 
                     if(pageType == 'dashboard'){
                       getAccountHistory(data['key'], data['secret'])
+                      getDashboardStats()
                     } else if(pageType == 'stocks-screen'){
                       getInstanceStocks()
                     }
@@ -170,6 +171,7 @@ function getUserInstances(pageType){
 
                       if(pageType == 'dashboard'){
                         getAccountHistory(data['key'], data['secret'])
+                        getDashboardStats()
                       } else if(pageType == 'stocks-screen'){
                         getInstanceStocks()
                       }
@@ -560,4 +562,75 @@ function logout(){
   }).catch(function(error) {
     console.log("An error occured: " + error.toString())
   })
+}
+
+
+
+function getDashboardStats(){
+
+  var currentInstance = localStorage.getItem('selectedInstance')
+
+  firebase.firestore().collection("Instances").doc(currentInstance).get().then(doc => {
+    var data = doc.data()
+
+    console.log("GOT DATE")
+
+    if(data){
+      var uptime = data['uptimeStart']
+
+      console.log(uptime)
+
+      var diff = Math.abs(new Date() - Date(uptime['seconds']*1000));
+
+      console.log(diff)
+    }
+  })
+
+  var Http = new XMLHttpRequest();
+  const url = `http://localhost:3101/getOverallData?instance=${currentInstance}`
+  Http.open("GET", url)
+  Http.send()
+
+  Http.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+
+      var response = JSON.parse(Http.responseText)
+
+      var message = response['message']
+
+      var transactionCount = 0;
+      var buyCount = 0
+      var sellCount = 0
+
+      console.log(message)
+
+      for (var ticker in message){
+        var data = message[ticker]
+
+        if(data){
+          var transactions = data['transactions']
+
+          if(transactions){
+            for(var i = 0; i <= transactions.length(); i++){
+              transactionCount += 1
+              var action = transactions[i][1]
+  
+              if(action == "BUY"){
+                buyCount += 1
+              } else if(action == "SELL"){
+                sellCount += 1
+              }
+            }
+          } 
+
+        }
+      }
+
+      document.getElementById('transactions-count').innerHTML = transactionCount
+      document.getElementById('buy-order-count').innerHTML = buyCount
+      document.getElementById('sell-order-count').innerHTML = sellCount
+
+
+    }
+  }
 }
