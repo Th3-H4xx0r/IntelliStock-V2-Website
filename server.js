@@ -166,6 +166,8 @@ router.get('/verifyCreds',function(req,res){
 
 });
 
+/*
+
 router.get('/verifyTicker',function(req,res){
 
   var headers = req.headers
@@ -186,7 +188,7 @@ router.get('/verifyTicker',function(req,res){
     res.send({code: 200, status: "failed", message:"Missing headers"})
   }
 });
-
+*/
 
 
 
