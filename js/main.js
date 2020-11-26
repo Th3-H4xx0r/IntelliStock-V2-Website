@@ -29,7 +29,6 @@ function getAccountHistory(key, secret){
 
         }
 
-        console.log(points)
 
 
 /*
@@ -87,8 +86,6 @@ var myChart = new Chart(ctx, {
 }
 
 function getUserInstances(pageType){
-
-    console.log("WORKING")
     
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -96,7 +93,6 @@ function getUserInstances(pageType){
       var pic = user.photoURL;
       var email = user.email;
 
-      console.log(email)
 
       var currentIndex = 0;
 
@@ -105,7 +101,7 @@ function getUserInstances(pageType){
       firebase.firestore().collection('Instances').where('user', '==', email).orderBy('instanceNum', 'asc').onSnapshot(snap => {
 
         localStorage.removeItem('maxInstanceNum')
-        console.log("GOT DATA")
+
 
         document.getElementById('instances-list').innerHTML = ''
 
@@ -115,8 +111,7 @@ function getUserInstances(pageType){
             instanceCount += 1;
 
             var data = doc.data()
-              console.log(data)
-
+        
             var instanceNum = data['instanceNum']
 
               var selectedHTML = `
@@ -185,12 +180,10 @@ function getUserInstances(pageType){
 
           setTimeout(function(){
             if(instanceCount == 0){
-              console.log("No instances")
               document.getElementById('loading-page').style.display = 'none'
               document.getElementById('no-instances').style.display = 'initial'
               document.getElementById('content-main-page').style.display = 'none'
             } else {
-              console.log("YES instances")
               document.getElementById('no-instances').style.display = 'none'
               document.getElementById('loading-page').style.display = 'none'
              document.getElementById('content-main-page').style.display = 'initial'
@@ -221,7 +214,7 @@ function changeInstanceClicked(instanceID){
 function getInstanceStocks(){
   var currentInstance = localStorage.getItem('selectedInstance')
 
-  console.log(currentInstance)
+
 
   firebase.firestore().collection("Instances").doc(currentInstance).collection('Stocks').onSnapshot(snap => {
     document.getElementById('instance-stocks').innerHTML = ``
@@ -231,7 +224,7 @@ function getInstanceStocks(){
 
       var data = doc.data();
 
-      console.log(data)
+
 
       if(data['ticker'].length < 4){
         for(var i = 0; i <= 4 -data['ticker'].length; i++){
@@ -566,6 +559,7 @@ function logout(){
 
 
 
+
 function getDashboardStats(){
 
   var currentInstance = localStorage.getItem('selectedInstance')
@@ -573,16 +567,24 @@ function getDashboardStats(){
   firebase.firestore().collection("Instances").doc(currentInstance).get().then(doc => {
     var data = doc.data()
 
-    console.log("GOT DATE")
-
     if(data){
       var uptime = data['uptimeStart']
 
-      console.log(uptime)
+    
+      var diff =  Math.abs(new Date() - new Date(uptime['seconds']*1000)) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
 
-      var diff = Math.abs(new Date() - Date(uptime['seconds']*1000));
+       // get hours        
+       var hours = Math.floor(diff / 3600) % 24;        
+       
+       // get minutes
+       var minutes = Math.floor(diff / 60) % 60;
+   
+       // get seconds
+       var seconds = Math.round(diff % 60, 2);
 
-      console.log(diff)
+
+       var uptimeOutput = hours + "hrs " + minutes + "m " + seconds + 's'
+       document.getElementById('uptime').innerHTML = uptimeOutput
     }
   })
 
@@ -602,7 +604,7 @@ function getDashboardStats(){
       var buyCount = 0
       var sellCount = 0
 
-      console.log(message)
+
 
       for (var ticker in message){
         var data = message[ticker]
