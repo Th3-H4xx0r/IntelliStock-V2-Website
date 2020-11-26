@@ -3,8 +3,8 @@ const app = express();
 const path = require('path');
 var cors = require('cors')
 const router = express.Router();
-//const Alpaca = require('@alpacahq/alpaca-trade-api');
-//var cts = require('check-ticker-symbol');
+const Alpaca = require('@alpacahq/alpaca-trade-api');
+var cts = require('check-ticker-symbol');
 
 var http = require('http').createServer(app);
 app.use(cors())
@@ -58,7 +58,7 @@ router.get('/stocks',function(req,res){
 
 });
 
-/*
+
 
 router.get('/getBalance',function(req,res){
 
@@ -105,9 +105,7 @@ router.get('/getBalance',function(req,res){
   }
 });
 
-*/
 
-/*
 router.get('/verifyCreds',function(req,res){
 
   try{
@@ -162,9 +160,7 @@ router.get('/verifyCreds',function(req,res){
 
 });
 
-*/
 
-/*
 
 router.get('/verifyTicker',function(req,res){
 
@@ -186,7 +182,7 @@ router.get('/verifyTicker',function(req,res){
     res.send({code: 200, status: "failed", message:"Missing headers"})
   }
 });
-*/
+
 
 
 
