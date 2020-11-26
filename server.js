@@ -10,7 +10,7 @@ const request = require('request');
 const { json } = require('express');
 const Alpaca = require('@alpacahq/alpaca-trade-api');
 const { StringDecoder } = require('string_decoder');
-var cts = require('check-ticker-symbol');
+//var cts = require('check-ticker-symbol');
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -111,49 +111,56 @@ router.get('/getBalance',function(req,res){
   }
 });
 
+
 router.get('/verifyCreds',function(req,res){
 
-  var headers = req.headers
+  try{
 
-  var key = headers['key']
+    var headers = req.headers
 
-  var secret = headers['secret']
-
-  var error = false
-
-  if(key && secret){
-
-      const alpaca = new Alpaca({
-        keyId: key, //'PKVA3SOZ46HMS516041U'
-        secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
-        paper: true,
-        usePolygon: false
-      })
-
-      try{
-
-        account = alpaca.getAccount().catch(e => {
+    var key = headers['key']
+  
+    var secret = headers['secret']
+  
+    var error = false
+  
+    if(key && secret){
+  
+        const alpaca = new Alpaca({
+          keyId: key, //'PKVA3SOZ46HMS516041U'
+          secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
+          paper: true,
+          usePolygon: false
+        })
+  
+        try{
+  
+          account = alpaca.getAccount().catch(e => {
+            res.send({code: 200, status: "failed", message:"Invalid", data: e})
+            error = true
+  
+          }).then(() => {
+            if(error == false){
+              res.send({code: 200, status: "success", message:"Valid", data: account})
+  
+            }
+          });
+  
+          
+        } catch(e){
           res.send({code: 200, status: "failed", message:"Invalid", data: e})
-          error = true
-
-        }).then(() => {
-          if(error == false){
-            res.send({code: 200, status: "success", message:"Valid", data: account})
-
-          }
-        });
-
-        
-      } catch(e){
-        res.send({code: 200, status: "failed", message:"Invalid", data: e})
-      }
-
-
-   
-  } else {
-    res.send({code: 200, status: "failed", message:"Missing headers"})
+        }
+  
+  
+     
+    } else {
+      res.send({code: 200, status: "failed", message:"Missing headers"})
+    }
+  
+  
+  } catch(e){
+    res.send({code: 200, status: "failed", message:e})
   }
-
 
 
 
