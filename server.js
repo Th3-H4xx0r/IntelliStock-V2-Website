@@ -3,17 +3,10 @@ const app = express();
 const path = require('path');
 var cors = require('cors')
 const router = express.Router();
-var fs = require('fs');
-const firebase = require('firebase');
-var admin = require('firebase-admin');
-const request = require('request');
-const { json } = require('express');
-const Alpaca = require('@alpacahq/alpaca-trade-api');
-const { StringDecoder } = require('string_decoder');
+//const Alpaca = require('@alpacahq/alpaca-trade-api');
 //var cts = require('check-ticker-symbol');
 
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
 app.use(cors())
 
 app.use(function (req, res, next) {
