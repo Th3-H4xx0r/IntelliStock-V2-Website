@@ -65,6 +65,7 @@ router.get('/stocks',function(req,res){
 
 });
 
+/*
 
 router.get('/getBalance',function(req,res){
 
@@ -111,7 +112,9 @@ router.get('/getBalance',function(req,res){
   }
 });
 
+*/
 
+/*
 router.get('/verifyCreds',function(req,res){
 
   try{
@@ -165,6 +168,8 @@ router.get('/verifyCreds',function(req,res){
 
 
 });
+
+*/
 
 /*
 
