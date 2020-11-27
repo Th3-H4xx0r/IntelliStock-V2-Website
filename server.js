@@ -5,6 +5,7 @@ var cors = require('cors')
 const router = express.Router();
 const Alpaca = require('@alpacahq/alpaca-trade-api');
 var cts = require('check-ticker-symbol');
+const ejs = require('ejs')
 
 var http = require('http').createServer(app);
 app.use(cors())
@@ -59,7 +60,8 @@ router.get('/stocks',function(req,res){
 });
 
 router.get('/stock',function(req,res){
-  res.sendFile(path.join(__dirname+'/stock-info.html'));
+  var tickerCode = req.query.ticker
+  res.render(path.join(__dirname+'/stock-info.ejs'), {ticker: tickerCode})
 
 });
 

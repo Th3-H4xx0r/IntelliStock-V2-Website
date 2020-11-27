@@ -62,6 +62,13 @@
 
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
 
+
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+
         
 
     <title>Dashboard</title>
@@ -71,7 +78,8 @@
     <script>
         $( document ).ready(function() {
             init();
-            getUserInstances('stock-info-screen');
+            var ticker = '<%= ticker %>'
+            getUserInstances('stock-info-screen', ticker);
         });
     </script>
 
@@ -137,14 +145,14 @@
 
                 <div class="d-flex justify-content-center" style="margin-top: 3rem; margin-right: 3rem; text-align: left;">
                     <div>
-                        <div class="row">
-                            <div class="selected-menu-bar"></div>
+                        <div class="row" style=" margin-left: 0rem;">
                             <i class="fas fa-tachometer-alt" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
                             <a href="/dashboard"><h6 style="color: white;">Dashboard</h5></a>
                         </div>
 
 
-                        <div class="row" style="margin-top: 1.5rem; margin-left: 0rem;">
+                        <div class="row" style="margin-top: 1.5rem; margin-left: -0.4rem;">
+                            <div class="selected-menu-bar"></div>
                             <i class="fas fa-chart-line" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
                             <a href="/stocks" ><h6 style="color: white;">Stocks</h6></a>
 
@@ -166,6 +174,7 @@
 
                     </div>
                    
+                   
 
                 </div>
 
@@ -180,41 +189,58 @@
         <!-- DASHBOARD MAIN -->
         <section style = 'width: 70%'> 
 
-            <h1 style="margin-left: 3rem; margin-top: 3rem; color:white;">TSLA</h1>
+            <h1 style="margin-left: 3rem; margin-top: 3rem; color:white;"><%= ticker %></h1>
 
+            <!--
             <canvas id="myChart" width="240" height="110" style="margin-left: 3rem; margin-top: 2rem;"></canvas>
+
+            -->
+            
+                <div id="chartdiv"></div>
+
+
+            <style>
+                #chartdiv {
+                  width: 100%;
+                  height: 500px;
+                }
+                
+                </style>
+
+          
+
 
             <div class="row" style="margin-top: 2rem; margin-left: 3rem; justify-content: space-around;">
                 <div style=" text-align: center;">
                     <h4 style="color: white;">Total Orders</h4>
-                    <h3 style="color: gray;">26</h3>
+                    <h3 style="color: gray;" id = 'totalOrders'>--</h3>
                 </div>
 
                 <div style=" text-align: center;">
                     <h4 style="color: white;">Buy Orders</h4>
-                    <h3 style="color: gray;">26</h3>
+                    <h3 style="color: gray;" id = 'buyOrders'>--</h3>
                 </div>
 
                 <div style=" text-align: center;">
                     <h4 style="color: white;">Sell Orders</h4>
-                    <h3 style="color: gray;">26</h3>
+                    <h3 style="color: gray;" id = 'sellOrders'>--</h3>
                 </div>
             </div>  
 
             <div class="row" style="margin-top: 2rem; margin-left: 3rem; justify-content: space-around;">
                 <div style=" text-align: center;">
                     <h4 style="color: white;">High Price</h4>
-                    <h3 style="color: gray;" id = 'maxprice'>$262.1</h3>
+                    <h3 style="color: gray;" id = 'maxprice'>$---</h3>
                 </div>
 
                 <div style=" text-align: center;">
                     <h4 style="color: white;">Low Price</h4>
-                    <h3 style="color: gray;" id = 'minprice'>$226.12</h3>
+                    <h3 style="color: gray;" id = 'minprice'>$---</h3>
                 </div>
 
                 <div style=" text-align: center;">
                     <h4 style="color: white;">Sell Orders</h4>
-                    <h3 style="color: gray;">26</h3>
+                    <h3 style="color: gray;">--</h3>
                 </div>
             </div>
 

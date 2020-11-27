@@ -1,7 +1,7 @@
 body{
     background-color: #151515;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
     font-family: 'Quicksand';
 }
 
