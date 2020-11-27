@@ -4,6 +4,7 @@ const path = require('path');
 var cors = require('cors')
 const router = express.Router();
 const Alpaca = require('@alpacahq/alpaca-trade-api');
+var cts = require('check-ticker-symbol');
 
 var http = require('http').createServer(app);
 app.use(cors())
@@ -163,6 +164,28 @@ router.get('/verifyCreds',function(req,res){
 
 });
 
+
+
+router.get('/verifyTicker',function(req,res){
+
+  var headers = req.headers
+
+  var ticker = headers['ticker']
+
+  var error = false
+
+  if(ticker){
+
+    if(cts.valid(ticker)) { // returns TRUE
+      res.send({code: 200, status: "success", message:"Valid"})
+      } else {
+        res.send({code: 200, status: "success", message:"Invalid"})
+      }
+
+  } else {
+    res.send({code: 200, status: "failed", message:"Missing headers"})
+  }
+});
 
 
 
