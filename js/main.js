@@ -87,7 +87,7 @@ var myChart = new Chart(ctx, {
 function getStockGraph(instance, stock){
   console.log(instance)
   var Http = new XMLHttpRequest();
-  const url = `http://localhost:3101/getOverallData?instance=${instance}`
+  const url = `https://api.intellistock.protosystems.net/getOverallData?instance=${instance}`
   Http.open("GET", url)
   Http.send()
 
@@ -786,7 +786,7 @@ function getDashboardStats(){
   })
 
   var Http = new XMLHttpRequest();
-  const url = `http://localhost:3101/getOverallData?instance=${currentInstance}`
+  const url = `https://api.intellistock.protosystems.net/getOverallData?instance=${currentInstance}`
   Http.open("GET", url)
   Http.send()
 
