@@ -91,6 +91,9 @@ function getStockGraph(instance, stock){
   Http.open("GET", url)
   Http.send()
 
+  var pricesList = []
+
+
   Http.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
 
@@ -108,6 +111,7 @@ function getStockGraph(instance, stock){
 
         for(var i = 0; i <= stockData.length; i++){
           if(stockData[i] != null){
+            pricesList.push(stockData[i][1])
             points.push({t: new Date(stockData[i][2] * 1000), y: stockData[i][1]})
           }
   
@@ -116,8 +120,6 @@ function getStockGraph(instance, stock){
       } else{
 
       }
-
-
 
 
 /*
@@ -130,6 +132,15 @@ function getStockGraph(instance, stock){
               }]
           }
 */
+console.log(pricesList)
+
+
+
+var max = Math.max(pricesList)
+var min = Math.min(pricesList)
+
+document.getElementById('maxprice').innerHTML = "$" + max
+document.getElementById('minprice').innerHTML = "$" + min
 
 var ctx = document.getElementById("myChart").getContext("2d");
 
