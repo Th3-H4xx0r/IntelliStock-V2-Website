@@ -58,6 +58,10 @@ router.get('/stocks',function(req,res){
 
 });
 
+router.get('/stock',function(req,res){
+  res.sendFile(path.join(__dirname+'/stock-info.html'));
+
+});
 
 
 router.get('/getBalance',function(req,res){

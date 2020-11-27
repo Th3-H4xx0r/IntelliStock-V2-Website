@@ -16,7 +16,6 @@ function getAccountHistory(key, secret){
         var values = message['equity']
 
         var rawTimes = message['timestamp']
-
         
         var points = []
 
@@ -85,6 +84,189 @@ var myChart = new Chart(ctx, {
 
 }
 
+function getStockGraph(instance, stock){
+  console.log(instance)
+  var Http = new XMLHttpRequest();
+  const url = `http://localhost:3101/getOverallData?instance=${instance}`
+  Http.open("GET", url)
+  Http.send()
+
+  Http.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+
+      var response = JSON.parse(Http.responseText)
+
+      var message = response['message']
+
+      console.log(message)
+
+      var points = []
+
+      var stockData = message[stock]['todayPrices']
+
+      if(stockData){
+
+        for(var i = 0; i <= stockData.length; i++){
+          if(stockData[i] != null){
+            points.push({t: new Date(stockData[i][2] * 1000), y: stockData[i][1]})
+          }
+  
+        }
+  
+      } else{
+
+      }
+
+
+
+
+/*
+          scales: {
+              xAxes: [{
+                  type: 'time',
+                  time: {
+                      unit: 'hour'
+                  }
+              }]
+          }
+*/
+
+var ctx = document.getElementById("myChart").getContext("2d");
+
+var myChart = new Chart(ctx, {
+type: 'line',
+data: {
+  datasets: [{
+    label: 'Equity',
+    data: points,
+    backgroundColor: [
+      '#151515'
+    ],
+    borderColor: [
+      '#00CF98',
+
+    ],
+    borderWidth: 5
+  }]
+},
+options: {
+  legend: {
+    display: false
+},
+tooltips: {
+  callbacks: {
+     label: function(tooltipItem) {
+            return tooltipItem.yLabel;
+     }
+  }
+},
+
+plugins: {
+	zoom: {
+		// Container for pan options
+		pan: {
+			// Boolean to enable panning
+			enabled: true,
+
+			// Panning directions. Remove the appropriate direction to disable
+			// Eg. 'y' would only allow panning in the y direction
+			// A function that is called as the user is panning and returns the
+			// available directions can also be used:
+			//   mode: function({ chart }) {
+			//     return 'xy';
+			//   },
+			mode: 'xy',
+
+			rangeMin: {
+				// Format of min pan range depends on scale type
+				x: null,
+				y: null
+			},
+			rangeMax: {
+				// Format of max pan range depends on scale type
+				x: null,
+				y: null
+			},
+
+			// On category scale, factor of pan velocity
+			speed: 20,
+
+			// Minimal pan distance required before actually applying pan
+			threshold: 10,
+
+			// Function called while the user is panning
+			onPan: function({chart}) { console.log(`I'm panning!!!`); },
+			// Function called once panning is completed
+			onPanComplete: function({chart}) { console.log(`I was panned!!!`); }
+		},
+
+		// Container for zoom options
+		zoom: {
+			// Boolean to enable zooming
+			enabled: true,
+
+			// Enable drag-to-zoom behavior
+			drag: false,
+
+			// Drag-to-zoom effect can be customized
+			// drag: {
+			// 	 borderColor: 'rgba(225,225,225,0.3)'
+			// 	 borderWidth: 5,
+			// 	 backgroundColor: 'rgb(225,225,225)',
+			// 	 animationDuration: 0
+			// },
+
+			// Zooming directions. Remove the appropriate direction to disable
+			// Eg. 'y' would only allow zooming in the y direction
+			// A function that is called as the user is zooming and returns the
+			// available directions can also be used:
+			//   mode: function({ chart }) {
+			//     return 'xy';
+			//   },
+			mode: 'xy',
+
+			rangeMin: {
+				// Format of min zoom range depends on scale type
+				x: null,
+				y: null
+			},
+			rangeMax: {
+				// Format of max zoom range depends on scale type
+				x: null,
+				y: null
+			},
+
+			// Speed of zoom via mouse wheel
+			// (percentage of zoom on a wheel event)
+			speed: 0.1,
+
+			// Minimal zoom distance required before actually applying zoom
+			threshold: 2,
+
+			// On category scale, minimal zoom level before actually applying zoom
+			sensitivity: 3,
+
+			// Function called while the user is zooming
+			onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
+			// Function called once zooming is completed
+			onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); }
+		}
+	}
+},
+  scales: {
+    xAxes: [{
+      type: 'time',
+      distribution: 'linear'
+    }]
+  }
+}
+});
+    }
+  }
+
+
+}
+
 function getUserInstances(pageType){
     
   firebase.auth().onAuthStateChanged(user => {
@@ -145,6 +327,8 @@ function getUserInstances(pageType){
                       getDashboardStats()
                     } else if(pageType == 'stocks-screen'){
                       getInstanceStocks()
+                    } else if(pageType == 'stock-info-screen'){
+                      getStockGraph(doc.id, 'TSLA')
                     }
 
 
@@ -169,6 +353,8 @@ function getUserInstances(pageType){
                         getDashboardStats()
                       } else if(pageType == 'stocks-screen'){
                         getInstanceStocks()
+                      } else if(pageType == 'stock-info-screen'){
+                        getStockGraph(doc.id, 'TSLA')
                       }
                 }
               }
@@ -188,7 +374,7 @@ function getUserInstances(pageType){
               document.getElementById('loading-page').style.display = 'none'
              document.getElementById('content-main-page').style.display = 'initial'
             }
-           }, 2000);
+           }, 500);
 
 
 
@@ -604,6 +790,8 @@ function getDashboardStats(){
       var buyCount = 0
       var sellCount = 0
 
+      var transactionsListsorted = []
+
 
 
       for (var ticker in message){
@@ -622,11 +810,55 @@ function getDashboardStats(){
               } else if(action == "SELL"){
                 sellCount += 1
               }
+
+              var timestamp = transactions[i][3]
+
+              transactionsListsorted.push([timestamp, action, ticker])
             }
           } 
 
         }
       }
+
+
+      
+      transactionsListsorted.sort(function(a, b) {
+        return parseFloat(a[0]) - parseFloat(b[0]);
+      });
+
+      console.log(transactionsListsorted)
+
+      console.log(transactionsListsorted.length)
+
+      if(transactionsListsorted.length != 0){
+        for(var i = 0; i <= transactionsListsorted.length-1; i++){
+          var transaction = transactionsListsorted[i]
+
+          var transactionHTML = `
+          
+          <div class="latest-transactions-box">
+          <center style="margin-top: 4rem;">
+              <h3 style="color: white;">${transaction[2]}</h3>
+          </center>
+
+          <center style="margin-top: -10px;">
+              <h5 style="color: gray;">${transaction[1]}</h5>
+          </center>
+
+          <center style="margin-top: 1rem;">
+              <h4 style="color: white;">$12,111</h4>
+          </center>
+
+      </div>
+          `
+
+          $(transactionHTML).appendTo('#latest-transactions-row')
+        }
+      } else if(transactionsListsorted.length == 0){
+        document.getElementById('latest-transactions-row').innerHTML = "<h2 style = 'color: gray'>No Recent Transactions</h2>"
+      }
+
+
 
       document.getElementById('transactions-count').innerHTML = transactionCount
       document.getElementById('buy-order-count').innerHTML = buyCount
