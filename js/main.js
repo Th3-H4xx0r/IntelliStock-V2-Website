@@ -421,11 +421,13 @@ function getInstanceStocks(){
 
       var data = doc.data();
 
+      var tickerFormatName = data['ticker']
 
 
-      if(data['ticker'].length < 4){
-        for(var i = 0; i <= 4 -data['ticker'].length; i++){
-          data['ticker'] = data['ticker'] + " "
+
+      if(tickerFormatName.length < 4){
+        for(var i = 0; i <= 4 - tickerFormatName.length; i++){
+          tickerFormatName = tickerFormatName + " "
         }
       }
 
