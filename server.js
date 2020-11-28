@@ -73,19 +73,6 @@ router.get('/viewStock',function(req,res){
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////////////
 //STATIC ASSETS HANDLER
 /////////////////////////
