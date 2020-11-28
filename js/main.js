@@ -1,6 +1,6 @@
 function getAccountHistory(key, secret) {
   var Http = new XMLHttpRequest();
-  const url = 'https://intellistock.protosystems.net/getBalance'
+  const url = 'https://intellistockapi.loca.lt/getBalance'
   Http.open("GET", url)
   Http.setRequestHeader('key', key)
   Http.setRequestHeader('secret', secret)
@@ -87,7 +87,7 @@ function getAccountHistory(key, secret) {
 function getStockGraph(instance, stock) {
   console.log(instance)
   var Http = new XMLHttpRequest();
-  const url = `https://api.intellistock.protosystems.net/getOverallData?instance=${instance}`
+  const url = `https://intellistockapi.loca.lt/getOverallData?instance=${instance}`
   Http.open("GET", url)
   Http.send()
 
@@ -661,7 +661,7 @@ function createInstance() {
         error.innerHTML = ""
 
         var Http = new XMLHttpRequest();
-        const url = 'https://intellistock.protosystems.net/verifyCreds'
+        const url = 'https://intellistockapi.loca.lt/verifyCreds'
         Http.open("GET", url)
         Http.setRequestHeader('key', key)
         Http.setRequestHeader('secret', secret)
@@ -807,7 +807,7 @@ function addStock() {
         error.innerHTML = ""
 
         var Http = new XMLHttpRequest();
-        const url = 'https://intellistock.protosystems.net/verifyTicker'
+        const url = 'https://intellistockapi.loca.lt/verifyTicker'
         Http.open("GET", url)
         Http.setRequestHeader('ticker', ticker)
         Http.send()
@@ -904,7 +904,7 @@ function getDashboardStats() {
   })
 
   var Http = new XMLHttpRequest();
-  const url = `https://api.intellistock.protosystems.net/getOverallData?instance=${currentInstance}`
+  const url = `https://intellistockapi.loca.lt/getOverallData?instance=${currentInstance}`
   Http.open("GET", url)
   Http.send()
 

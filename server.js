@@ -66,128 +66,12 @@ router.get('/stock',function(req,res){
 });
 
 
-router.get('/getBalance',function(req,res){
-
-  var headers = req.headers
-
-  var key = headers['key']
-
-  var secret = headers['secret']
-
-  var error = false
-
-  if(key && secret){
-
-      const alpaca = new Alpaca({
-        keyId: key, //'PKVA3SOZ46HMS516041U'
-        secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
-        paper: true,
-        usePolygon: false
-      })
-    
-    
-      alpaca.getPortfolioHistory({
-        date_start: "2020-11-24",
-        period: 'intraday',
-        timeframe: '1m',
-        extended_hours: true
-      }).catch(e => {
-        error = true
-        res.send({code: 200, status: "failed", message: e.message, data: e})
-
-
-      }).then(val => {
-        //console.log(val)
-
-        if(error == false){
-          res.send({code: 200, status: "success", message: val})
-        }
-
-      })
-
-   
-  } else {
-    res.send({code: 200, status: "failed", message:"Missing headers"})
-  }
-});
-
-
-router.get('/verifyCreds',function(req,res){
-
-  try{
-
-    var headers = req.headers
-
-    var key = headers['key']
-  
-    var secret = headers['secret']
-  
-    var error = false
-  
-    if(key && secret){
-  
-        const alpaca = new Alpaca({
-          keyId: key, //'PKVA3SOZ46HMS516041U'
-          secretKey: secret, //'PwiBhclYWsz2oVkQxtg6npf6BHUL4XqrrIrfgIe9'
-          paper: true,
-          usePolygon: false
-        })
-  
-        try{
-  
-          account = alpaca.getAccount().catch(e => {
-            res.send({code: 200, status: "failed", message:"Invalid", data: e})
-            error = true
-  
-          }).then(() => {
-            if(error == false){
-              res.send({code: 200, status: "success", message:"Valid", data: account})
-  
-            }
-          });
-  
-          
-        } catch(e){
-          res.send({code: 200, status: "failed", message:"Invalid", data: e})
-        }
-  
-  
-     
-    } else {
-      res.send({code: 200, status: "failed", message:"Missing headers"})
-    }
-  
-  
-  } catch(e){
-    res.send({code: 200, status: "failed", message:e})
-  }
 
 
 
-});
 
 
 
-router.get('/verifyTicker',function(req,res){
-
-  var headers = req.headers
-
-  var ticker = headers['ticker']
-
-  var error = false
-
-  if(ticker){
-
-    if(cts.valid(ticker)) { // returns TRUE
-      res.send({code: 200, status: "success", message:"Valid"})
-      } else {
-        res.send({code: 200, status: "success", message:"Invalid"})
-      }
-
-  } else {
-    res.send({code: 200, status: "failed", message:"Missing headers"})
-  }
-});
 
 
 
