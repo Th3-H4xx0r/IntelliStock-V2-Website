@@ -66,6 +66,14 @@ router.get('/stock',function(req,res){
 
 });
 
+router.get('/viewStock',function(req,res){
+  //var tickerCode = req.query.ticker
+  //res.render(path.join(__dirname+'/stock-info.ejs'), {ticker: "TSLA"})
+  res.sendFile(path.join(__dirname+'/stock-info.html'));
+
+});
+
+
 
 
 
