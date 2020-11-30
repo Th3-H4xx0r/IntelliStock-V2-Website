@@ -23,10 +23,56 @@ function getAccountHistory(key, secret) {
 
       for (var i = 0; i <= rawTimes.length; i++) {
         if (rawTimes[i] != null && values[i] != null) {
-          points.push({ t: new Date(rawTimes[i] * 1000), y: values[i] })
+          points.push({ date: new Date(rawTimes[i] * 1000), value: values[i] })
         }
 
       }
+
+      am4core.useTheme(am4themes_animated);
+      am4core.useTheme(am4themes_dark);
+
+
+      // Create chart instance
+      var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+      // Create axes
+      var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+      dateAxis.renderer.grid.template.location = 0;
+      dateAxis.renderer.minGridDistance = 30;
+
+      var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+      // Create series
+      function createSeries(field, name, priceData, type) {
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.valueY = field;
+        series.dataFields.dateX = "date";
+        series.name = name;
+        series.tooltipText = "{dateX}: [b]{valueY}[/]";
+        series.strokeWidth = 2;
+        series.data = priceData;
+        return series;
+      }
+
+      createSeries("value", "Portfolio", points, 'price');
+
+
+      //chart.legend = new am4charts.Legend();
+      chart.cursor = new am4charts.XYCursor();
+
+      // Set up export
+      chart.exporting.menu = new am4core.ExportMenu();
+      chart.exporting.adapter.add("data", function (data, target) {
+        // Assemble data from series
+        var data = [];
+        chart.series.each(function (series) {
+          for (var i = 0; i < series.data.length; i++) {
+            series.data[i].name = series.name;
+            data.push(series.data[i]);
+          }
+        });
+        return { data: data };
+      });
 
 
 
@@ -40,6 +86,8 @@ function getAccountHistory(key, secret) {
                       }]
                   }
       */
+
+      /*
 
       var ctx = document.getElementById("myChart").getContext("2d");
 
@@ -78,6 +126,7 @@ function getAccountHistory(key, secret) {
           }
         }
       });
+      */
     }
   }
 
