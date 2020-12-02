@@ -60,8 +60,13 @@ router.get('/stocks',function(req,res){
 });
 
 router.get('/stock',function(req,res){
-  var tickerCode = req.query.ticker
-  res.render(path.join(__dirname+'/stock-info.ejs'), {ticker: tickerCode})
+  try{
+    var tickerCode = req.query.ticker
+    res.render(path.join(__dirname+'/stock-info.ejs'), {ticker: tickerCode})
+  } catch(e){
+    res.send("Internal server error: " + e)
+  }
+
 
 });
 
