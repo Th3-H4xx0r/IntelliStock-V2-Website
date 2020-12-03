@@ -4,6 +4,7 @@ function getAccountHistory(key, secret) {
   Http.open("GET", url)
   Http.setRequestHeader('key', key)
   Http.setRequestHeader('secret', secret)
+  Http.setRequestHeader('content-type', "*")
   Http.send()
 
   Http.onreadystatechange = function () {
