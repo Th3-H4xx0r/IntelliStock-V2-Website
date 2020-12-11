@@ -502,6 +502,8 @@ function getUserInstances(pageType, ticker = 'TSLA') {
                 getInstanceStocks()
               } else if (pageType == 'stock-info-screen') {
                 getStockGraph(doc.id, ticker)
+              } else if(pageType == 'settings'){
+                getDataSettingsPage()
               }
 
 
@@ -528,6 +530,8 @@ function getUserInstances(pageType, ticker = 'TSLA') {
                 getInstanceStocks()
               } else if (pageType == 'stock-info-screen') {
                 getStockGraph(doc.id, ticker)
+              } else if(pageType == 'settings'){
+                getDataSettingsPage()
               }
             }
           }
@@ -1057,4 +1061,175 @@ function getDashboardStats() {
 
     }
   }
+}
+
+function getDataSettingsPage(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+
+      var email = user.email;
+
+
+      var keyInput = document.getElementById('alpaca-key')
+      var secretInput = document.getElementById('alpaca-secret')
+
+      var currentInstance = localStorage.getItem("selectedInstance");
+
+      firebase.firestore().collection('Instances').doc(currentInstance).get().then(doc => {
+        var data = doc.data()
+
+        if(data){
+          var key = data['key']
+          var secret = data['secret']
+
+          keyInput.value = key
+          secretInput.value = secret
+        }
+      }).then(() => {
+
+        var deleteBtnHTML = `
+        <button class="delete-btn" id = 'delete-btn' onclick="deleteInstancePopup('${currentInstance}')" style = 'margin-top: 1rem;' >Delete Instance</button>
+        `
+
+        $(deleteBtnHTML).appendTo('#more');
+      })
+
+
+      //console.log(key)
+      //console.log(secret)
+
+    }
+  })
+}
+
+function updateCredentials(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+
+      var key = document.getElementById('alpaca-key').value
+      var secret = document.getElementById('alpaca-secret').value
+
+      var error = document.getElementById('error-create-instance')
+
+      var button = document.getElementById('create-btn')
+
+      var currentInstance = localStorage.getItem("selectedInstance");
+
+      button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+
+      //console.log(key)
+      //console.log(secret)
+
+      if (key && secret) {
+        //firebase.firestore().collection("Instances").doc().set({})
+        error.innerHTML = ""
+
+        var Http = new XMLHttpRequest();
+        const url = 'https://intellistockapi.loca.lt/verifyCreds'
+        Http.open("GET", url)
+        Http.setRequestHeader('key', key)
+        Http.setRequestHeader('secret', secret)
+        Http.send()
+
+        Http.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+            var response = JSON.parse(Http.responseText)
+
+            var message = response['message']
+
+            if (message == 'Valid') {
+              
+              firebase.firestore().collection('Instances').doc(currentInstance).update({
+                'key': key,
+                'secret': secret,
+                'runCommand': true,
+
+              }).then(() => {
+                setTimeout(function () {
+                  window.location.reload()
+                }, 1000);
+
+              })
+
+console.log("VALID")
+            } else {
+              error.innerHTML = "Alpaca credentials are invalid"
+              button.innerHTML = `Update Credentials`
+            }
+          }
+
+        }
+      } else {
+        error.innerHTML = "Fields cannnot be left blank"
+        button.innerHTML = `Create Instance`
+
+
+      }
+
+
+    } else {
+      var error = document.getElementById('error-create-instance')
+
+      error.innerHTML = "Auth error: User not signed in"
+    }
+  })
+
+}
+
+function deleteInstancePopup(instanceID) {
+  var modalHTML = `
+  <!-- Modal -->
+  <div class="modal fade" id="deleteInstanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = 'background-color: #272727; color: white'>
+        <h5 class="modal-title" id="exampleModalLabel">Delete Instance?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style = 'background-color: #272727; color: white'>
+
+      <p>Are you sure you want to delete this instance? This action is non-reversable!</p>
+
+        <p id = 'delete-instance-error' style = "color: red"></p>
+      </div>
+      <div class="modal-footer" style = 'background-color: #272727; color: white'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+        <button class="delete-btn" id = 'delete-btn' onclick="deleteInstance('${instanceID}')">Delete Instance</button>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+
+  $(modalHTML).appendTo('#page-main')
+
+  $('#deleteInstanceModal').modal('toggle')
+
+
+}
+
+function deleteInstance(instanceID){
+  console.log("DELETING")
+
+  firebase.firestore().collection('Instances').doc(instanceID).update({
+    'runCommand': false
+  }).then(() => {
+    setTimeout(function(){
+      firebase.firestore().collection('Instances').doc(instanceID).delete().then(() => {
+        setTimeout(function(){
+          localStorage.removeItem('selectedInstance')
+          window.location = '/dashboard'
+         }, 1000);
+      })
+     }, 1000);
+  })
 }

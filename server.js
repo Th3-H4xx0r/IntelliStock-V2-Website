@@ -59,6 +59,11 @@ router.get('/stocks',function(req,res){
 
 });
 
+router.get('/settings',function(req,res){
+  res.sendFile(path.join(__dirname+'/settings.html'));
+
+});
+
 router.get('/stock',function(req,res){
   try{
     var tickerCode = req.query.ticker
