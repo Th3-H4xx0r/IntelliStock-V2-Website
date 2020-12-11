@@ -237,3 +237,25 @@ margin-top: 1rem;
   background-color: #454545;
   border: none;
 }
+
+.start-instance-btn{
+  width: 10rem;
+  height: 2.3rem;
+  margin-top: 1rem;
+  background-color: #00CF98;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.stop-instance-btn{
+  width: 10rem;
+  height: 2.3rem;
+  margin-top: 1rem;
+  background-color: #dc392d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}

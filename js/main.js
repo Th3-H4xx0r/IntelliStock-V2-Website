@@ -510,8 +510,10 @@ function getUserInstances(pageType, ticker = 'TSLA') {
 
               if (instanceStatus == false) {
                 document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_SERVER_ICON_red.png'  style="margin-top: 3rem;" />`
+                document.getElementById('server-change-status-btn').innerHTML = `<button class = 'start-instance-btn' onclick = 'changeInstanceState("${doc.id}", ${true})'>Start</button>`
               } else if (instanceStatus == true) {
                 document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_server_cion_green.png'  style="margin-top: 3rem;" />`
+                document.getElementById('server-change-status-btn').innerHTML = `<button class = 'stop-instance-btn'  onclick = 'changeInstanceState("${doc.id}", ${false})'>Stop</button>`
 
               }
 
@@ -566,6 +568,13 @@ function getUserInstances(pageType, ticker = 'TSLA') {
     } else {
       console.log("Signed out")
     }
+  })
+}
+
+function changeInstanceState(id, command){
+  console.log("CHANING : " + id + " to " + command)
+  firebase.firestore().collection("Instances").doc(id).update({
+    'runCommand': command
   })
 }
 
