@@ -1202,7 +1202,7 @@ function deleteInstancePopup(instanceID) {
       <div class="modal-footer" style = 'background-color: #272727; color: white'>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <button class="delete-btn" id = 'delete-btn' onclick="deleteInstance('${instanceID}')">Delete Instance</button>
+        <button class="delete-btn" id = 'delete-btn-modal' onclick="deleteInstance('${instanceID}')">Delete Instance</button>
     </div>
       </div>
     </div>
@@ -1218,18 +1218,33 @@ function deleteInstancePopup(instanceID) {
 }
 
 function deleteInstance(instanceID){
-  console.log("DELETING")
 
-  firebase.firestore().collection('Instances').doc(instanceID).update({
-    'runCommand': false
-  }).then(() => {
-    setTimeout(function(){
-      firebase.firestore().collection('Instances').doc(instanceID).delete().then(() => {
-        setTimeout(function(){
-          localStorage.removeItem('selectedInstance')
-          window.location = '/dashboard'
-         }, 1000);
-      })
-     }, 1000);
-  })
+  
+  var error = document.getElementById('delete-instance-error')
+
+  var button = document.getElementById('delete-btn-modal')
+
+  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+
+  try{
+    firebase.firestore().collection('Instances').doc(instanceID).update({
+      'runCommand': false
+    }).then(() => {
+      setTimeout(function(){
+        firebase.firestore().collection('Instances').doc(instanceID).delete().then(() => {
+          setTimeout(function(){
+            localStorage.removeItem('selectedInstance')
+            window.location = '/dashboard'
+           }, 1000);
+        })
+       }, 1000);
+    })
+  } catch(e){
+    button.innerHTML = `Delete Instance`
+
+    error.innerHTML = 'An error has occured: ' + e.toString()
+
+  }
+
+
 }
