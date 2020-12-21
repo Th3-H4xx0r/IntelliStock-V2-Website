@@ -224,8 +224,8 @@ function getStockGraph(instance, stock) {
       var min = Math.min.apply(null, pricesList),
         max = Math.max.apply(null, pricesList);
 
-      document.getElementById('maxprice').innerHTML = "$" + max
-      document.getElementById('minprice').innerHTML = "$" + min
+      document.getElementById('maxprice').innerHTML = "$" + max.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      document.getElementById('minprice').innerHTML = "$" + min.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
       document.getElementById('totalOrders').innerHTML = transactionsCount
       document.getElementById('buyOrders').innerHTML = buyCount
@@ -1022,7 +1022,7 @@ function getDashboardStats() {
 
               var timestamp = transactions[i][3]
 
-              transactionsListsorted.push([timestamp, action, ticker])
+              transactionsListsorted.push([timestamp, action, ticker, transactions[i][2], transactions[i][4]])
               //}
 
             }
@@ -1046,6 +1046,15 @@ function getDashboardStats() {
         for (var i = 0; i <= transactionsListsorted.length - 1; i++) {
           var transaction = transactionsListsorted[i]
 
+          var totalCost = (transaction[3] * transaction[4]).toFixed(2)
+
+          var sign = "+"
+
+          if(transaction[1] == "SELL"){
+            sign = "-"
+          }
+
+
           var transactionHTML = `
           
           <div class="latest-transactions-box">
@@ -1058,7 +1067,7 @@ function getDashboardStats() {
           </center>
 
           <center style="margin-top: 1rem;">
-              <h4 style="color: white;">$12,111</h4>
+              <h5 style="color: white;">${sign} $${totalCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>
           </center>
 
       </div>
