@@ -142,7 +142,7 @@ function getStockGraph(instance, stock) {
   var year = dateObj.getUTCFullYear();
 
   var Http = new XMLHttpRequest();
-  const url = `http://localhost:3101/v2/getOverallData?instance=${instance}&day=${day}&month=${month}&year=${year}`
+  const url = `https://intellistockapi.loca.lt/v2/getOverallData?instance=${instance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
@@ -444,6 +444,7 @@ function getStockGraph(instance, stock) {
 
 
 }
+
 
 function getUserInstances(pageType, ticker = 'TSLA') {
 
@@ -981,7 +982,7 @@ function getDashboardStats() {
   var year = dateObj.getUTCFullYear();
 
   var Http = new XMLHttpRequest();
-  const url = `http://localhost:3101/v2/getOverallData?instance=${currentInstance}&day=${day}&month=${month}&year=${year}`
+  const url = `https://intellistockapi.loca.lt/v2/getOverallData?instance=${currentInstance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
