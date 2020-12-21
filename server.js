@@ -98,8 +98,10 @@ app.get('*', function(req, res){
   res.status(404).sendFile(path.join(__dirname+'/serverError.html'));
 });
 
-http.listen(3102, () => {
-  console.log('listening on *:3102');
+var port  = 3012
+
+http.listen(port, () => {
+  console.log('listening on *:' + port);
 });
 
 

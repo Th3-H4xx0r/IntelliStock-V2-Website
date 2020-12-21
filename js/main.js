@@ -135,9 +135,14 @@ function getAccountHistory(key, secret) {
 }
 
 function getStockGraph(instance, stock) {
-  console.log(instance)
+
+  var dateObj = new Date();
+  var month = dateObj.getUTCMonth() + 1; //months from 1-12
+  var day = dateObj.getUTCDate();
+  var year = dateObj.getUTCFullYear();
+
   var Http = new XMLHttpRequest();
-  const url = `https://intellistockapi.loca.lt/getOverallData?instance=${instance}`
+  const url = `http://localhost:3101/v2/getOverallData?instance=${instance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
@@ -510,10 +515,14 @@ function getUserInstances(pageType, ticker = 'TSLA') {
 
               if (instanceStatus == false) {
                 document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_SERVER_ICON_red.png'  style="margin-top: 3rem;" />`
-                document.getElementById('server-change-status-btn').innerHTML = `<button class = 'start-instance-btn' onclick = 'changeInstanceState("${doc.id}", ${true})'>Start</button>`
+                if(document.getElementById('server-change-status-btn')){
+                  document.getElementById('server-change-status-btn').innerHTML = `<button class = 'start-instance-btn' onclick = 'changeInstanceState("${doc.id}", ${true})'>Start</button>`
+                }
               } else if (instanceStatus == true) {
                 document.getElementById('server-icon-status').innerHTML = `<img src = 'Assets/center_server_cion_green.png'  style="margin-top: 3rem;" />`
-                document.getElementById('server-change-status-btn').innerHTML = `<button class = 'stop-instance-btn'  onclick = 'changeInstanceState("${doc.id}", ${false})'>Stop</button>`
+                if(document.getElementById('server-change-status-btn')){
+                  document.getElementById('server-change-status-btn').innerHTML = `<button class = 'stop-instance-btn'  onclick = 'changeInstanceState("${doc.id}", ${false})'>Stop</button>`
+                }
 
               }
 
@@ -966,8 +975,13 @@ function getDashboardStats() {
     }
   })
 
+  var dateObj = new Date();
+  var month = dateObj.getUTCMonth() + 1; //months from 1-12
+  var day = dateObj.getUTCDate();
+  var year = dateObj.getUTCFullYear();
+
   var Http = new XMLHttpRequest();
-  const url = `https://intellistockapi.loca.lt/getOverallData?instance=${currentInstance}`
+  const url = `http://localhost:3101/v2/getOverallData?instance=${currentInstance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
