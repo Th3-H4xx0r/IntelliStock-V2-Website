@@ -982,7 +982,7 @@ function getDashboardStats() {
   var year = dateObj.getUTCFullYear();
 
   var Http = new XMLHttpRequest();
-  const url = `https://intellistockapi.loca.lt/v2/getOverallData?instance=${currentInstance}&day=${day}&month=${month}&year=${year}`
+  const url = `https://intellistockapi.loca.lt/v3/graphData?instance=${currentInstance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
