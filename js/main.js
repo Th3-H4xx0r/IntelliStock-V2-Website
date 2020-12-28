@@ -142,7 +142,7 @@ function getStockGraph(instance, stock) {
   var year = dateObj.getUTCFullYear();
 
   var Http = new XMLHttpRequest();
-  const url = `https://intellistockapi.loca.lt/v2/getOverallData?instance=${instance}&day=${day}&month=${month}&year=${year}`
+  const url = `https://intellistockapi.loca.lt/v3/graphData?instance=${instance}&day=${day}&month=${month}&year=${year}`
   Http.open("GET", url)
   Http.send()
 
