@@ -117,6 +117,56 @@
   }
 }
 
+.beta-signup-input{
+    border-radius: 100px;
+    border: none;
+    height: 2.5rem;
+    width: 20rem;
+    background-color: rgba(255,255,255, 0.57);
+    padding-left: 1rem;
+    color: rgba(255,255,255, 0.9);
+}
+
+.beta-signup-input:focus{
+    outline: none;
+    border: none;
+}
+
+.beta-signup-btn{
+    border-radius: 100px;
+    border: none;
+    height: 2.5rem;
+    width: 8rem;
+    background-color: #2D3555;
+    padding-left: 1rem;
+    color: white;
+    margin-left: 1rem;
+    font-family: Lexend Deca;
+    font-size: 15px;
+    font-weight: 500;
+
+
+}
+
+.beta-signup-btn:focus{
+    outline: none;
+    border: none;
+}
+
+
+.hover{
+    animation: up-down 1s ease-in infinite;
+}
+
+@keyframes up-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(8px);
+  }
+}
+
 
     </style>
 
@@ -223,7 +273,7 @@
                     <p style="color:#979797; max-width: 25rem;">Create multiple instances to invest different portfolios. For instance, you could create a instance for your paper trading account and one instance for your live trading account.</p>
                 </div>
 
-                <img src="Assets/instances-img.svg" alt="" width="40%" style="margin-left: 10rem;">
+                <img src="Assets/instances-img.svg" alt="" width="40%" style="margin-left: 10rem;" class="hover">
             </div>
         </div>
     </section>
@@ -289,8 +339,17 @@
  <!-- Signu Section -->
 
  <section>
-    <div class="d-flex justify-content-center" style="margin-top:5%;">
-        <img src="Assets/signup-promo.svg" alt="" width="70%">
+    <div class="d-flex justify-content-center" style="margin-top:15%;">
+        <img src="Assets/signup-promo.svg" alt="" width="70%" />
+
+        <h1 style="color: white; font-family: Raleway; font-weight: 600; left: 20%; margin-top: 5%; position: absolute;">Get started with <br> IntelliStock today!</h1>
+        <p style="color: white; font-family: Raleway; font-weight: 400; left: 20%; margin-top: 11%; position: absolute; max-width: 25%;">With no cost, get started with IntelliStock today! Sign up for our beta program and get notified when you can test our service for yourself! </p>
+        
+        <div class="row" style="font-weight: 400; left: 20%; margin-top: 16%; position: absolute; width: 25%;">
+            <input type="text" class="beta-signup-input"/>
+
+            <button class="beta-signup-btn">Register</button>
+        </div>
     </div>
 
 </section>
@@ -299,9 +358,9 @@
 
 
 
-    <footer style="margin-top: 100%;">
+    <footer style="margin-top: 10%;">
         <center>
-            <p style="color: white;">Copyright © ProtoSystems 2020</p>
+            <p style="color: white;">Copyright © Proto Systems 2021. All rights reserved.</p>
         </center>
     </footer>
 
