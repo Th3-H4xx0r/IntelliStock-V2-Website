@@ -16,11 +16,19 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css"">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="terminalJs/termynal.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">  
 
     <title>IntelliStock Automated Trading</title>
   </head>
-  <body>
+  <body style="background-color: #0E1431;">
+
+    <!-- NAVBAR -->
 
     <nav class=" navbar navbar-expand-lg navbar-dark bg-custom">
 
@@ -31,7 +39,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
+
         </ul>
+
         <span class="navbar-text">
             <a href="/login" style="color: #00CF98;">Login/Signup</a>
         </span>
@@ -39,170 +49,343 @@
 
     </nav>
 
+    <!-- END of Navbar-->
 
 
-    <div class="d-flex justify-content-center" style="margin-top: 13%;">
-        <div style="padding-left: 10%; display: inline-flex;">
-            <div>
-                <h1 style="color: white; font-family: Quicksand; font-size: 50px;">Automate your <br> trading <br>
-                    experience</h1>
 
-                <p style="color: gray; font-family: 'Quicksand'; max-width: 70%;">With IntelliStock, you can automate
-                    your trading experience today!</p>
+    <!-- HEADER -->
 
-                <div class="row">
-                    <button class="get-started-btn" style="margin-left: 2%;" onclick="location.href='/signup'">Get Started</button>
-                </div>
-            </div>
+    <style>
 
-            <div>
-                <img src="Assets/Group 10.png" alt="" width="80%" id='header-img'>
+        html{
+            scroll-behavior: smooth;
+        }
 
+        .gradient-header {
+  background: linear-gradient(to right, #00D1FF 0%, #00CF98 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 65px;
+  font-family: 'Raleway';
+}
 
-            </div>
+.gradient-get-started-btn{
+    color: white;
+    font-weight: 700;
+    font-family: 'Raleway';
+    font-size: 15px;
+    height: 45px;
+    width: 270px;
+    border-radius: 1000px;
 
+    border: none;
 
-        </div>
+    background: -webkit-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
+  background: linear-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
 
-        <h1 id='portfolio' class="odometer"
-            style="color: #00CF98; position: absolute; margin-left: 21vw; font-size: 27px; font-weight: 700; margin-top: 5%;">
-            000,000</h1>
-
-
-        <div class="stockCard" style = 'position: absolute; margin-top: 21.5rem;'>
-            <div class="row" style="justify-content: space-between;">
-                <div style="margin-left: 40px; margin-top: 20px;">
-                    <h1 class="stockTitle">TSLA</h1>
-                    <p style="color: #00CF98; font-weight: 700; margin-top: -10px;">20 Shares</p>
-
-                </div>
-
-                <div style="margin-right: 30px;">
-                    <p style="color: grey; font-size: 11px; margin-top: 20px; margin-bottom: 4px;">Today's P&L</p>
-                    <h1 id='TSLA' class="odometer"
-                    style="color: #00CF98; font-size: 17px; font-weight: 700;">
-                    000,000</h1>
-                </div>
-            </div>
-            
-        </div>
+  background-size: 500%;
 
 
-        <div class="stockCard" style = 'position: absolute; margin-top: 27.5rem; margin-left: 50rem;'>
-            <div class="row" style="justify-content: space-between;">
-                <div style="margin-left: 40px; margin-top: 20px;">
-                    <h1 class="stockTitle">GOOG</h1>
-                    <p style="color: #00CF98; font-weight: 700; margin-top: -10px;">7 Shares</p>
+  border: none;
+  box-shadow: #00CF98 0px 10px 70px 0px;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.05em;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+}
 
-                </div>
+.gradient-get-started-btn:hover {
+  animation-name: gradient;
+  -webkit-animation-name: gradient;
+  animation-duration: 2s;
+  -webkit-animation-duration: s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  border: none;
+}
 
-                <div style="margin-right: 30px;">
-                    <p style="color: grey; font-size: 11px; margin-top: 20px; margin-bottom: 4px;">Today's P&L</p>
-                    <h1 id='GOOG' class="odometer"
-                    style="color: #00CF98; font-size: 17px; font-weight: 700;">
-                    000,000</h1>
-                </div>
-            </div>
-            
-        </div>
+.gradient-get-started-btn:focus{
+    border: 0;
+    outline: none;
+}
 
-        <div class="stockCard" style = 'position: absolute; margin-top: 6.3rem; margin-left: 59rem;'>
-            <div class="row" style="justify-content: space-between;">
-                <div style="margin-left: 40px; margin-top: 20px;">
-                    <h1 class="stockTitle">AMZN</h1>
-                    <p style="color: #00CF98; font-weight: 700; margin-top: -10px;">5 Shares</p>
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
 
-                </div>
+.beta-signup-input{
+    border-radius: 100px;
+    border: none;
+    height: 2.5rem;
+    width: 18rem;
+    background-color: rgba(255,255,255, 0.57);
+    padding-left: 1rem;
+    color: rgba(255,255,255, 0.9);
+}
 
-                <div style="margin-right: 30px;">
-                    <p style="color: grey; font-size: 11px; margin-top: 20px; margin-bottom: 4px;">Today's P&L</p>
-                    <h1 id='AMZN' class="odometer"
-                    style="color: #00CF98; font-size: 17px; font-weight: 700;">
-                    000,000</h1>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+.beta-signup-input:focus{
+    outline: none;
+    border: none;
+}
+
+.beta-signup-btn{
+    border-radius: 100px;
+    border: none;
+    height: 2.5rem;
+    width: 8rem;
+    background-color: #2D3555;
+    padding-left: 1rem;
+    color: white;
+    margin-left: 1rem;
+    font-family: Lexend Deca;
+    font-size: 15px;
+    font-weight: 500;
+
+
+}
+
+.beta-signup-btn:focus{
+    outline: none;
+    border: none;
+}
+
+
+.hover{
+}
+
+@keyframes float {
+	0% {		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+    </style>
 
     <section>
+        <div class="d-flex justify-content-center" style="margin-top: 9%;">
+            <h1 style="font-size: 60px; color: white; font-family: Raleway; font-weight: 700;">Welcome to the future <br> of <span class="gradient-header"> automated</span> Trading</h1>
+        </div>
 
-        <center class="d-flex justify-content-center" style="margin-top: 10rem;">
-            <h1 style="color: white; font-size: 45px;">Connect your portfolio</h1>
-
+        <center>
+            <p style = 'color: #838695; font-family: Raleway; font-size: 22px; max-width: 40%; font-weight: 500'>IntelliStock provides a cutting-edge automated
+                trading experience, so you never have to trade again.</p>
         </center>
 
-        <center class="d-flex justify-content-center" >
-            <div class="row" style="margin-top: 5rem;">
-                <img src="Assets/104-1047295_robinhood-logo-robinhood-app-logo 1robinhood.png" alt="" width="300px" height="80px" style="margin-right: 6rem;">
-                <img src="Assets/webull-product-db 1.png" alt="" width="200px" style="margin-right: 6rem;">
+        <div class="d-flex justify-content-center" style="margin-top:3%;">
+            <button class="gradient-get-started-btn" onClick="document.getElementById('beta-signup-section').scrollIntoView();">Get Started</button>
+        </div>
 
-                <img src="Assets/alpaca_icon@2x-1.png" alt="" width="130px" height="130px" style="margin-right: 6rem;">
-            </div>
-        </center>
-        
+
+        <div class="d-flex justify-content-center" style="margin-top:5%; ">
+        <img src="Assets/dashboard-img.svg" alt="" width='75%'></div>
+    
     </section>
 
-    <section style="background-color: #292828; margin-top: 10rem; margin-bottom: 10rem; padding-top: 1rem; padding-bottom: 5rem;">
-        <center>
-            <h1 style="color: white; padding-top: 3rem;">Easy setup process</h1>
-        </center>
+    <!-- END of Header -->
 
-        <div class="d-flex justify-content-center">
+
+    <!--Second Section-->
+    <section>
+        <div class="d-flex justify-content-center" style="margin-top:10%; ">
             <div class="row">
-                <div class="setupCards">
-                    <div style=" height: 3.5rem; width: 3.5rem; background-color: #292828; border-radius: 2rem; margin-top: 1rem; float: right; margin-right: 1rem;">
-                        <h1 style="color: #00CF98; margin-left: 1.3rem;">1</h1>
-                    </div>
-                    <div style="color: white">
-                        <h3 style="margin-top: 5rem; margin-left: 1rem;">Create an account</h3>
-                        <p style="margin-top: 1rem; margin-left: 1rem; font-weight: normal; margin-right: 2rem;">Sign up for an account on the IntelliStock platform. Put in your login info and you’re all set!</p>
-                    </div>
-                </div>
 
-                <div class="setupCards">
-                    <div style=" height: 3.5rem; width: 3.5rem; background-color: #292828; border-radius: 2rem; margin-top: 1rem; float: right; margin-right: 1rem;">
-                        <h1 style="color: #00CF98; margin-left: 1.3rem;">2</h1>
-                    </div>
-                    <div style="color: white">
-                        <h3 style="margin-top: 5rem; margin-left: 1rem;">Connect your portfolio</h3>
-                        <p style="margin-top: 1rem; margin-left: 1rem; font-weight: normal; margin-right: 2rem;">Setup your paper trading account on the Alpaca trading platform. Simply put in your API keys and you are ready to start automation!</p>
-                    </div>
+                <div>
+                    <h2 style="color: #00CF98; font-family: Lexend Deca; font-size: 40px; margin-top: 10rem; font-weight: 500;">Let the bot  do <br> the trading</h2>
+                    <p style="color: #E2EBEF; max-width: 20rem; font-family: Raleway; font-weight: normal;">We extend the automated trading experience so that you can sit back and let the bot handle the trading.</p>
                 </div>
+                <div id="termynal" data-ty-startDelay="0" style = 'margin-left: 15rem;' data-termynal>
 
-                <div class="setupCards">
-                    <div style=" height: 3.5rem; width: 3.5rem; background-color: #292828; border-radius: 2rem; margin-top: 1rem; float: right; margin-right: 1rem;">
-                        <h1 style="color: #00CF98; margin-left: 1.3rem;">3</h1>
+                    <span data-ty="input" data-typeDelay-delay="250">instance --start</span>
+                    <span data-ty="progress"></span>
+                    <span data-ty>[SERVER][6:30] Watching TSLA</span>
+                    <span data-ty>[SERVER][7:30] Price increase for TSLA detected</span>
+                    <span data-ty>[SERVER][7:31] Buying 10 shares of TSLA</span>
+
+                    <span data-ty>[SERVER][11:30] Price decrease for TSLA detected</span>
+                    <span data-ty>[SERVER][11:31] Selling 10 shares of TSLA</span>
+
+
+                    <span data-ty="input">instance --stop</span>
+                    <span data-ty>[SERVER][11:33] Instance has stopped</span>
+                    <span data-ty="input" ></span>
+
+
+                </div>
+        
+
+
+            </div>
+        </div>
+    </section>
+    <!-- END of Second Section-->
+
+
+    <!-- Third Section -->
+
+    <section>
+        <div class="d-flex justify-content-center" style="margin-top:10%; ">
+            <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 10rem; font-weight: 500; text-align: center;">Fill your watchlist, watch <br> the magic unfold.</h2>
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top:10%; ">
+            <div class="row">
+                <img src="Assets/watchlist-img.svg" alt="" width="40%">
+
+                <div style="margin-left: 5rem;">
+                    <div>
+                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 1rem; font-weight: 500;">Long Term</h2>
+                        <p style="color:#979797; max-width: 40rem;">IntelliStock allows you to configure the bot to watch stocks for long term investments. Watch for the growth or decline of stocks on a monthly timeframe. This allows it to make decisions on when to buy and sell in the long run</p>
                     </div>
-                    <div style="color: white">
-                        <h3 style="margin-top: 5rem; margin-left: 1rem;">Add tickers to your watchlist</h3>
-                        <p style="margin-top: 1rem; margin-left: 1rem; font-weight: normal; margin-right: 2rem;">Add the stocks that you want your bot to trade for. Simply put in the ticker ID and click the power button to start automating for that stock.</p>
+
+                    <div>
+                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">Short Term</h2>
+                        <p style="color:#979797; max-width: 40rem;">With short term watching, the bot will watch for stocks on a weekly basis and determine when to buy and sell a symbol</p>
+                    </div>
+
+
+                    <div>
+                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">Day Trading</h2>
+                        <p style="color:#979797; max-width: 40rem;">IntelliStock work well with day trading as it can make all of the trades within a day and everyday, this option works well with penny stocks that have lots of ups and downs.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        
     </section>
+    <!-- END of Third Section -->
 
+    <!-- Fourth Section -->
 
     <section>
-        <div style="margin-top: 5rem;">
-        <center>
-            <h1 style="color: white; font-size: 45px;">Get Started Today!</h1>
-        </center>
-        <center style="margin-bottom: 5rem;">
-            <button class="createAccount-btn" onclick="location.href='/signup'">Create an account</button>
-        </center>
-    </div>
+        <div class="d-flex justify-content-center" style="margin-top:15%;">
+            <div class="row">
+                <div style="margin-left: 20%; margin-top: 5rem;">
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 1rem; font-weight: 500;">Manage multiple <br> instances</h2>
+                    <p style="color:#979797; max-width: 25rem;">Create multiple instances to invest different portfolios. For example, you could create a instance for your paper trading account and one instance for your live trading account.</p>
+                </div>
+
+                <img src="Assets/instances-img.svg" alt="" width="40%" style="margin-left: 10rem;" class="hover">
+            </div>
+        </div>
     </section>
 
-    <footer>
+    <!-- END of fourth section -->
+
+
+    <!-- Fifth Section -->
+
+    <section>
+        <div class="d-flex justify-content-center" style="margin-top:15%;">
+            <div class="row">
+
+                <img src="Assets/visual-trade-info.svg" alt="" width="40%" style="margin-left: 10rem;">
+
+                <div style="margin-left: 10%; margin-top: 5rem;">
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 1rem; font-weight: 500;">View visual trade <br>info</h2>
+                    <p style="color:#979797; max-width: 25rem;">View advanced trade info about when your bot made any transactions on a graph or in a table. This can make improve your trading experience tenfold!</p>
+                </div>
+
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- END of Fifth section -->
+
+
+ <!-- Sixth Section -->
+
+ <section>
+    <div class="d-flex justify-content-center" style="margin-top:10%; ">
+        <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 10rem; font-weight: 500; text-align: center;">Experiment with different <br> trading strategies</h2>
+    </div>
+
+    <div class="d-flex justify-content-center" style="margin-top:5%;">
+        <div class="row">
+            <img src="Assets/watchlist-img.svg" alt="" width="40%">
+
+            <div style="margin-left: 5rem;">
+                <div>
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 1rem; font-weight: 500;">MACD</h2>
+                    <p style="color:#979797; max-width: 40rem;">Configure your bot to use the MACD (Mean average convergence divergence) indicator to make intelligent trade decisions.</p>
+                </div>
+
+                <div>
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">RSI</h2>
+                    <p style="color:#979797; max-width: 40rem;">Configure your bot to use the RSI (Realtive Strength Index) indicator to decide when is the best time to buy an sell a stock.</p>
+                </div>
+
+
+                <div>
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">And more!</h2>
+                    <p style="color:#979797; max-width: 40rem;">Coming soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- END of Sixth Section -->
+
+ <!-- Signu Section -->
+
+ <section id = 'beta-signup-section'>
+    <div class="d-flex justify-content-center" style="margin-top:15%;">
+        <img src="Assets/signup-promo.svg" alt="" width="70%" />
+
+        <h1 style="color: white; font-family: Raleway; font-weight: 600; left: 20%; margin-top: 5%; position: absolute;">Get started with <br> IntelliStock today!</h1>
+        <p style="color: white; font-family: Raleway; font-weight: 400; left: 20%; margin-top: 11%; position: absolute; max-width: 25%;">With no cost, get started with IntelliStock today! Sign up for our beta program and get notified when you can test our service for yourself! </p>
+        
+        <div class="row" style="font-weight: 400; left: 20%; margin-top: 16%; position: absolute; width: 35%;" id = 'beta-register-div'>
+            <input type="text" class="beta-signup-input" id = 'email-field'/>
+
+            <button class="beta-signup-btn" onclick="registerBeta()">Register</button>
+        </div>
+    </div>
+
+</section>
+<!-- END of Signup Section -->
+
+<script>
+    function registerBeta(){
+        // IMPLEMENT LINK
+
+        var betaRegisteredHTML = `
+            <p style = 'color: white; margin-left: 1rem'>You have registered for IntelliStock beta</p>
+        `
+
+        document.getElementById('beta-register-div').innerHTML = betaRegisteredHTML
+    }
+</script>
+
+
+
+
+    <footer style="margin-top: 10%;">
         <center>
-            <p style="color: white;">Copyright © ProtoSystems 2020</p>
+            <p style="color: white;">Copyright © Proto Systems 2021. All rights reserved.</p>
         </center>
     </footer>
+
 
 
 
@@ -219,6 +402,10 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="js/odometer.min.js"></script>
+
+    <!-- include and initialise termynal.js -->
+
+    <script src="terminalJS/termynal.js" data-termynal-container="#termynal"></script>
 
     <link rel="stylesheet" href="css/odometer-theme-default.css"">
 

@@ -10,6 +10,8 @@ const ejs = require('ejs')
 var http = require('http').createServer(app);
 app.use(cors())
 
+var betaCode = 'AHY8A7KL'
+
 app.use(function (req, res, next) {
     const origin = req.get('origin');
     //res.header('Access-Control-Allow-Origin', origin);
@@ -71,6 +73,27 @@ router.get('/api/registerBeta',function(req,res){
   if(email){
 
     res.send({code: 200, status: "success", message: "User registered"})
+
+  } else {
+    res.send({code: 200, status: "failed", message: "Missing Parameters"})
+  }
+
+});
+
+router.get('/api/verifyBetaCode',function(req,res){
+
+  var code = req.query.code
+
+  if(code){
+
+    if(code == betaCode){
+      res.send({code: 200, status: "success", message: "Valid"})
+
+    } else {
+      res.send({code: 200, status: "failed", message: "Invalid"})
+
+    }
+
 
   } else {
     res.send({code: 200, status: "failed", message: "Missing Parameters"})
