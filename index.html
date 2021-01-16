@@ -369,11 +369,19 @@
     function registerBeta(){
         // IMPLEMENT LINK
 
-        var betaRegisteredHTML = `
-            <p style = 'color: white; margin-left: 1rem'>You have registered for IntelliStock beta</p>
-        `
+        var email = document.getElementById('email-field').value
 
-        document.getElementById('beta-register-div').innerHTML = betaRegisteredHTML
+        var url = 'http://localhost:3012/api/registerBeta?email=' + email
+
+        $.get(url, function(data, status){
+            var betaRegisteredHTML = `
+            <p style = 'color: white; margin-left: 1rem'>You have registered for IntelliStock beta</p>
+             `
+
+            document.getElementById('beta-register-div').innerHTML = betaRegisteredHTML
+        })
+
+      
     }
 </script>
 
