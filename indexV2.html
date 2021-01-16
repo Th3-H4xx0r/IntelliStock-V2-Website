@@ -39,7 +39,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
+
         </ul>
+
+        <span class="navbar-text">
+            <a href="/login" style="color: #00CF98;">Login/Signup</a>
+        </span>
     </div>
 
     </nav>
@@ -51,6 +56,11 @@
     <!-- HEADER -->
 
     <style>
+
+        html{
+            scroll-behavior: smooth;
+        }
+
         .gradient-header {
   background: linear-gradient(to right, #00D1FF 0%, #00CF98 100%);
   -webkit-background-clip: text;
@@ -181,7 +191,7 @@
         </center>
 
         <div class="d-flex justify-content-center" style="margin-top:3%;">
-            <button class="gradient-get-started-btn">Get Started</button>
+            <button class="gradient-get-started-btn" onClick="document.getElementById('beta-signup-section').scrollIntoView();">Get Started</button>
         </div>
 
 
@@ -338,7 +348,7 @@
 
  <!-- Signu Section -->
 
- <section>
+ <section id = 'beta-signup-section'>
     <div class="d-flex justify-content-center" style="margin-top:15%;">
         <img src="Assets/signup-promo.svg" alt="" width="70%" />
 
@@ -360,7 +370,7 @@
         // IMPLEMENT LINK
 
         var betaRegisteredHTML = `
-            <p style = 'color: white; margin-left: 1rem'>Registered for beta</p>
+            <p style = 'color: white; margin-left: 1rem'>You have registered for IntelliStock beta</p>
         `
 
         document.getElementById('beta-register-div').innerHTML = betaRegisteredHTML
