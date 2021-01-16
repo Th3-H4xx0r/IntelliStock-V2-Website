@@ -88,6 +88,12 @@ function signup() {
                 }).then(() => {
                     if(authValid == true){
 
+                        var user = firebase.auth().currentUser;
+
+                        user.updateProfile({
+                            displayName: name,
+                          }).then(function() {
+                            
 
                         firebase.firestore().collection("UserData").doc(email).set({
                             'name': name,
@@ -96,6 +102,12 @@ function signup() {
                             document.getElementById('signup-content').style.display = "none"
                             document.getElementById('signup-success').style.display = "initial"
                         })
+
+                          }).catch(function(error) {
+                            errorMSG.innerHTML = error;
+                          });
+                          
+
                     }
 
 

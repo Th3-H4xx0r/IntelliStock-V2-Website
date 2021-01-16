@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(21,21,21);
+    background-color: #0E1431;
     overflow-x: hidden;
     overflow-y: scroll;
     font-family: 'Quicksand';
@@ -23,7 +23,8 @@ body{
 .signup-btn{
     width: 20rem;
     height: 2.5rem;
-    background-color: #00CF98;
+    background: -webkit-gradient(to right, #00C0EA 0%, #3cf3c2 50%, #00CF98 100%);
+    background: linear-gradient(to right, #00C0EA 0%, #3cf3c2 50%, #00CF98 100%);
     color: white;
     border: none;
     border-radius: 10px;
