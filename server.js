@@ -6,11 +6,48 @@ const router = express.Router();
 const Alpaca = require('@alpacahq/alpaca-trade-api');
 var cts = require('check-ticker-symbol');
 const ejs = require('ejs')
+const firebase = require('firebase');
+var mysql = require('mysql'); 
 
 var http = require('http').createServer(app);
 app.use(cors())
 
 var betaCode = 'AHY8A7KL'
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "hackvslh_admin",
+  password: "Minecraft123#",
+  database: 'hackvslh_intellistock'
+});
+
+con.connect(function(err) {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log("Connected!");
+  }
+});
+
+/////////////////////////
+//FIREBBASE INIT
+/////////////////////////
+
+var firebaseConfig = {
+  apiKey: "AIzaSyCp1bV9SNvHj8uybb8rdDmMQdcOV4ZflIY",
+  authDomain: "intellistock-v2.firebaseapp.com",
+  databaseURL: "https://intellistock-v2.firebaseio.com",
+  projectId: "intellistock-v2",
+  storageBucket: "intellistock-v2.appspot.com",
+  messagingSenderId: "169013852410",
+  appId: "1:169013852410:web:d46d098ff63a80c56ff143",
+  measurementId: "G-V9N5WBZX1Y"
+};
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 
 app.use(function (req, res, next) {
     const origin = req.get('origin');
@@ -72,7 +109,41 @@ router.get('/api/registerBeta',function(req,res){
 
   if(email){
 
-    res.send({code: 200, status: "success", message: "User registered"})
+    con.query("SELECT * FROM betaUsers WHERE email='" + emailVal, function(err, result){
+
+      if(!err){
+        var exists = false;
+
+        for(const item of result){
+          exists = true;
+          //console.log(item)
+        }
+
+      
+      if(exists == false){
+        
+        con.query("INSERT INTO betaUsers VALUES ('" + emailVal + "')", function(err, result){
+          res.send({code: 200, status: "success", message: "User registered"})
+        })
+        
+      }
+      } else if(err){
+
+        console.log(err)
+
+        con.query("CREATE TABLE betaUsers(email text)", function(err, result){
+
+          con.query("INSERT INTO betaUsers VALUES ('" + emailVal + "')", function(err, result){
+            res.send({code: 200, status: "success", message: "User registered"})
+
+          })
+
+        })
+  
+      }
+
+
+    })
 
   } else {
     res.send({code: 200, status: "failed", message: "Missing Parameters"})
