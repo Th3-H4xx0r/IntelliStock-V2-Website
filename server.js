@@ -64,6 +64,20 @@ router.get('/settings',function(req,res){
 
 });
 
+router.get('/api/registerBeta',function(req,res){
+
+  var email = req.query.email
+
+  if(email){
+
+    res.send({code: 200, status: "failed", message: "Missing Parameters"})
+
+  } else {
+    res.send({code: 200, status: "failed", message: "Missing Parameters"})
+  }
+
+});
+
 router.get('/stock',function(req,res){
   try{
     var tickerCode = req.query.ticker
