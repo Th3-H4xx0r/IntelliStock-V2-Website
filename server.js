@@ -109,7 +109,7 @@ router.get('/api/registerBeta',function(req,res){
 
   if(email){
 
-    con.query("SELECT * FROM betaUsers WHERE email='" + email, function(err, result){
+    con.query("SELECT * FROM betaUsers WHERE email='" + email + "'", function(err, result){
 
       if(!err){
         var exists = false;
