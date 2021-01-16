@@ -109,7 +109,7 @@ router.get('/api/registerBeta',function(req,res){
 
   if(email){
 
-    con.query("SELECT * FROM betaUsers WHERE email='" + emailVal, function(err, result){
+    con.query("SELECT * FROM betaUsers WHERE email='" + email, function(err, result){
 
       if(!err){
         var exists = false;
@@ -122,7 +122,7 @@ router.get('/api/registerBeta',function(req,res){
       
       if(exists == false){
         
-        con.query("INSERT INTO betaUsers VALUES ('" + emailVal + "')", function(err, result){
+        con.query("INSERT INTO betaUsers VALUES ('" + email + "')", function(err, result){
           res.send({code: 200, status: "success", message: "User registered"})
         })
         
@@ -133,7 +133,7 @@ router.get('/api/registerBeta',function(req,res){
 
         con.query("CREATE TABLE betaUsers(email text)", function(err, result){
 
-          con.query("INSERT INTO betaUsers VALUES ('" + emailVal + "')", function(err, result){
+          con.query("INSERT INTO betaUsers VALUES ('" + email + "')", function(err, result){
             res.send({code: 200, status: "success", message: "User registered"})
 
           })
