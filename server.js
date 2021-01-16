@@ -70,7 +70,7 @@ router.get('/api/registerBeta',function(req,res){
 
   if(email){
 
-    res.send({code: 200, status: "failed", message: "Missing Parameters"})
+    res.send({code: 200, status: "success", message: "User registered"})
 
   } else {
     res.send({code: 200, status: "failed", message: "Missing Parameters"})
