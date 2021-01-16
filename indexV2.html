@@ -345,7 +345,7 @@
         <h1 style="color: white; font-family: Raleway; font-weight: 600; left: 20%; margin-top: 5%; position: absolute;">Get started with <br> IntelliStock today!</h1>
         <p style="color: white; font-family: Raleway; font-weight: 400; left: 20%; margin-top: 11%; position: absolute; max-width: 25%;">With no cost, get started with IntelliStock today! Sign up for our beta program and get notified when you can test our service for yourself! </p>
         
-        <div class="row" style="font-weight: 400; left: 20%; margin-top: 16%; position: absolute; width: 35%;">
+        <div class="row" style="font-weight: 400; left: 20%; margin-top: 16%; position: absolute; width: 35%;" id = 'beta-register-div'>
             <input type="text" class="beta-signup-input" id = 'email-field'/>
 
             <button class="beta-signup-btn" onclick="registerBeta()">Register</button>
@@ -354,6 +354,18 @@
 
 </section>
 <!-- END of Signup Section -->
+
+<script>
+    function registerBeta(){
+        // IMPLEMENT LINK
+
+        var betaRegisteredHTML = `
+            <p style = 'color: white; margin-left: 1rem'>Registered for beta</p>
+        `
+
+        document.getElementById('beta-register-div').innerHTML = betaRegisteredHTML
+    }
+</script>
 
 
 
