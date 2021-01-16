@@ -373,7 +373,7 @@
 
         var email = document.getElementById('email-field').value
 
-        var url = 'http://localhost:3012/api/registerBeta?email=' + email
+        var url = 'https://intellistock.protosystems.net/api/registerBeta?email=' + email
 
         $.get(url, function(data, status){
             var betaRegisteredHTML = `
