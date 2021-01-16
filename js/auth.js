@@ -67,7 +67,7 @@ function signup() {
     if (email && password && name && repeatPassword && code) {
         console.log(betaCode)
 
-        var url = 'http://localhost:3012/api/verifyBetaCode?code=' + code
+        var url = 'https://intellistock.protosystems.net/api/verifyBetaCode?code=' + code
 
         $.get(url, function(data, status){
             //console.log(data)
