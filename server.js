@@ -88,10 +88,25 @@ router.get('/signup',function(req,res){
   
 });
 
+
 router.get('/dashboard',function(req,res){
-    res.sendFile(path.join(__dirname+'/dashboard.html'));
-  
+  try{
+    var instanceID = req.query.instance
+
+    if(instanceID){
+      res.render(path.join(__dirname+'/dashboard.ejs'), {instance: instanceID})
+
+    } else {
+      res.send("Internal Server Error: Missing Instance ID")
+    }
+  } catch(e){
+    console.log(e)
+    res.send("Internal server error: " + e)
+  }
+
+
 });
+
 
 router.get('/stocks',function(req,res){
   res.sendFile(path.join(__dirname+'/stocks.html'));
@@ -102,6 +117,12 @@ router.get('/settings',function(req,res){
   res.sendFile(path.join(__dirname+'/settings.html'));
 
 });
+
+router.get('/instances',function(req,res){
+  res.sendFile(path.join(__dirname+'/instances.html'));
+
+});
+
 
 router.get('/api/registerBeta',function(req,res){
 

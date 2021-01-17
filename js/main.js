@@ -1,3 +1,166 @@
+
+function getDashboardData(instance){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+      console.log(instance)
+
+      firebase.firestore().collection("Instances").doc(instance).get().then(doc => {
+        var data = doc.data()
+
+        if(data){
+          if(data['user'] == email){
+
+            getInstanceData();
+
+            document.getElementById('user-name').innerHTML = email
+
+            document.getElementById('loading-page').style.display = 'none'
+            document.getElementById('no-instances').style.display = 'none'
+            document.getElementById('content-main-page').style.display = 'initial'
+
+
+          } else {
+            toggleForbiddenPage()
+          }
+        } else {
+          toggleForbiddenPage()
+
+        }
+      })
+
+
+
+
+    }
+  })
+}
+
+function getInstanceData(){
+  
+}
+
+function toggleForbiddenPage(){
+  document.getElementById('forbidden-page').style.display = 'initial'
+
+  document.getElementById('loading-page').style.display = 'none'
+  document.getElementById('no-instances').style.display = 'none'
+}
+
+function getInstances(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+      firebase.firestore().collection("Instances").where('user',  '==', email).onSnapshot(docs => {
+
+        $('#instances-container').html('')
+
+        var instancesList = []
+
+        var instanceCount = 0
+
+        docs.forEach(doc => {
+          //instancesList.append(value)
+          instanceCount += 1
+
+          var data = doc.data()
+
+          console.log(data)
+
+          var instanceType = "Paper Trading"
+
+          if(data['paper'] == false){
+            instanceType = 'Live Trading'
+          }
+
+          var statusSymbol = ``
+
+          if(data['running'] == false && data['runCommand'] == false){
+            statusSymbol = `
+            <a href="#" onclick="changInstanceState('${doc.id}', true)"><i class="fas fa-power-off" style="color: red; font-size: 35px; margin-top: 2.3rem; "></i></a>
+            `
+          } else if(data['running'] == true && data['runCommand'] == true){
+            statusSymbol = `
+            <a href="#" onclick="changInstanceState('${doc.id}',false)"><i class="fas fa-power-off" style="color: #00CF98; font-size: 35px; margin-top: 2.3rem;"></i></a>
+            `
+          } else {
+            statusSymbol = `
+
+            <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+         </svg>
+         
+            `
+          }
+
+          var instanceHTML = `
+
+
+
+            <div class="instance-item">
+
+
+            <div class="row">
+
+                <div>
+                <a href = '/dashboard?instance=${doc.id}'>
+                    <i class="fas fa-server" style="color: #6d7cbd; margin-left: 2rem; margin-top: 2rem; font-size: 50px;"></i>
+                    </a>
+                </div>
+
+                <div>
+                <a href = '/dashboard?instance=${doc.id}'>
+
+                    <h3 style="color: white; font-weight: 600; font-family: Nunito; margin-left: 1.5rem; margin-top: 2rem;">Instance ${data['instanceNum']}</h3>
+                    <p style="color: #E2EBEF; font-family: Nunito; font-size: 15px; font-weight: 600; margin-top: -0.5rem; margin-left: 1.5rem;">${instanceType}</p>
+                    </a>
+                </div>
+
+                <div style = 'margin-left: 11rem;'>
+                ${statusSymbol}
+                </div>
+            </div>
+
+            </a>
+        </div>
+
+
+          `
+
+          $(instanceHTML).appendTo('#instances-container')
+        })
+
+        if(instanceCount == 0){
+          document.getElementById('no-instances').style.display = 'initial'
+          document.getElementById('content-main-page').style.display = 'none'
+
+        } else {
+          document.getElementById('no-instances').style.display = 'none'
+          document.getElementById('content-main-page').style.display = 'initial'
+        }
+
+      })
+
+      document.getElementById('loading-page').style.display = 'none'
+
+
+    }
+  })
+}
+
+function changInstanceState(instance, state){
+  firebase.firestore().collection('Instances').doc(instance).update({
+    'runCommand': state
+  })
+}
+
+
 function getAccountHistory(key, secret) {
   var Http = new XMLHttpRequest();
   const url = 'https://intellistockapi.loca.lt/getBalance'
@@ -738,6 +901,7 @@ function createInstance() {
         Http.open("GET", url)
         Http.setRequestHeader('key', key)
         Http.setRequestHeader('secret', secret)
+        Http.setRequestHeader('Bypass-Tunnel-Reminder', true)
         Http.send()
 
         Http.onreadystatechange = function () {
