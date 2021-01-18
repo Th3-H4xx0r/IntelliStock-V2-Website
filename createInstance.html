@@ -21,6 +21,7 @@
 
     <script src="js/chartist.min.js"></script>
 
+    <link rel="stylesheet" href="terminalJs/termynal.css">
 
       
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -68,6 +69,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;600;700&display=swap" rel="stylesheet"> 
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/alpaca/1.5.27/bootstrap/alpaca.min.css" integrity="sha512-PehAqXRAv5QxF18trM6o/TGFqwG7s7g0c1+L4bGYLvYX+cMY0v4iwVMfqOTWjfzwoSFX4ruVt2wlalxzusntjw==" crossorigin="anonymous" />
     <title>Instances</title>
   </head>
   <body style="background-color: #242B48;" id = 'page-main'>
@@ -80,98 +82,125 @@
         });
     </script>
 
+    <style>
+        .lds-dual-ring {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-<section id = 'loading-page' style="display: none;">
-    <div class="d-flex justify-content-center" style="margin-top: 25%;">
-        <div class='loading'>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-          </div>
-    </div>
-
-</section>
-
-
-<section id = 'no-instances' style="display: none;">
-
-    <div>
-        <a class="navbar-brand" href="#"><img src='Assets/Group 1.png' width="60%" style = 'margin-top: 2rem; margin-left: 2rem;'/></a>]
-    </div>
-    <div class="d-flex justify-content-center" style="margin-top: 10%;">
-        <img src="Assets/undraw_my_documents_ym8x.svg" alt="" width="20%" ">
-    </div>
-    <center>
-        <h1 style="color: white; margin-top: 1rem;">No Instances</h1>
-        <h5 style="color: white; max-width: 25%; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">We see that you have not created any instances so far. Create your first one.</h5>
-        <button class="createInstance-btn" style="margin-top: 1rem;" onclick="createInstancePopup()">Create Instance</button>
-    </center>
-
-    <center style="margin-top: 1rem;">
-        <a href="#" style="color: #00CF98; font-weight: bold;" onclick="logout()">Logout</a>
-    </center>
-</section>
+    </style>
 
 
 
-<section style="display: initial;" id="content-main-page">
+
+
+
+
+<section id="content-main-page" style="display: initial;">
     <div style="display: flex; justify-content: space-between;">
         <a class="navbar-brand" href="#"><img src='Assets/Group 1.png' width="60%" style = 'margin-top: 2rem; margin-left: 2rem;'/></a>
     </div>
 
     <center>
-        <h3 style = 'color: white; margin-top: 8%'>Create Instance</h3>
-        <p style = 'color: #B5B5B5'>Create an instance here to start the service.</p>
+        <h3 style = 'color: white; margin-top: 4%'>Create Instance</h3>
+        <p style = 'color: #B5B5B5'>Create an instance using the feilds below.</p>
     </center>
 
     <div class="d-flex justify-content-center">
 
         <div class="createbox">
 
-            <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Name</p>
+            <!-- LOADING INSTANCE CREATION-->
 
-            <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 90%;" class="inputBox">
-
-
-            <div class="row" style="margin-left: 0rem;">
-                <div>
-                    <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Key</p>
-
-                    <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox">
-
+            <section id="loading-instance-page" style="display: none;">
+                <div class="d-flex justify-content-center">
+                    <div class="lds-dual-ring" style="margin-top: 30%;"></div>
                 </div>
 
-                <div>
+                <center>
+                    <h5 style="color: white; font-family: Nunito; font-weight: bold; margin-top: 2rem;">Initializing Instance</h5>
+                </center>
 
-                    <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Secret</p>
 
-                    <input type="password" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox">
-                    
+                
+            </section>
+
+            <!-- END of LOADING INSTANCE CREATION-->
+
+            <section id = 'create-section' style="display: initial;">
+                <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Name</p>
+
+                <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 90%;" class="inputBox" id = 'instance-name'>
+    
+    
+                <div class="row" style="margin-left: 0rem;">
+                    <div>
+                        <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Key</p>
+    
+                        <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox" id = 'alpaca-key'>
+    
+                    </div>
+    
+                    <div>
+    
+                        <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Secret</p>
+    
+                        <input type="password" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox" id = 'alpaca-secret'>
+                        
+                    </div>
                 </div>
-            </div>
+    
+                <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Type</p>
+    
+    
+                <div class="row">
+                                 <!-- Rounded switch -->
+                 <label class="switch" style="margin-left: 4rem;">
+                    <input type="checkbox" checked disabled>
+                    <span class="slider round"></span>
+                </label>
+    
+                    <h6 style="margin-left: 3rem; color: white; margin-right: 1rem; margin-left: 1rem;">Paper Trading</h6>
+    
+    
+                </div>
+    
+    
+    
+                <div style="display: flex; justify-content: space-between; margin-top: 4.5rem;">
+    
+                    <p style="color: red; margin-left: 3rem; margin-top: 2rem; font-weight: bold; font-family: Nunito;" id = 'error-create-instance'></p>
+    
+    
+                    <button style="margin-top: 1rem; margin-right: 2rem;" class="createInstance-btn" id = 'create-btn' onclick="createInstance()">Create Instance</button>
+    
+                </div>
+    
+            </section>
 
-            <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Type</p>
-
-
-            <div class="row" style="margin-left: 3rem;">
-                <input type="radio" id="male" name="gender" value="male" selected>
-                <label for="male" style="color: white; font-weight: bold;">Paper Trading</label><br>
-                <input type="radio" id="female" name="gender" value="female" disabled>
-                <label for="female">Female</label><br>
-            </div>
-
-
-
-            <div style="float: right; margin-top: 11rem;">
-
-                <button style="margin-top: 1rem; margin-right: 2rem;" class="createInstance-btn">Create Instance</button>
-
-            </div>
-
+         
             
 
         </div>
@@ -184,6 +213,7 @@
 </section>
 
 
+<script src="/terminaljs/termynal.js"></script>
 
 </body>
 </html>

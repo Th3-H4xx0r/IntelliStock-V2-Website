@@ -926,12 +926,15 @@ function createInstance() {
 
       var button = document.getElementById('create-btn')
 
-      button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+      var instanceName = document.getElementById('instance-name').value
+
+      button.innerHTML = `<div class="lds-dual-ring"></div>`
 
       //console.log(key)
       //console.log(secret)
 
-      if (key && secret) {
+      if (key && secret && instanceName) {
+
         //firebase.firestore().collection("Instances").doc().set({})
         error.innerHTML = ""
 
@@ -941,6 +944,7 @@ function createInstance() {
         Http.setRequestHeader('key', key)
         Http.setRequestHeader('secret', secret)
         Http.setRequestHeader('Bypass-Tunnel-Reminder', true)
+        Http.setRequestHeader('Access-Control-Allow-Origin', "*")
         Http.send()
 
         Http.onreadystatechange = function () {
@@ -950,29 +954,69 @@ function createInstance() {
 
             var message = response['message']
 
-            var numRaw = localStorage.getItem('maxInstanceNum')
+            //var numRaw = localStorage.getItem('maxInstanceNum')
 
-            var num = 1
+            //var num = 1
 
-            if (numRaw) {
-              num = parseInt(numRaw) + 1
-            }
+            //if (numRaw) {
+              //num = parseInt(numRaw) + 1
+            //}
 
             if (message == 'Valid') {
+
+              document.getElementById('loading-instance-page').style.display = "initial"
+              document.getElementById('create-section').style.display = "none"
+
+              /*
+
               firebase.firestore().collection('Instances').doc().set({
                 'key': key,
                 'secret': secret,
                 'user': email,
                 'running': false,
                 'runCommand': true,
-                'instanceNum': num
+                'instanceName': instanceName,
+                "paper": true
 
               }).then(() => {
-                setTimeout(function () {
-                  window.location.reload()
-                }, 2000);
+
+
+                
 
               })
+              */
+
+             setTimeout(function(){ 
+
+              
+              var terminalHTML = `
+              <div id="termynal" style = 'margin: 2rem; height: 30rem' data-termynal>
+              <span data-ty="input">instance -create --broker alpaca</span>
+              <span data-ty data-ty-delay="250">[SERVER] Checking credentials...</span>
+              <span data-ty data-ty-delay="1050">[Alpaca Broker] Valid</span>
+
+              <span data-ty data-ty-delay="250">[SERVER] Creating instance...</span>
+              <span data-ty data-ty-delay="3250">[SERVER] Initializing instance variables...</span>
+
+              <span data-ty data-ty-delay="3250">[SERVER] Launching instanceBroker.exe --flags alpaca</span>
+
+              <span data-ty data-ty-delay="2250">[SERVER] instanceBroker.exe closed with exit code 0</span>
+
+
+              <span data-ty data-ty-delay="3250">[SERVER] Instance Created! Starting instance...</span>
+
+              <span data-ty data-ty-delay="1250">Instance is online!</span>
+
+
+            </div>
+              `
+
+              var termynal = new Termynal('#termynal', { startDelay: 600 })
+
+
+              $('loading-instance-page').html(terminalHTML)
+              }, 3000);
+
             } else {
               error.innerHTML = "Alpaca credentials are invalid"
               button.innerHTML = `Create Instance`
