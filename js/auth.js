@@ -23,7 +23,7 @@ function login() {
                 console.log("LOGIN VALID")
                 error.innerHTML = ''
 
-                window.location = '/dashboard'
+                window.location = '/instances'
 
 
             }).catch(err => {

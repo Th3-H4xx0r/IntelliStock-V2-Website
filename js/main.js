@@ -81,54 +81,93 @@ function getInstances(){
 
           var statusSymbol = ``
 
+          var isOn = 'checked'
+
           if(data['running'] == false && data['runCommand'] == false){
+            isOn = ''
             statusSymbol = `
-            <a href="#" onclick="changInstanceState('${doc.id}', true)"><i class="fas fa-power-off" style="color: red; font-size: 35px; margin-top: 2.3rem; "></i></a>
-            `
+            <span class="status-badge-off">○ Stopped</span>            `
           } else if(data['running'] == true && data['runCommand'] == true){
             statusSymbol = `
-            <a href="#" onclick="changInstanceState('${doc.id}',false)"><i class="fas fa-power-off" style="color: #00CF98; font-size: 35px; margin-top: 2.3rem;"></i></a>
+            <span class="status-badge-on">○ Running</span>
             `
+            isOn = 'checked'
           } else {
             statusSymbol = `
 
-            <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-         </svg>
+            <span class="status-badge-waiting">○ Loading</span>
          
             `
           }
 
+          var uptime = data['uptimeStart']
+
+
+          var diff = Math.abs(new Date() - new Date(uptime['seconds'] * 1000)) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
+
+          // get hours        
+          var hours = Math.floor(diff / 3600) % 24;
+
+          // get minutes
+          var minutes = Math.floor(diff / 60) % 60;
+
+          // get seconds
+          var seconds = Math.round(diff % 60, 2);
+
+
+          var uptimeOutput = hours + "hrs " + minutes + "m " + seconds + 's'
+
+
+
           var instanceHTML = `
 
 
-
-            <div class="instance-item">
-
-
-            <div class="row">
-
-                <div>
-                <a href = '/dashboard?instance=${doc.id}'>
-                    <i class="fas fa-server" style="color: #6d7cbd; margin-left: 2rem; margin-top: 2rem; font-size: 50px;"></i>
-                    </a>
-                </div>
-
-                <div>
-                <a href = '/dashboard?instance=${doc.id}'>
-
-                    <h3 style="color: white; font-weight: 600; font-family: Nunito; margin-left: 1.5rem; margin-top: 2rem;">Instance ${data['instanceNum']}</h3>
-                    <p style="color: #E2EBEF; font-family: Nunito; font-size: 15px; font-weight: 600; margin-top: -0.5rem; margin-left: 1.5rem;">${instanceType}</p>
-                    </a>
-                </div>
-
-                <div style = 'margin-left: 11rem;'>
-                ${statusSymbol}
-                </div>
-            </div>
-
-            </a>
-        </div>
+          <div class="instance-item">
+              <div style = ' display: flex; justify-content: space-between;'>
+              <h4 style="color: white; font-weight: bold; font-family: Nunito; margin-top: 1rem; margin-left: 1rem; font-size: 20px;">Instance ${data['instanceNum']}</h4>
+  
+              ${statusSymbol}
+          
+          </div>
+  
+  
+          <div style = ' display: flex; justify-content: space-between; margin-top: 2rem; margin-bottom: 0.5rem;'>
+              <div class="row">
+                  <i class="far fa-clock" style="color: white; margin-left: 2rem; font-size: 20px; margin-right: 0.5rem; margin-top: 0.1rem;"></i>
+  
+                  <h6 style = 'color: white'>Uptime</h6>
+              </div>
+  
+              <div style="color: #B5B5B5; margin-right: 1rem;">${uptimeOutput}</div>
+          </div>
+  
+          <div class="divider"></div>
+  
+          <div style = ' display: flex; justify-content: space-between; margin-top: 2rem; margin-bottom: 0.5rem;'>
+              <div class="row">
+                  <i class="fas fa-chart-line" style="color: white; margin-left: 2rem; font-size: 20px; margin-right: 0.5rem; margin-top: 0.1rem;"></i>
+  
+                  <h6 style = 'color: white'>Type</h6>
+              </div>
+  
+              <div style="color: #B5B5B5; margin-right: 1rem;">${instanceType}</div>
+          </div>
+  
+          <div class="divider"></div>
+  
+          <div style = ' display: flex; justify-content: space-between; margin-top: 2rem; margin-bottom: 1rem;'>
+  
+              <a style = 'color: #AEAEAE; margin-left: 1rem; font-weight: bold;' href="/dashboard?instance=${doc.id}">View Instance</a>
+  
+              <!-- Rounded switch -->
+              <label class="switch" style="margin-right: 1rem;">
+                  <input type="checkbox" ${isOn} onclick="changeInstanceState('${doc.id}', ${!data['runCommand']})">
+                  <span class="slider round"></span>
+              </label>
+          </div>
+  
+  
+          </div>
 
 
           `
