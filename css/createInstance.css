@@ -1,0 +1,35 @@
+.createbox{
+    margin-top: 1%;
+    background-color: #2D3555;
+    min-height: 30rem;
+    min-width: 40rem;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 20px;
+}
+
+.inputBox{
+    border: yellow 2px;
+    background-color: #3D4772;
+    height: 2.5rem;
+    border-radius: 100px;
+    padding-left: 1rem;
+    color: white;
+}
+
+.inputBox:focus{
+    outline: none;
+}
+
+.createInstance-btn{
+    height: 2.5rem;
+    width: 12rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #00CF98;
+    color: white;
+    font-weight: bold;
+    font-family: Nunito;
+    margin-top: 2.5rem;
+    margin-left: 9rem;
+}
