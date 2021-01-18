@@ -113,6 +113,11 @@ router.get('/stocks',function(req,res){
 
 });
 
+router.get('/create',function(req,res){
+  res.sendFile(path.join(__dirname+'/createInstance.html'));
+
+});
+
 router.get('/settings',function(req,res){
   res.sendFile(path.join(__dirname+'/settings.html'));
 

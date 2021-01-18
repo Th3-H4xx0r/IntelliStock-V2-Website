@@ -138,7 +138,7 @@ function getInstances(){
                   <h6 style = 'color: white'>Uptime</h6>
               </div>
   
-              <div style="color: #B5B5B5; margin-right: 1rem;">${uptimeOutput}</div>
+              <div style="color: #B5B5B5; margin-right: 1rem;">${uptimeOutput}</div>kkkkkkk
           </div>
   
           <div class="divider"></div>
