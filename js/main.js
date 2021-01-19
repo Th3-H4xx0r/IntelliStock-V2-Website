@@ -1011,10 +1011,10 @@ function createInstance() {
             </div>
               `
 
+              $('loading-instance-page').html(terminalHTML)
+
               var termynal = new Termynal('#termynal', { startDelay: 600 })
 
-
-              $('loading-instance-page').html(terminalHTML)
               }, 3000);
 
             } else {
