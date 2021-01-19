@@ -14,7 +14,7 @@ function getDashboardData(instance){
         if(data){
           if(data['user'] == email){
 
-            getInstanceData();
+            getInstanceData(data['key'], data['secret']);
 
             document.getElementById('user-name').innerHTML = email
 
@@ -39,8 +39,57 @@ function getDashboardData(instance){
   })
 }
 
-function getInstanceData(){
-  
+function getInstanceData(key, secret){
+
+  var Http = new XMLHttpRequest();
+  const url = 'http://localhost:3120/v1/dashboardData'
+  Http.open("GET", url)
+  Http.setRequestHeader('key', key)
+  Http.setRequestHeader('secret', secret)
+  Http.setRequestHeader('content-type', "*")
+  Http.setRequestHeader('Bypass-Tunnel-Reminder', "true")
+  Http.send()
+
+  Http.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+
+      var response = JSON.parse(Http.responseText)
+
+      var message = response['message']
+
+      console.log(message)
+
+      var accountData = message['account']
+
+      var positions = message['positions']
+
+      var balance = message['balanceHistory']
+
+      var equity = accountData['equity']
+
+      var buyingPower = accountData['buying_power']
+
+      document.getElementById('buyingPower').innerHTML = "$" + buyingPower
+
+      document.getElementById('equity').innerHTML = "$" + equity
+
+      //console.log(balance['equity'][0])
+
+      //console.log(balance['equity'].slice(-1)[0] )
+
+      //var totalReturn = balance['equity'][0] - balance['equity'][balance['equity'].length - 1]
+
+      //document.getElementById('return').innerHTML = "$" + totalReturn
+
+
+
+
+
+    }
+
+
+  }
+
 }
 
 function toggleForbiddenPage(){
