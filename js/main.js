@@ -100,23 +100,29 @@ function getInstances(){
             `
           }
 
-          var uptime = data['uptimeStart']
+          var uptimeOutput = 'Stopped'
+
+          if(data['running'] == true){
+            var uptime = data['uptimeStart']
 
 
-          var diff = Math.abs(new Date() - new Date(uptime['seconds'] * 1000)) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
+            var diff = Math.abs(new Date() - new Date(uptime['seconds'] * 1000)) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
+  
+            // get hours        
+            var hours = Math.floor(diff / 3600) % 24;
+  
+            // get minutes
+            var minutes = Math.floor(diff / 60) % 60;
+  
+            // get seconds
+            var seconds = Math.round(diff % 60, 2);
+  
+  
+            var uptimeOutput = hours + "hrs " + minutes + "m " + seconds + 's'
+  
+          }
 
-          // get hours        
-          var hours = Math.floor(diff / 3600) % 24;
-
-          // get minutes
-          var minutes = Math.floor(diff / 60) % 60;
-
-          // get seconds
-          var seconds = Math.round(diff % 60, 2);
-
-
-          var uptimeOutput = hours + "hrs " + minutes + "m " + seconds + 's'
-
+         
 
 
           var instanceHTML = `
@@ -124,7 +130,7 @@ function getInstances(){
 
           <div class="instance-item">
               <div style = ' display: flex; justify-content: space-between;'>
-              <h4 style="color: white; font-weight: bold; font-family: Nunito; margin-top: 1rem; margin-left: 1rem; font-size: 20px;">Instance ${data['instanceNum']}</h4>
+              <h4 style="color: white; font-weight: bold; font-family: Nunito; margin-top: 1rem; margin-left: 1rem; font-size: 20px;">${data['instanceName']}</h4>
   
               ${statusSymbol}
           
@@ -138,7 +144,7 @@ function getInstances(){
                   <h6 style = 'color: white'>Uptime</h6>
               </div>
   
-              <div style="color: #B5B5B5; margin-right: 1rem;">${uptimeOutput}</div>kkkkkkk
+              <div style="color: #B5B5B5; margin-right: 1rem;">${uptimeOutput}</div>
           </div>
   
           <div class="divider"></div>
@@ -967,7 +973,7 @@ function createInstance() {
               document.getElementById('loading-instance-page').style.display = "initial"
               document.getElementById('create-section').style.display = "none"
 
-              /*
+         
 
               firebase.firestore().collection('Instances').doc().set({
                 'key': key,
@@ -980,42 +986,42 @@ function createInstance() {
 
               }).then(() => {
 
+                setTimeout(function(){ 
 
+              
+                  var terminalHTML = `
+                  <div id="termynal" style = 'margin: 2rem; height: 30rem' data-termynal>
+                  <span data-ty="input">instance -create --broker alpaca</span>
+                  <span data-ty data-ty-delay="250">[SERVER] Checking credentials...</span>
+                  <span data-ty data-ty-delay="1050">[Alpaca Broker] Valid</span>
+    
+                  <span data-ty data-ty-delay="250">[SERVER] Creating instance...</span>
+                  <span data-ty data-ty-delay="3250">[SERVER] Initializing instance variables...</span>
+    
+                  <span data-ty data-ty-delay="3250">[SERVER] Launching instanceBroker.exe --flags alpaca</span>
+    
+                  <span data-ty data-ty-delay="2250">[SERVER] instanceBroker.exe closed with exit code 0</span>
+    
+    
+                  <span data-ty data-ty-delay="3250">[SERVER] Instance Created! Starting instance...</span>
+    
+                  <span data-ty data-ty-delay="1250">Instance is online! <a href = '/instances'>Click to go to instances</a></span>
+    
+    
+                </div>
+                  `
+    
+                  document.getElementById('loading-instance-page').innerHTML = terminalHTML
+    
+                  var termynal = new Termynal('#termynal', { startDelay: 600 })
+    
+                  }, 3000);
                 
 
               })
-              */
-
-             setTimeout(function(){ 
-
-              
-              var terminalHTML = `
-              <div id="termynal" style = 'margin: 2rem; height: 30rem' data-termynal>
-              <span data-ty="input">instance -create --broker alpaca</span>
-              <span data-ty data-ty-delay="250">[SERVER] Checking credentials...</span>
-              <span data-ty data-ty-delay="1050">[Alpaca Broker] Valid</span>
-
-              <span data-ty data-ty-delay="250">[SERVER] Creating instance...</span>
-              <span data-ty data-ty-delay="3250">[SERVER] Initializing instance variables...</span>
-
-              <span data-ty data-ty-delay="3250">[SERVER] Launching instanceBroker.exe --flags alpaca</span>
-
-              <span data-ty data-ty-delay="2250">[SERVER] instanceBroker.exe closed with exit code 0</span>
+             
 
 
-              <span data-ty data-ty-delay="3250">[SERVER] Instance Created! Starting instance...</span>
-
-              <span data-ty data-ty-delay="1250">Instance is online!</span>
-
-
-            </div>
-              `
-
-              $('loading-instance-page').html(terminalHTML)
-
-              var termynal = new Termynal('#termynal', { startDelay: 600 })
-
-              }, 3000);
 
             } else {
               error.innerHTML = "Alpaca credentials are invalid"
