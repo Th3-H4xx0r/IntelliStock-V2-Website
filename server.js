@@ -219,6 +219,7 @@ app.use('/config', express.static('config/'))
 app.use('/css', express.static('css/'))
 app.use('/js', express.static('js/'))
 app.use('/terminaljs', express.static('terminalJs/'))
+app.use('/apexcharts', express.static('apexcharts/'))
 
 //add the router
 app.use('/', router);

@@ -73,6 +73,133 @@ function getInstanceData(key, secret){
 
       document.getElementById('equity').innerHTML = "$" + equity
 
+      for(position in positions){
+        console.log(position)
+      }
+
+      var points = []
+
+      var prices = []
+
+      var timestamps = []
+
+
+
+      for (var i = 0; i <= balance['equity'].length; i++) {
+        //if (balance['equity'][i] != null && balance['timestamp'][i] != null) {
+          prices.push(balance['equity'][i])
+          timestamps.push(balance['timestamp'][i])
+          points.push({ date: new Date(balance['timestamp'][i] * 1000), value: balance['equity'][i] })
+        //}
+
+      }
+
+      /*
+
+      am4core.useTheme(am4themes_animated);
+      am4core.useTheme(am4themes_dark);
+
+
+      // Create chart instance
+      var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+      // Create axes
+      var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+      dateAxis.renderer.grid.template.location = 0;
+      dateAxis.renderer.minGridDistance = 30;
+
+      var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+      // Create series
+      function createSeries(field, name, priceData, type) {
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.valueY = field;
+        series.dataFields.dateX = "date";
+        series.name = name;
+        series.tooltipText = "{dateX}: [b]{valueY}[/]";
+        series.strokeWidth = 2;
+        series.data = priceData;
+        return series;
+      }
+
+      createSeries("value", "Portfolio", points, 'price');
+
+
+      //chart.legend = new am4charts.Legend();
+      chart.cursor = new am4charts.XYCursor();
+
+      // Set up export
+      chart.exporting.menu = new am4core.ExportMenu();
+      chart.exporting.adapter.add("data", function (data, target) {
+        // Assemble data from series
+        var data = [];
+        chart.series.each(function (series) {
+          for (var i = 0; i < series.data.length; i++) {
+            series.data[i].name = series.name;
+            data.push(series.data[i]);
+          }
+        });
+        return { data: data };
+      });
+
+*/
+      
+
+ // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#858796';
+
+// Area Chart Example
+var ctx = document.getElementById("myChart").getContext('2d');;
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: timestamps,
+    datasets: [{ 
+        data: prices,
+        borderColor: "#00cf98",
+        fill: false,
+        pointRadius: 0
+    }
+    ]
+  },
+  options: {
+    scales: {
+        xAxes: [{
+            ticks: {
+                display: false //this will remove only the label
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false,
+            },
+        }],
+
+        yAxes: [{
+          ticks: {
+              display: true //this will remove only the label
+          },
+          gridLines: {
+            color: '#394364'
+          },
+      }]
+    },
+    title: {
+      display: false
+    },
+    legend:{
+      display: false
+    }
+}
+
+});
+
+
+    }
+  }
+
+
       //console.log(balance['equity'][0])
 
       //console.log(balance['equity'].slice(-1)[0] )
@@ -84,11 +211,6 @@ function getInstanceData(key, secret){
 
 
 
-
-    }
-
-
-  }
 
 }
 
