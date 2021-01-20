@@ -18,9 +18,9 @@ function getDashboardData(instance){
 
             document.getElementById('user-name').innerHTML = email
 
-            document.getElementById('loading-page').style.display = 'none'
+
             document.getElementById('no-instances').style.display = 'none'
-            document.getElementById('content-main-page').style.display = 'initial'
+
 
 
           } else {
@@ -73,8 +73,58 @@ function getInstanceData(key, secret){
 
       document.getElementById('equity').innerHTML = "$" + equity
 
-      for(position in positions){
-        console.log(position)
+
+      if(positions.length == 0){
+        $('<h4 style = "color: grey; margin-top: 1rem">No Positions</h4>').appendTo('#watchlist-list');
+      } else {
+
+        var positionIndex = 0;
+
+        for(i in positions){
+          positionIndex += 1
+
+          var position = positions[i]
+          console.log(position)
+  
+          var quantity = position['qty']
+          var symbol = position['symbol']
+  
+          var totalReturn = parseFloat(position['unrealized_pl'])
+
+          var returnText = ''
+
+          var returnColor = '#06bc90'
+
+          if(totalReturn < 0){
+            returnColor = '#d9515d'
+            returnText = '-$' + (totalReturn * -1)
+          } else if(totalReturn > 0){
+            returnColor = '#06bc90'
+            returnText = '+$' + totalReturn
+          } else {
+            returnText = '$' + (totalReturn * -1)
+          }
+
+          var positionHTML = `
+          <div class="watchlist-item">
+
+          <div class="row">
+              <span>${positionIndex}</span>
+
+              <span style="margin-left: 5rem;">${symbol}</span>
+
+              <span style="margin-left: 4.5rem;">${quantity}</span>
+
+              <span style="margin-left: 5rem; color: ${returnColor}">${returnText}</span>
+          </div>
+
+      </div>
+          `
+
+          $(positionHTML).appendTo('#watchlist-list');
+  
+  
+        }
       }
 
       var points = []
@@ -93,6 +143,7 @@ function getInstanceData(key, secret){
         //}
 
       }
+
 
       /*
 
@@ -150,7 +201,7 @@ Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,Bli
 Chart.defaults.global.defaultFontColor = '#858796';
 
 // Area Chart Example
-var ctx = document.getElementById("myChart").getContext('2d');;
+var ctx = document.getElementById("myChart").getContext('2d');
 
 new Chart(ctx, {
   type: 'line',
@@ -165,6 +216,7 @@ new Chart(ctx, {
     ]
   },
   options: {
+    responsive: false,
     scales: {
         xAxes: [{
             ticks: {
@@ -194,6 +246,10 @@ new Chart(ctx, {
 }
 
 });
+
+  document.getElementById('loading-page').style.display = 'none'
+  document.getElementById('content-main-page').style.display = 'initial'
+
 
 
     }

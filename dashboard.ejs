@@ -97,20 +97,6 @@
 
 
 
-<section id = 'loading-page' style="display: initial;">
-    <div class="d-flex justify-content-center" style="margin-top: 25%;">
-        <div class='loading'>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-            <div class='loading__square'></div>
-          </div>
-    </div>
-
-</section>
 
 <section id = 'no-instances' style="display: none;">
     <div class="d-flex justify-content-center" style="margin-top: 13%;">
@@ -129,7 +115,16 @@
 
 
 
-<section style="display: none;" id="content-main-page">
+
+<section >
+
+    
+
+
+<section>
+
+</section>
+
     <div class="row">
 
         <section class="second-bar">
@@ -198,8 +193,21 @@
 
         </section>
 
+        <!-- LOADING PAGE -->
+
+        <section id = 'loading-page' style="display: initial;">
+            <div class="d-flex justify-content-center">
+                <div class="lds-dual-ring" style="margin-left: 60%; margin-top: 60%;"></div>
+            </div>
+        
+        </section>
+
+        
+        <!-- END of LOADING PAGE -->
+
+
         <!-- DASHBOARD MAIN -->
-        <section> 
+        <section style="display: none;" id="content-main-page"> 
             <h2 style="color: white; margin-top: 3rem; margin-left: 3rem; font-family: Nunito;">Welcome to <span style="color: #00CF98; font-weight: 700;">Intellistock</span></h1>
             <h6 style="color: #C0C0C0; margin-top: 0.5rem; margin-left: 3rem; font-family: Nunito;">Good Morning, <span id = 'user-name'></span></h6>
 
@@ -217,8 +225,8 @@
                     <div id="chartdiv" style="color: white; height: 20rem; width: 170%"></div>
                         
                     -->
+                    <canvas id="myChart" width = '860' height = '380' style="margin-left: 3rem;"></canvas>
 
-                    <canvas id="myChart" width="770" height="298" style="margin-left: 3rem;"></canvas>
                 </div>
 
                 <!-- END of portfolio graph-->
@@ -244,21 +252,9 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div id = 'watchlist-list'>
 
-                        <div class="watchlist-item">
 
-                            <div class="row">
-                                <span>1</span>
-
-                                <span style="margin-left: 5rem;">TSLA</span>
-
-                                <span style="margin-left: 4.5rem;">10</span>
-
-                                <span style="margin-left: 5rem;">+$23.21</span>
-                            </div>
-
-                        </div>
 
                         </div>
 
