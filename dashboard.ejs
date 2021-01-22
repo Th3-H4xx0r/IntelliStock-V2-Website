@@ -147,13 +147,13 @@
                         <div class="row">
                             <div class="selected-menu-bar"></div>
                             <i class="fas fa-th-large" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem; margin-top: 0.5rem; color: #00CF98;"></i>
-                            <a href="/dashboard"><h6 style="color: #00CF98; margin-top: 0.5rem;">Dashboard</h5></a>
+                            <a href="/dashboard?instance=<%= instance %>"><h6 style="color: #00CF98; margin-top: 0.5rem;">Dashboard</h5></a>
                         </div>
 
 
                         <div class="row" style="margin-top: 2rem; margin-left: 0rem;">
                             <i class="fas fa-stream" style="color: white; font-size: 20px; margin-left: 1rem; margin-right: 1rem;"></i>
-                            <a href="/stocks" ><h6 style="color: white;">Watchlist</h6></a>
+                            <a href="/watchlist?instance=<%= instance %>" ><h6 style="color: white;">Watchlist</h6></a>
 
                         </div>
 
@@ -239,24 +239,34 @@
 
                     <div class="watchlist-box">
                         <div class="d-flex justify-content-center">
+
+
+
                             <div class="watchlist-header">
                                 <div class="row">
-                                    <h5 class="watchlist-header-item" style="margin-left: 2rem;">#</h5>
+                                    <h5 class="watchlist-header-item" style="margin-left: 8%;">#</h5>
 
-                                    <h5 class="watchlist-header-item" style="margin-left: 5rem;">Ticker</h5>
+                                    <h5 class="watchlist-header-item" style="margin-left: 10%;">Ticker</h5>
 
-                                    <h5 class="watchlist-header-item" style="margin-left: 5rem;">Qty</h5>
+                                    <h5 class="watchlist-header-item" style="margin-left: 18%;">Qty</h5>
 
-                                    <h5 class="watchlist-header-item" style="margin-left: 6rem;">Return</h5>
+                                    <h5 class="watchlist-header-item" style="margin-left: 12%;">Return</h5>
                                 </div>
                             </div>
                         </div>
-
-                        <div id = 'watchlist-list'>
-
+              
 
 
-                        </div>
+                        <table class="table table-dark" style="background-color: #2d3555; width: 85%; margin-left: 7%;">
+
+                            <tbody style="width: 90%; padding-left: 10%;" id = 'watchlist-list'>
+
+                            </tbody>
+                          </table>
+                          <!--
+                            <div id = 'watchlist-list'></div>
+                          -->
+
 
                     </div>
                 </div>
@@ -288,18 +298,18 @@
 
 
                         <div style="margin-left: 20rem;">
-                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem;" id = 'buyingPower'>$0</h4>
+                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem; font-weight: bold;" id = 'buyingPower'>$0</h4>
                             <p style="color:#979797; margin-left: 4rem; margin-top: -0.5rem; font-weight: 600; font-family: Nunito;">Buying Power</p>
                         </div>
 
 
                         <div>
-                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem;" id = 'equity'>$0</h4>
+                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem; font-weight: bold;" id = 'equity'>$0</h4>
                             <p style="color:#979797; margin-left: 4rem; margin-top: -0.5rem; font-weight: 600; font-family: Nunito;">Equity</p>
                         </div>
 
                         <div>
-                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem;" id = 'return' >$0</h4>
+                            <h5 style="color: white; margin-left: 4rem; margin-top: 2rem; font-weight: bold;" id = 'return' >$0</h4>
                             <p style="color:#979797; margin-left: 4rem; margin-top: -0.5rem; font-weight: 600; font-family: Nunito;">Total Return</p>
                         </div>
                     </div>

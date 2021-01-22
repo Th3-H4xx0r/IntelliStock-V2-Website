@@ -39,6 +39,130 @@ function getDashboardData(instance){
   })
 }
 
+
+
+
+function getWatchlistData(instance){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+      console.log(instance)
+
+      firebase.firestore().collection("Instances").doc(instance).get().then(doc => {
+        var data = doc.data()
+
+        if(data){
+          if(data['user'] == email){
+
+            getInstanceStocks(instance);
+
+            //document.getElementById('no-instances').style.display = 'none'
+
+
+
+          } else {
+            toggleForbiddenPage()
+          }
+        } else {
+          toggleForbiddenPage()
+
+        }
+      })
+
+
+
+
+    }
+  })
+}
+
+function getInstanceStocks(instance){
+
+  
+  firebase.firestore().collection("Instances").doc(instance).collection("Stocks").onSnapshot(docs => {
+    document.getElementById('watchlist').innerHTML = ''
+
+    docs.forEach(doc => {
+      var data = doc.data()
+
+      if(data){
+
+        var statusLogo = ``
+
+        var connected = data['connected']
+
+        var currentStatus = data['currentStatus']
+
+        var run = data['run']
+
+        if(connected == true && currentStatus == true && run == true){
+          statusLogo = `<i class="fas fa-cloud" style="color: #00cf98"></i>`
+        } else if(connected == false && currentStatus == false && run == false){
+          statusLogo = `<i class="fas fa-cloud" style="color: #d9515d"></i>`
+        } else {
+          statusLogo = `<i class="fas fa-cloud" style="color: #d09e20"></i>`
+
+        }
+
+        var tickerHTML = `
+        <div class="watchlist-item">
+
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h4 style="color: white; font-weight: bold; margin-top: 2rem; margin-left: 2rem; font-family: Nunito;">${data['ticker']}</h4>
+                <p style="color: grey; margin-top: -0.6rem; margin-left: 2rem; font-family: Nunito; font-size: 16px;">Tesla Inc.</p>
+            </div>
+
+            <div style="margin-right: 1.5rem; margin-top: 2rem;">
+               ${statusLogo}
+            </div>
+        </div>
+
+        <div>
+            <div style="display: flex; justify-content: space-between;">
+                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Max Equity</p>
+
+                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">$${data['maxValue']}</p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: -5px;">
+                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Type</p>
+
+                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">Day Trade</p>
+            </div>
+
+            
+            <div style="display: flex; justify-content: space-between; margin-top: -5px;">
+                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Strategy</p>
+
+                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">RSI</p>
+            </div>
+        </div>
+
+        <div class="row" style="float: right; margin-right: 1rem; margin-top: 1rem;">
+            <button class="removeBtn">Remove</button>
+            <button class="viewBtn" style="margin-left: 1rem;">View</button>
+
+        </div>
+
+
+    </div>
+
+        `
+
+        $(tickerHTML).appendTo('#watchlist');
+
+      }
+    })
+  })
+
+  document.getElementById('content-main-page').style.display = "initial"
+}
+
+
 function getInstanceData(key, secret){
 
   var Http = new XMLHttpRequest();
@@ -69,9 +193,13 @@ function getInstanceData(key, secret){
 
       var buyingPower = accountData['buying_power']
 
-      document.getElementById('buyingPower').innerHTML = "$" + buyingPower
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
-      document.getElementById('equity').innerHTML = "$" + equity
+      document.getElementById('buyingPower').innerHTML = "$" + numberWithCommas(buyingPower)
+
+      document.getElementById('equity').innerHTML = "$" + numberWithCommas(equity)
 
 
       if(positions.length == 0){
@@ -93,32 +221,46 @@ function getInstanceData(key, secret){
 
           var returnText = ''
 
-          var returnColor = '#06bc90'
+          var returnColor = '#00cf98'
 
           if(totalReturn < 0){
             returnColor = '#d9515d'
             returnText = '-$' + (totalReturn * -1)
           } else if(totalReturn > 0){
-            returnColor = '#06bc90'
+            returnColor = '#00cf98'
             returnText = '+$' + totalReturn
           } else {
             returnText = '$' + (totalReturn * -1)
           }
 
           var positionHTML = `
-          <div class="watchlist-item">
 
-          <div class="row">
-              <span>${positionIndex}</span>
+            <tr>
+              <th scope="row">${positionIndex}</th>
+              <td>${symbol}</td>
+              <td>${quantity}</td>
+              <td style= 'color: ${returnColor}; font-weight: bold'>${returnText}</td>
+            </tr>
 
-              <span style="margin-left: 5rem;">${symbol}</span>
+            /*
 
-              <span style="margin-left: 4.5rem;">${quantity}</span>
+            <div class="watchlist-item">
 
-              <span style="margin-left: 5rem; color: ${returnColor}">${returnText}</span>
-          </div>
+            <div class="row">
+                <span>${positionIndex}</span>
+  
+                <span style="margin-left: 5rem;">${symbol}</span>
+  
+                <span style="margin-left: 4.5rem;">${quantity}</span>
+  
+                <span style="margin-left: 5rem; color: ${returnColor}; font-weight: bold">${returnText}</span>
+            </div>
+  
+        </div>
 
-      </div>
+        */
+
+
           `
 
           $(positionHTML).appendTo('#watchlist-list');
@@ -133,16 +275,47 @@ function getInstanceData(key, secret){
 
       var timestamps = []
 
+      var pricesNotNAN = []
+
 
 
       for (var i = 0; i <= balance['equity'].length; i++) {
-        //if (balance['equity'][i] != null && balance['timestamp'][i] != null) {
+        if (balance['equity'][i] != null && balance['timestamp'][i] != null) {
+          pricesNotNAN.push(balance['equity'][i])
+        }
           prices.push(balance['equity'][i])
           timestamps.push(balance['timestamp'][i])
           points.push({ date: new Date(balance['timestamp'][i] * 1000), value: balance['equity'][i] })
         //}
 
       }
+
+      function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+      }
+
+      var todayReturn = 0
+
+      todayReturn = pricesNotNAN[pricesNotNAN.length - 1] - pricesNotNAN[0]
+
+      console.log(todayReturn)
+
+      var displayPrice = ""
+
+      if(todayReturn >= 0){
+        displayPrice = `<span style = "color: #00cf98; font-weight: bold">+$${todayReturn.toFixed(2)}</span>`
+      } else if(todayReturn < 0){
+        displayPrice = `<span style = "color: #d9515d; font-weight: bold">-$${(todayReturn * -1).toFixed(2)}</span>` 
+      }
+
+      document.getElementById('portfolio-statement').innerHTML = `As of today ${formatAMPM(new Date())}. Today's P&L ${displayPrice}`
 
 
       /*
@@ -194,7 +367,8 @@ function getInstanceData(key, secret){
       });
 
 */
-      
+    
+
 
  // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -1026,60 +1200,6 @@ function changeInstanceState(id, command){
 function changeInstanceClicked(instanceID) {
   localStorage.setItem('selectedInstance', instanceID)
   window.location = '/dashboard'
-}
-
-function getInstanceStocks() {
-  var currentInstance = localStorage.getItem('selectedInstance')
-
-
-
-  firebase.firestore().collection("Instances").doc(currentInstance).collection('Stocks').onSnapshot(snap => {
-    document.getElementById('instance-stocks').innerHTML = ``
-
-    snap.forEach(doc => {
-
-
-      var data = doc.data();
-
-      var tickerFormatName = data['ticker']
-
-
-
-      if (tickerFormatName.length < 4) {
-        for (var i = 0; i <= 4 - tickerFormatName.length; i++) {
-          tickerFormatName = tickerFormatName + " "
-        }
-      }
-
-      if (data) {
-        var cardHTML = `
-        
-        <div class="stock-card-manage">
-
-        <div class="row">
-            <h4 style="color: white; padding-top: 2%; margin-left: 5%;">${data['ticker']}</h4>
-
-            <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 14%;">${data['added']}</h5>
-
-            <h5 style="color: rgb(172, 172, 172); padding-top: 2%; margin-left: 15%; ">$${numberWithCommas(data['maxValue'])}</h5>
-
-
-            <button class="stock-card-option-btn" style="margin-left: 23%;" onclick = "removeStock('${currentInstance}', '${data['ticker']}')">Remove</button>
-
-            <button class="stock-card-option-btn" style="margin-left: 1%" onclick = "viewDetails('${currentInstance}', '${data['ticker']}')">View</button>
-
-        </div>
-    </div>
-        `
-
-        $(cardHTML).appendTo('#instance-stocks');
-      }
-    })
-
-
-
-
-  })
 }
 
 function numberWithCommas(x) {
