@@ -85,10 +85,14 @@ function getInstanceStocks(instance){
   firebase.firestore().collection("Instances").doc(instance).collection("Stocks").onSnapshot(docs => {
     document.getElementById('watchlist').innerHTML = ''
 
+    var count = 0;
+
     docs.forEach(doc => {
       var data = doc.data()
 
       if(data){
+
+        count++
 
         var statusLogo = ``
 
@@ -157,6 +161,8 @@ function getInstanceStocks(instance){
 
       }
     })
+
+    document.getElementById('watchlist-item-count').innerHTML = `${count}`
   })
 
   document.getElementById('content-main-page').style.display = "initial"
