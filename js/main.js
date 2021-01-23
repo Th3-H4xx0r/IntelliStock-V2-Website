@@ -117,7 +117,7 @@ function getInstanceStocks(instance){
         <div style="display: flex; justify-content: space-between;">
             <div>
                 <h4 style="color: white; font-weight: bold; margin-top: 2rem; margin-left: 2rem; font-family: Nunito;">${data['ticker']}</h4>
-                <p style="color: grey; margin-top: -0.6rem; margin-left: 2rem; font-family: Nunito; font-size: 16px;">Tesla Inc.</p>
+                <p style="color: grey; margin-top: -0.6rem; margin-left: 2rem; font-family: Nunito; font-size: 16px;">${data['companyName']}</p>
             </div>
 
             <div style="margin-right: 1.5rem; margin-top: 2rem;">
@@ -135,14 +135,14 @@ function getInstanceStocks(instance){
             <div style="display: flex; justify-content: space-between; margin-top: -5px;">
                 <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Type</p>
 
-                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">Day Trade</p>
+                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">${data['tradingMode']}</p>
             </div>
 
             
             <div style="display: flex; justify-content: space-between; margin-top: -5px;">
                 <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Strategy</p>
 
-                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">RSI</p>
+                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">${data['algorithm']}</p>
             </div>
         </div>
 
@@ -1522,24 +1522,52 @@ function addStock() {
 
               var url = 'http://localhost:3012/tickerInfo?ticker=' + ticker
 
-              $.get(url, function(data){
-                console.log(data)
+              $.get(url, function(companyData){
+                console.log(companyData)
+                console.log(companyData['message'][0]['longName'])
 
-                firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).set({
-                  'currentStatus': false,
-                  "maxValue": maxValue.toString(),
-                  'run': true,
-                  "ticker": ticker,
-                  'companyName': data['longName'],
-                  'algorithm': "MACD",
-                  'added': getFormattedDate(new Date())
-  
-                }).then(() => {
-                  setTimeout(function () {
-                    window.location.reload()
-                  }, 1000);
-  
+                firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).get().then(doc => {
+                  var data = doc.data()
+
+                  console.log(data)
+
+                  if(data == undefined){
+
+                    if(companyData['status'] == "success" && companyData['message'] != undefined && companyData['message'] != {}){
+                      firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).set({
+                        'currentStatus': false,
+                        "maxValue": maxValue.toString(),
+                        'run': true,
+                        "ticker": ticker,
+                        'companyName': companyData['message'][0]['longName'],
+                        'algorithm': "MACD",
+                        'tradingMode': "Day Trade",
+                        'added': getFormattedDate(new Date())
+        
+                      }).then(() => {
+                        setTimeout(function () {
+                          window.location.reload()
+                        }, 1000);
+        
+                      })
+                    } else {
+                      var error = document.getElementById('error-add-stock')
+
+
+                      error.innerHTML = "Internal server error"
+                      button.innerHTML = `Add Stock`
+                    }
+
+                  } else {
+                    var error = document.getElementById('error-add-stock')
+
+
+                    error.innerHTML = "Already watching stock"
+                    button.innerHTML = `Add Stock`
+                  }
                 })
+
+
               })
 
               /*

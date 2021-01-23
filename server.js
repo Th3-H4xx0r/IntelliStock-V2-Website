@@ -152,7 +152,7 @@ router.get('/tickerInfo',async function(req,res){
   if(ticker){
 
     si.getStocksInfo([ticker]).then((info) => {
-      res.send({code: 200, status: "success", message: {"company": info}})
+      res.send({code: 200, status: "success", message: info})
     });
 
 
