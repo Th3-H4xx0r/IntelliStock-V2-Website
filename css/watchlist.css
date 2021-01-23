@@ -51,3 +51,29 @@
     border: none;
     outline: none;
 }
+
+.addStockBtn{
+    height: 2rem;
+    width: 5.5rem;
+    background-color:#00cf98;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    font-size: 14px; 
+    margin-top: 3.3rem;
+    margin-left: 1rem;
+    transition: ease-in-out 0.3s;
+}
+
+.addStockBtn:focus{
+    outline: none;
+    border: none;
+}
+
+.addStockBtn:hover{
+    outline: none;
+    border: none;
+    background-color:#3bebbc;
+}

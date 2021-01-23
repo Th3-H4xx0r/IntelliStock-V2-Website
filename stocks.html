@@ -224,8 +224,11 @@
 
 
         <!-- DASHBOARD MAIN -->
-        <section style="display: none;" id="content-main-page"> 
-            <h2 style="color: white; margin-top: 3rem; margin-left: 3rem; font-family: Nunito; font-weight: bold;">My Watchlist</h1>
+        <section style="display: initial;" id="content-main-page"> 
+            <div class="row">
+                <h2 style="color: white; margin-top: 3rem; margin-left: 3rem; font-family: Nunito; font-weight: bold;">My Watchlist</h1>
+                <button class="addStockBtn" onclick="addStockPopup()">Add Stock</button>
+            </div>
             <h6 style="color: #C0C0C0; margin-top: 0.5rem; margin-left: 3rem; font-family: Nunito;"><span id = 'watchlist-item-count'>0</span> items</h6>
 
             <div id = 'watchlist' style="margin-left: -1rem; max-width: 100%;" class="row">

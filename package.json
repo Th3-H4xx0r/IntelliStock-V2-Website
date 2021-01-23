@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Th3-H4xx0r/IntelliStockV2-Node#readme",
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^1.4.2",
+    "algotrader": "^2.5.4",
     "check-ticker-symbol": "^1.0.0",
     "cors": "^2.8.5",
     "ejs": "^3.1.5",
@@ -32,6 +33,8 @@
     "nodemon": "^2.0.6",
     "request": "^2.88.2",
     "socket-io": "^1.0.0",
-    "socket.io": "^3.0.3"
+    "socket.io": "^3.0.3",
+    "stock-info": "^1.2.0",
+    "tickertape": "^1.0.4"
   }
 }

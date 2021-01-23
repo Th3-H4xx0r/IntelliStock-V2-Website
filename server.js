@@ -8,6 +8,7 @@ var cts = require('check-ticker-symbol');
 const ejs = require('ejs')
 const firebase = require('firebase');
 var mysql = require('mysql'); 
+const algotrader = require('algotrader');
 
 var http = require('http').createServer(app);
 app.use(cors())
@@ -141,6 +142,42 @@ router.get('/instances',function(req,res){
 
 });
 
+//var tickertape = require('tickertape')
+const si = require('stock-info');
+
+router.get('/tickerInfo',async function(req,res){
+  
+  var ticker = req.query.ticker
+
+  if(ticker){
+
+    si.getStocksInfo([ticker]).then((info) => {
+      res.send({code: 200, status: "success", message: {"company": info}})
+    });
+
+
+
+
+    /*
+
+    IEX.getStats('HD').then(stats => {
+      res.send({code: 200, status: "success", message: stats})
+    }).catch(e => {
+      console.log(e)
+      res.send({code: 200, status: "failed", message: e})
+
+    })
+    */
+
+
+
+
+  } else {
+    res.send({code: 200, status: "failed", message: "Missing Parameters"})
+
+  }
+
+});
 
 router.get('/api/registerBeta',function(req,res){
 

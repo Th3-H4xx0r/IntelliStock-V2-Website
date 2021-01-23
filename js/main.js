@@ -1405,41 +1405,56 @@ function addStockPopup() {
   var modalHTML = `
   <!-- Modal -->
   <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content" >
       <div class="modal-header" style = 'background-color: #272727; color: white'>
-        <h5 class="modal-title" id="exampleModalLabel">Add Stock</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel" style = 'font-family: Nunito; font-weight: bold'>Add Stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = 'color: white'>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style = 'background-color: #272727; color: white'>
 
-      <h4>Watch Type</h4>
+      <h6 style = 'font-family: Nunito; font-weight: bold'>Watch Type</h6>
 
-      <input type="radio" id="alpaca" name="alpaca" value="alpaca" disabled>
-<label for="alpaca">Long Term (Comming soon)</label><br>
+      <input type="radio" id="longTerm" name="longTerm" value="longTerm" disabled>
+      <label for="alpaca">Long Term (Coming soon)</label><br>
 
-<input type="radio" id="webull" name="webull" value="webull">
-<label for="webull">Short Term</label><br>
+      <input type="radio" id="shortTerm" name="shortTerm" value="shortTerm" disabled>
+      <label for="webull">Short Term (Coming soon)</label><br>
+
+      <input type="radio" id="dayTrade" name="dayTrade" value="dayTrade" checked>
+      <label for="webull"> Day Trade</label><br>
+
 
 
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Ticker</label>
+            <label for="recipient-name" class="col-form-label" style= 'font-family: Nunito; font-weight: bold'>Ticker</label>
             <input type="text" class="form-control" id="tickerInput" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
           </div>
+
+          
+      <h6 style = 'font-family: Nunito; font-weight: bold'>Algorithm</h6>
+
+      <input type="radio" id="rsi" name="rsi" value="rsi" disabled>
+      <label for="alpaca">RSI (Coming soon)</label><br>
+
+      <input type="radio" id="macd" name="macd" value="macd" checked>
+      <label for="webull">MACD</label><br>
+
+      
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Max Spend Value</label>
+            <label for="message-text" class="col-form-label"  style= 'font-family: Nunito; font-weight: bold'>Max Equity Value</label>
             <input type="number" class="form-control" id="maxValue" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
           </div>
 
 
         <p id = 'error-add-stock' style = "color: red"></p>
       </div>
-      <div class="modal-footer" style = 'background-color: #272727; color: white'>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <button class="create-btn" id = 'add-stock-btn' onclick="addStock()">Add Stock</button>
+      <div class="modal-footer" style = 'background-color: #313033; color: white; height: 4rem;'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style = 'margin-bottom: 1.5rem'>Close</button>
+        <div class="d-flex justify-content-center" style="margin-bottom: 0rem;">
+        <button class="create-btn" id = 'add-stock-btn' onclick="addStock()" style = 'margin-bottom: 1.5rem'>Add Stock</button>
     </div>
       </div>
     </div>
