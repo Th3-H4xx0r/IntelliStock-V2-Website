@@ -147,7 +147,7 @@ function getInstanceStocks(instance){
         </div>
 
         <div class="row" style="float: right; margin-right: 1rem; margin-top: 1rem;">
-            <button class="removeBtn">Remove</button>
+            <button class="removeBtn" onclick = "removeStockPopup('${instance}', '${data['ticker']}')">Remove</button>
             <button class="viewBtn" style="margin-left: 1rem;">View</button>
 
         </div>
@@ -1605,8 +1605,61 @@ function addStock() {
 
 }
 
+function removeStockPopup(instanceID, ticker) {
+  var modalHTML = `
+  <!-- Modal -->
+  <div class="modal fade" id="deleteInstanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = 'background-color: #272727; color: white'>
+        <h5 class="modal-title" id="exampleModalLabel">Remove ${ticker}?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style = 'background-color: #272727; color: white'>
+
+      <p>Are you sure you want to remove ${ticker} from your watchlist? Doing this will make the bot stop watching this stock and making any related trades.</p>
+
+        <p id = 'remove-stock-error' style = "color: red"></p>
+      </div>
+      <div class="modal-footer" style = 'background-color: #272727; color: white'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+        <button class="delete-btn" id = 'delete-btn-modal' onclick="removeStock('${instanceID}', '${ticker}')">Remove Stock</button>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+
+  $(modalHTML).appendTo('#page-main')
+
+  $('#deleteInstanceModal').modal('toggle')
+
+
+}
+
+
+
 function removeStock(instanceID, ticker) {
-  firebase.firestore().collection("Instances").doc(instanceID).collection("Stocks").doc(ticker).delete()
+
+  var button = document.getElementById('delete-btn-modal')
+
+  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+
+  firebase.firestore().collection("Instances").doc(instanceID).collection("Stocks").doc(ticker).update({
+    'run': false,
+  }).then(() => {
+    setTimeout(function(){
+      firebase.firestore().collection("Instances").doc(instanceID).collection("Stocks").doc(ticker).delete().then(() => {
+        window.location.reload()
+      })
+     }, 3000);
+
+  })
+
 }
 
 
