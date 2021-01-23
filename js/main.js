@@ -172,7 +172,7 @@ function getInstanceStocks(instance){
 function getInstanceData(key, secret){
 
   var Http = new XMLHttpRequest();
-  const url = 'http://localhost:3120/v1/dashboardData'
+  const url = 'https://intellistockapi.loca.lt/v1/dashboardData'
   Http.open("GET", url)
   Http.setRequestHeader('key', key)
   Http.setRequestHeader('secret', secret)
@@ -1442,7 +1442,7 @@ function addStockPopup() {
       <input type="radio" id="macd" name="macd" value="macd" checked>
       <label for="webull">MACD</label><br>
 
-      
+
           <div class="form-group">
             <label for="message-text" class="col-form-label"  style= 'font-family: Nunito; font-weight: bold'>Max Equity Value</label>
             <input type="number" class="form-control" id="maxValue" style = 'background-color: #272727; color: white; border: 2px solid #00CF98'>
@@ -1479,17 +1479,18 @@ function getFormattedDate(date) {
 }
 
 function addStock() {
+  
+  var ticker = document.getElementById('tickerInput').value
+  var maxValue = document.getElementById('maxValue').value
+  var error = document.getElementById('error-add-stock')
+
+  var button = document.getElementById('add-stock-btn')
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       var email = user.email;
 
 
-      var ticker = document.getElementById('tickerInput').value
-      var maxValue = document.getElementById('maxValue').value
-
-      var error = document.getElementById('error-add-stock')
-
-      var button = document.getElementById('add-stock-btn')
 
       button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
 
@@ -1497,6 +1498,8 @@ function addStock() {
       //console.log(secret)
 
       if (ticker && maxValue) {
+        var error = document.getElementById('error-add-stock')
+
         //firebase.firestore().collection("Instances").doc().set({})
         error.innerHTML = ""
 
@@ -1516,20 +1519,37 @@ function addStock() {
             var message = response['message']
 
             if (message == 'Valid') {
-              firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).set({
-                'currentStatus': false,
-                "maxValue": maxValue.toString(),
-                'run': true,
-                "ticker": ticker,
-                'added': getFormattedDate(new Date())
 
-              }).then(() => {
-                setTimeout(function () {
-                  window.location.reload()
-                }, 1000);
+              var url = 'http://localhost:3012/tickerInfo?ticker=' + ticker
 
+              $.get(url, function(data){
+                console.log(data)
+
+                firebase.firestore().collection('Instances').doc(currentInstance).collection('Stocks').doc(ticker).set({
+                  'currentStatus': false,
+                  "maxValue": maxValue.toString(),
+                  'run': true,
+                  "ticker": ticker,
+                  'companyName': data['longName'],
+                  'algorithm': "MACD",
+                  'added': getFormattedDate(new Date())
+  
+                }).then(() => {
+                  setTimeout(function () {
+                    window.location.reload()
+                  }, 1000);
+  
+                })
               })
+
+              /*
+
+              */
             } else {
+
+              var error = document.getElementById('error-add-stock')
+
+
               error.innerHTML = "Ticker is not valid"
               button.innerHTML = `Add Stock`
             }
@@ -1537,6 +1557,10 @@ function addStock() {
 
         }
       } else {
+
+        var error = document.getElementById('error-add-stock')
+
+
         error.innerHTML = "Fields cannnot be left blank"
         button.innerHTML = `Create Instance`
 
@@ -1545,7 +1569,7 @@ function addStock() {
 
 
     } else {
-      var error = document.getElementById('error-create-instance')
+      var error = document.getElementById('error-add-stock')
 
       error.innerHTML = "Auth error: User not signed in"
     }
