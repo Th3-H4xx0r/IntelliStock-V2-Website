@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/createInstance.css"">
+    <script src="assets/js/main.js"></script>
+
+    <link rel="stylesheet" href="assets/css/loading.css">
+
+    <script src="assets/js/chartist.min.js"></script>
+
+    <link rel="stylesheet" href="terminalJs/termynal.css">
+
+      
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
+  <script src="https://api.intellistock.protosystems.net/init.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+
+
+
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;600;700&display=swap" rel="stylesheet"> 
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/alpaca/1.5.27/bootstrap/alpaca.min.css" integrity="sha512-PehAqXRAv5QxF18trM6o/TGFqwG7s7g0c1+L4bGYLvYX+cMY0v4iwVMfqOTWjfzwoSFX4ruVt2wlalxzusntjw==" crossorigin="anonymous" />
+    <title>Instances</title>
+  </head>
+  <body style="background-color: #242B48;" id = 'page-main'>
+
+    <script>
+        $( document ).ready(function() {
+            init();
+            //getUserInstances('dashboard');
+            //getInstances()
+        });
+    </script>
+
+    <style>
+        .lds-dual-ring {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+    </style>
+
+
+
+
+
+
+
+<section id="content-main-page" style="display: initial;">
+    <div style="display: flex; justify-content: space-between;">
+        <a class="navbar-brand" href="#"><img src='assets/images/Group 1.png' width="60%" style = 'margin-top: 2rem; margin-left: 2rem;'/></a>
+    </div>
+
+    <center>
+        <h3 style = 'color: white; margin-top: 4%'>Create Instance</h3>
+        <p style = 'color: #B5B5B5'>Create an instance using the feilds below.</p>
+    </center>
+
+    <div class="d-flex justify-content-center">
+
+        <div class="createbox">
+
+            <!-- LOADING INSTANCE CREATION-->
+
+            <section id="loading-instance-page" style="display: none;">
+                <div class="d-flex justify-content-center">
+                    <div class="lds-dual-ring" style="margin-top: 30%;"></div>
+                </div>
+
+                <center>
+                    <h5 style="color: white; font-family: Nunito; font-weight: bold; margin-top: 2rem;">Initializing Instance</h5>
+                </center>
+
+
+                
+            </section>
+
+            <!-- END of LOADING INSTANCE CREATION-->
+
+            <section id = 'create-section' style="display: initial;">
+                <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Name</p>
+
+                <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 90%;" class="inputBox" id = 'instance-name' maxlength="25">
+    
+    
+                <div class="row" style="margin-left: 0rem;">
+                    <div>
+                        <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Key</p>
+    
+                        <input type="text" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox" id = 'alpaca-key'>
+    
+                    </div>
+    
+                    <div>
+    
+                        <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Alpaca Secret</p>
+    
+                        <input type="password" style="margin-left: 2rem; margin-top: 0rem; width: 17rem;" class="inputBox" id = 'alpaca-secret'>
+                        
+                    </div>
+                </div>
+    
+                <p style = 'color: white; font-family: Nunito; font-weight: bold; margin-left: 3rem; margin-top: 2rem'>Instance Type</p>
+    
+    
+                <div class="row">
+                                 <!-- Rounded switch -->
+                 <label class="switch" style="margin-left: 4rem;">
+                    <input type="checkbox" checked disabled>
+                    <span class="slider round"></span>
+                </label>
+    
+                    <h6 style="margin-left: 3rem; color: white; margin-right: 1rem; margin-left: 1rem;">Paper Trading</h6>
+    
+    
+                </div>
+    
+    
+    
+                <div style="display: flex; justify-content: space-between; margin-top: 4.5rem;">
+    
+                    <p style="color: red; margin-left: 3rem; margin-top: 2rem; font-weight: bold; font-family: Nunito;" id = 'error-create-instance'></p>
+    
+    
+                    <button style="margin-top: 1rem; margin-right: 2rem;" class="createInstance-btn" id = 'create-btn' onclick="createInstance()">Create Instance</button>
+    
+                </div>
+    
+            </section>
+
+         
+            
+
+        </div>
+    </div>
+
+
+
+
+        
+</section>
+
+
+<script src="/terminaljs/termynal.js"></script>
+
+</body>
+</html>

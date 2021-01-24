@@ -1,0 +1,79 @@
+.watchlist-item{
+    height: 17rem;
+    width: 23rem;
+    border-radius: 10px;
+    background-color: #2D3555;
+    transition: ease-in-out 0.4s;
+    margin-top: 1rem;
+    margin-right: -2rem;
+}
+
+.watchlist-item:hover{
+    background-color: #404b77;
+}
+
+.active{
+    background-color: #00cf98;
+    height: 20px;
+    width: 20px;
+    border-radius: 200px;
+}
+
+.removeBtn{
+    height: 2rem;
+    width: 5.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
+
+.removeBtn:focus{
+    border: none;
+    outline: none;
+}
+
+
+.viewBtn{
+    height: 2rem;
+    width: 5.5rem;
+    background-color:#00cf98;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
+
+.viewBtn:focus{
+    border: none;
+    outline: none;
+}
+
+.addStockBtn{
+    height: 2rem;
+    width: 5.5rem;
+    background-color:#00cf98;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    font-size: 14px; 
+    margin-top: 3.3rem;
+    margin-left: 1rem;
+    transition: ease-in-out 0.3s;
+}
+
+.addStockBtn:focus{
+    outline: none;
+    border: none;
+}
+
+.addStockBtn:hover{
+    outline: none;
+    border: none;
+    background-color:#3bebbc;
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/auth.css"">
+
+    <script src="assets/js/auth.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">  
+
+
+
+      
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+      
+      
+  <script src="https://api.intellistock.protosystems.net/init.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <title>Signup</title>
+  </head>
+  <body>
+
+    <script>
+        $( document ).ready(function() {
+            init();
+        });
+    </script>
+
+
+    <nav class=" navbar navbar-expand-lg navbar-dark bg-custom">
+
+    <a class="navbar-brand" href="/"><img src='assets/images/Group 1.png' width="60%" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <span class="navbar-text">
+            <a href="/login" style="color: #00CF98;">Login/Signup</a>
+        </span>
+    </div>
+
+    </nav>
+
+    <section id = 'signup-content' >
+
+        <div class="d-flex justify-content-center" style="margin-top: 8rem;">
+            <center style="color: white; font-weight: 700; font-size: 45px; max-width: 20%; font-family: Raleway;">Automated trading starts here</center>
+    
+        </div>
+    
+        
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Email" id = 'email'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Name" id = 'name'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes" placeholder="Password" type="password" id = 'password'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes"  placeholder="Repeat password" type="password" id = 'repeatPassword'/>
+    
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <input class="authboxes"  placeholder="Beta Access Code" type="password" id = 'betaCode'/>
+    
+        </div>
+    
+        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+            <button class="signup-btn" onclick="signup()" id = 'signup-btn'>Sign up</button>
+    
+        </div>
+
+        <center>
+            <p style="color: red;" id="error"></p>
+        </center>
+    
+        <center style="margin-top: 1rem;">
+            <p style="color: white;">Have an account? <a href="/login">Login</a></p>
+        </center>
+    </section>
+
+    <section id = 'signup-success' style="display: none;">
+
+        <div class="d-flex justify-content-center" style="margin-top: 18rem;">
+            <i class="far fa-check-circle" style="color: #00CF98; font-size: 7rem;"></i>
+        </div>
+        <center>
+            <h1 style="color: white; margin-top: 1rem;">Account Created</h1>
+            <p style="color: white;"><a href="/login">Login</a> to continue</p>
+        </center>
+
+    </section>
+
+
+
+
+
+
+ 
+
+
+
+</body>
+</html>

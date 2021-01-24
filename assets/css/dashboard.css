@@ -1,0 +1,345 @@
+body{
+    background-color: #151515;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Quicksand';
+}
+
+
+.first-bar{
+    height: 100rem;
+    width: 6%;
+    background-color: #151515;
+}
+
+.second-bar{
+    height: 100rem;
+    width: 15%;
+    background-color: #2D3555;
+}
+
+.selected-menu-bar{
+    background-color: #00CF98;
+    height: 2rem;
+    width: 5px;
+    margin-left: 1rem;
+}
+
+.watchlist-box{
+  height: 25rem;
+  position: absolute;
+  background-color: #2D3555;
+  width: 30rem;
+  margin-left: 3rem;
+  border-radius: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.watchlist-header{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #3D4772;
+  height: 2rem;
+  width: 90%;
+  border-radius: 5px;
+}
+
+.watchlist-header-item{
+  color: white;
+  margin-top: 0.4rem;
+  font-weight: 600;
+  font-family: Nunito;
+  font-size: 15px;
+}
+
+.watchlist-item{
+  color: white;
+  font-weight: 600;
+  margin-left: 4rem;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+
+.portfolio-box{
+  height: 6rem;
+  width: 100%;
+  margin-left: 3rem;
+  border-radius: 10px;
+  background-color: #2D3555;
+}
+
+.switch-instance-btn{
+  background-color: #00CF98;
+  height: 2rem;
+  width: 10rem;
+  border-radius: 4px;
+  border: none;
+  color: white;
+}
+
+.switch-instance-btn:focus{
+  outline:none;
+  border: none;
+}
+
+.instance-profile-selected{
+    height: 3.7rem;
+    width: 3.7rem;
+    background-color: #00CF98;
+    border-radius: 100%;
+    margin-top: 1rem;
+    margin-left: 0.3rem;
+    transition: ease-in 0.2s;
+}
+
+.instance-profile-selected:hover{
+    background-color: rgb(87, 241, 200);
+}
+
+.instance-profile{
+    height: 3.7rem;
+    width: 3.7rem;
+    background-color: #c8d3d0;
+    border-radius: 100%;
+    margin-top: 1rem;
+    margin-left: 1.3rem;
+    transition: ease-in 0.2s;
+}
+
+.instance-profile:hover{
+    background-color: rgb(250, 250, 250);
+}
+
+.instance-profile-add{
+    height: 3.7rem;
+    width: 3.7rem;
+    background-color: #151515;
+    border: 3px solid #00CF98;
+    border-radius: 100%;
+    margin-top: 1rem;
+    margin-left: 1.3rem;
+    transition: ease-in 0.2s;
+}
+
+.instance-profile-add:hover{
+    background-color: #00CF98;
+    color: #151515;
+}
+
+.instance-profile-bar{
+    height: 2rem;
+    width: 0.3rem;
+    margin-left: 0.3rem;
+    margin-top: 1.9rem;
+    background-color: #00CF98;
+}
+
+.shine {
+    background: #f6f7f8;
+    background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 104px; 
+    display: inline-block;
+    position: relative; 
+    
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards; 
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeholderShimmer;
+    -webkit-animation-timing-function: linear;
+    }
+
+  @-webkit-keyframes placeholderShimmer {
+    0% {
+      background-position: -468px 0;
+    }
+    
+    100% {
+      background-position: 468px 0; 
+    }
+  }
+
+.latest-transactions-box{
+    height: 14rem;
+    width: 10rem;
+    background-color: #454545;
+    border-radius: 5px;
+    margin-right: 2rem;
+}
+
+.stock-card-manage{
+    margin-left: 3rem;
+    margin-top: 1rem;
+    height: 5rem;
+    width: 90%;
+    border-radius: 3px;
+    background-color: #454545;
+}
+
+.stock-card-option-btn{
+height: 2.3rem;
+width: 6rem;
+border: none;
+border-radius: 12px;
+background-color: #454545;
+color: white;
+border: 3px solid white;
+margin-top: 1rem;
+}
+
+.stock-card-option-btn:focus{
+    outline: none;
+
+    }
+
+.stock-card-option-btn:hover{
+    background-color: white;
+    color: black;
+}
+  
+
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 5px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .create-btn{
+    width: 12rem;
+    height: 2.3rem;
+    margin-bottom: 1rem;
+    background-color: #00CF98;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    transition: ease-in 0.2s;
+}
+
+.create-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.create-btn:hover{
+    background-color: #68ecc9;
+}
+
+.create-instance-starter-btn{
+  width: 12rem;
+  height: 2.3rem;
+  margin-bottom: 1rem;
+  background-color: #00CF98;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.create-instance-starter-btn:focus, textarea:focus, select:focus{
+  outline: none;
+}
+
+.create-instance-starter-btn:hover{
+  background-color: #68ecc9;
+}
+
+.delete-btn{
+  width: 10rem;
+  height: 2.3rem;
+  margin-bottom: 1rem;
+  background-color: #dc392d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.delete-btn:focus, textarea:focus, select:focus{
+  outline: none;
+}
+
+.delete-btn:hover{
+  border: 2px solid #dc392d;
+  color: #dc392d;
+  background-color: #454545;
+  border: none;
+}
+
+.start-instance-btn{
+  width: 10rem;
+  height: 2.3rem;
+  margin-top: 1rem;
+  background-color: #00CF98;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.stop-instance-btn{
+  width: 10rem;
+  height: 2.3rem;
+  margin-top: 1rem;
+  background-color: #dc392d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in 0.2s;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

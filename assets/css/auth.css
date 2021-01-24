@@ -1,0 +1,104 @@
+body{
+    background-color: #0E1431;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Quicksand';
+}
+
+.authboxes{
+    background-color: #575757;
+    border: none;
+    height: 2.5rem;
+    width: 20rem;
+    border-radius: 10px;
+    color: white;
+    padding-left: 10px;
+    margin-bottom: 1rem;
+}
+
+.authboxes:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.signup-btn{
+    width: 20rem;
+    height: 2.5rem;
+    background: -webkit-gradient(to right, #00C0EA 0%, #3cf3c2 50%, #00CF98 100%);
+    background: linear-gradient(to right, #00C0EA 0%, #3cf3c2 50%, #00CF98 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.signup-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.signup-btn:hover{
+    background-color: #68ecc9;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 5px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #headertext{
+        margin-left: -15rem;
+        margin-top: 5rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #headertext{
+        padding-left: -20rem;
+        margin-top: 5rem;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

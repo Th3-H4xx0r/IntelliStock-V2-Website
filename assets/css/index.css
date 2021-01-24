@@ -1,0 +1,168 @@
+body{
+    background-color: rgb(21,21,21);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Quicksand';
+}
+
+.get-started-btn{
+    color: white;
+    background-color: #00CF98;
+    border: none;
+    height: 40px;
+    width: 150px;
+    font-family: 'Quicksand';
+    border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.get-started-btn:hover{
+    background-color: #58ffd2;
+}
+
+.get-started-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+.odometer .odometer-inside:before {
+    content: "$"
+} 
+
+
+.stockCard{
+    background-color: white;
+    height: 80px;
+    width: 300px;
+    border-radius: 10px;
+    border: 3px solid #00CF98;
+}
+
+.stockTitle{
+    font-family: 'Quicksand';
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.setupCards{
+    background-color: rgb(21,21,21);
+    height: 20rem;
+    width: 23rem;
+    border-radius: 10px;
+    margin-left: 5rem;
+    margin-top: 2rem;
+}
+
+.createAccount-btn{
+    margin-top: 2rem;
+    color: white;
+    background-color: #00CF98;
+    border: none;
+    height: 40px;
+    width: 200px;
+    font-family: 'Quicksand';
+    border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.createAccount-btn:hover{
+    background-color: #58ffd2;
+}
+
+.createAccount-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #portfolio{
+        display: none;
+    }
+
+    #TSLA{
+        display: none;
+    }
+
+    #AMZN{
+        display: none;
+    }
+
+    #GOOG{
+        display: none;
+    }
+
+    #header-img{
+        display: none;
+    }
+
+    .stockCard{
+        display: none; 
+    }
+
+    .setupCards{
+        background-color: rgb(21,21,21);
+        height: 20rem;
+        width: 85%;
+        border-radius: 10px;
+        margin-left: 2rem;
+        margin-top: 2rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .odometer{
+        display: none;
+    }
+
+    #header-img{
+        display: none;
+    }
+
+    #TSLA{
+        display: none;
+    }
+
+    #AMZN{
+        display: none;
+    }
+
+    #GOOG{
+        display: none;
+    }
+
+    .stockCard{
+        display: none; 
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .odometer{
+        display: initial;
+    }
+
+    #header-img{
+        display: initial;
+    }
+
+    #TSLA{
+        display: initial;
+    }
+
+    #AMZN{
+        display: initial;
+    }
+
+    #GOOG{
+        display: initial;
+    }
+
+    .stockCard{
+        display: initial; 
+    }
+}
