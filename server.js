@@ -275,6 +275,7 @@ app.use('/js', express.static('js/'))
 app.use('/terminaljs', express.static('terminalJs/'))
 app.use('/apexcharts', express.static('apexcharts/'))
 
+
 //add the router
 app.use('/', router);
 //app.listen(process.env.port || 3000);
@@ -300,11 +301,15 @@ http.listen(port, () => {
 
     var data = JSON.stringify(obj);
 
-    fs.writeFile('config.json', data, 'utf8', function(err, data){
+    fs.writeFile('config/config.json', data, 'utf8', function(err, data){
+
+      if(err){
+        console.log(err)
+      }
       
     });
     
-    console.log(data['apiURL'])
+    //console.log(data['apiURL'])
   })
 
   

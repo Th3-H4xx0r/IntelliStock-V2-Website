@@ -59,7 +59,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "config.json"
+      "config/config.json"
     ]
   },
   "scripts": {

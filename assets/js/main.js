@@ -1,4 +1,24 @@
 var endpoint = 'https://spotty-turtle-21.loca.lt'
+
+function readTextFile(file, callback) {
+  var rawFile = new XMLHttpRequest();
+  rawFile.overrideMimeType("application/json");
+  rawFile.open("GET", file, true);
+  rawFile.onreadystatechange = function() {
+      if (rawFile.readyState === 4 && rawFile.status == "200") {
+          callback(rawFile.responseText);
+      }
+  }
+  rawFile.send(null);
+}
+
+//usage:
+readTextFile("config/config.json", function(text){
+  var data = JSON.parse(text);
+  //console.log(data);
+});
+
+
 function getDashboardData(instance){
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
