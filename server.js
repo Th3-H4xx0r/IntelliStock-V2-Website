@@ -8,6 +8,7 @@ var cts = require('check-ticker-symbol');
 const ejs = require('ejs')
 const firebase = require('firebase');
 var mysql = require('mysql'); 
+var fs = require('fs');
 
 var http = require('http').createServer(app);
 app.use(cors())
@@ -20,6 +21,7 @@ var con = mysql.createConnection({
   password: "Minecraft123#",
   database: 'hackvslh_intellistock'
 });
+
 
 con.connect(function(err) {
   if (err) {
@@ -45,8 +47,11 @@ var firebaseConfig = {
 };
 
 
+
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 
 
 app.use(function (req, res, next) {
@@ -286,6 +291,23 @@ app.get('*', function(req, res){
 var port  = 3012
 
 http.listen(port, () => {
+
+  firebase.firestore().collection("Config").doc("Config").onSnapshot(snap => {
+    var data = snap.data()
+
+    var obj = {"apiURL": data['apiURL']}
+
+
+    var data = JSON.stringify(obj);
+
+    fs.writeFile('config.json', data, 'utf8', function(err, data){
+      
+    });
+    
+    console.log(data['apiURL'])
+  })
+
+  
   console.log('listening on *:' + port);
 });
 

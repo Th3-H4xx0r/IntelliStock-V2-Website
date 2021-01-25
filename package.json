@@ -57,6 +57,11 @@
     "require-dir": "^1.2.0",
     "run-sequence": "^2.2.1"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "config.json"
+    ]
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js"
