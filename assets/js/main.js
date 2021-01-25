@@ -15,6 +15,8 @@ function readTextFile(file, callback) {
 //usage:
 readTextFile("config/config.json", function(text){
   var data = JSON.parse(text);
+
+  endpoint = data['apiURL']
   //console.log(data);
 });
 
@@ -558,7 +560,9 @@ var options = {
   scales: {
     yAxes: [{
       ticks: {
-        beginAtZero: true
+        beginAtZero: false,
+
+        stepSize: equity/10
       },
       gridLines: {
         color: "rgba(204, 204, 204,0.1)"
@@ -567,7 +571,8 @@ var options = {
     xAxes: [{
       gridLines: {
         color: "rgba(204, 204, 204,0.1)"
-      }
+      }, 
+
     }]
   },
   legend: {
