@@ -1,18 +1,5 @@
-.watchlist-item{
-    height: 17rem;
-    width: 23rem;
-    border-radius: 10px;
-    background-color: #2D3555;
-    transition: ease-in-out 0.4s;
-    margin-top: 1rem;
-    margin-right: -2rem;
-}
 
-.watchlist-item:hover{
-    background-color: #404b77;
-}
-
-.active{
+.active-indicator{
     background-color: #00cf98;
     height: 20px;
     width: 20px;
@@ -62,8 +49,8 @@
     font-weight: bold;
     color: white;
     font-size: 14px; 
-    margin-top: 3.3rem;
     margin-left: 1rem;
+    margin-top: 0.2rem;
     transition: ease-in-out 0.3s;
 }
 
@@ -76,4 +63,62 @@
     outline: none;
     border: none;
     background-color:#3bebbc;
+}
+
+.create-btn{
+    width: 12rem;
+    height: 2.3rem;
+    margin-bottom: 1rem;
+    background-color: #00CF98;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    transition: ease-in 0.2s;
+}
+
+.create-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.create-btn:hover{
+    background-color: #68ecc9;
+}
+
+.close-btn{
+    width: 5rem;
+    height: 2.3rem;
+    margin-bottom: 1rem;
+    background-color: #474950;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    transition: ease-in 0.2s;
+}
+
+
+.create-btn:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.delete-btn{
+    width: 10rem;
+    height: 2.2rem;
+    margin-bottom: 0rem;
+    background-color: #dc392d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: ease-in 0.2s;
+    margin-bottom: 0.5rem;
+  }
+  
+.delete-btn:focus, textarea:focus, select:focus{
+outline: none;
+}
+
+.delete-btn:hover{
+border: 2px solid #dc392d;
+color: #dc392d;
+background-color: #454545;
+border: none;
 }

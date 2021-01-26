@@ -77,6 +77,7 @@ function getDashboardData(instance){
 
 
 function getWatchlistData(instance){
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       var name = user.displayName;
@@ -146,48 +147,50 @@ function getInstanceStocks(instance){
         }
 
         var tickerHTML = `
-        <div class="watchlist-item">
 
-        <div style="display: flex; justify-content: space-between;">
-            <div>
-                <h4 style="color: white; font-weight: bold; margin-top: 2rem; margin-left: 2rem; font-family: Nunito;">${data['ticker']}</h4>
-                <p style="color: grey; margin-top: -0.6rem; margin-left: 2rem; font-family: Nunito; font-size: 16px;">${data['companyName']}</p>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0">${data['ticker']}</h3>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal" id = 'accountType'>${data['companyName']}</h6>
+
+
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+              <h5 class="text-muted font-weight-normal" >Max Equity</h5>
+
+              <h5 class="text-muted font-weight-normal" >$${data['maxValue']}</h5>
+
             </div>
 
-            <div style="margin-right: 1.5rem; margin-top: 2rem;">
-               ${statusLogo}
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+              <h5 class="text-muted font-weight-normal" >Type</h5>
+
+              <h5 class="text-muted font-weight-normal" >${data['tradingMode']}</h5>
+
             </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+              <h5 class="text-muted font-weight-normal" >Strategy</h5>
+
+              <h5 class="text-muted font-weight-normal" >${data['algorithm']}</h5>
+
+            </div>
+
+            <div style="float: right; margin-left: 1rem; margin-top: 2rem; margin-bottom: -0.5rem;">
+              <button class="removeBtn" onclick = "removeStockPopup('${instance}', '${data['ticker']}')">Remove</button>
+              <button class="viewBtn" style="margin-left: 1rem;">View</button>
+            </div>
+          </div>
         </div>
-
-        <div>
-            <div style="display: flex; justify-content: space-between;">
-                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Max Equity</p>
-
-                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">$${data['maxValue']}</p>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; margin-top: -5px;">
-                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Type</p>
-
-                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">${data['tradingMode']}</p>
-            </div>
-
-            
-            <div style="display: flex; justify-content: space-between; margin-top: -5px;">
-                <p style="margin-left: 2rem; color: #C0C0C0; font-size: 15px;">Strategy</p>
-
-                <p style="margin-right: 1rem; color: #C0C0C0; font-size: 15px; font-weight: bold;">${data['algorithm']}</p>
-            </div>
-        </div>
-
-        <div class="row" style="float: right; margin-right: 1rem; margin-top: 1rem;">
-            <button class="removeBtn" onclick = "removeStockPopup('${instance}', '${data['ticker']}')">Remove</button>
-            <button class="viewBtn" style="margin-left: 1rem;">View</button>
-
-        </div>
+      </div>
 
 
-    </div>
 
         `
 
@@ -196,10 +199,11 @@ function getInstanceStocks(instance){
       }
     })
 
-    document.getElementById('watchlist-item-count').innerHTML = `${count}`
+    //document.getElementById('watchlist-item-count').innerHTML = `${count}`
   })
-
+  document.getElementById('loading-page').style.display = "none"
   document.getElementById('content-main-page').style.display = "initial"
+
 }
 
 
@@ -1671,7 +1675,7 @@ function addStockPopup() {
         <p id = 'error-add-stock' style = "color: red"></p>
       </div>
       <div class="modal-footer" style = 'background-color: #313033; color: white; height: 4rem;'>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style = 'margin-bottom: 1.5rem'>Close</button>
+        <button type="button" class="close-btn" data-dismiss="modal" style = 'margin-bottom: 1.5rem'>Close</button>
         <div class="d-flex justify-content-center" style="margin-bottom: 0rem;">
         <button class="create-btn" id = 'add-stock-btn' onclick="addStock()" style = 'margin-bottom: 1.5rem'>Add Stock</button>
     </div>
@@ -1843,7 +1847,7 @@ function removeStockPopup(instanceID, ticker) {
         <p id = 'remove-stock-error' style = "color: red"></p>
       </div>
       <div class="modal-footer" style = 'background-color: #272727; color: white'>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="close-btn" data-dismiss="modal">Close</button>
         <div class="d-flex justify-content-center" style="margin-top: 1rem;">
         <button class="delete-btn" id = 'delete-btn-modal' onclick="removeStock('${instanceID}', '${ticker}')">Remove Stock</button>
     </div>
