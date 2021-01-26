@@ -368,7 +368,7 @@ function getInstanceData(key, secret){
           datasets: [{
               data: positionValues,
               backgroundColor: [
-                "#434860","#00d25b","#f3be62", "#90cbed"
+                "#00d25b","#434860","#f3be62", "#90cbed"
               ]
             }
           ]
@@ -377,7 +377,7 @@ function getInstanceData(key, secret){
           responsive: true,
           maintainAspectRatio: true,
           segmentShowStroke: false,
-          cutoutPercentage: 70,
+          cutoutPercentage: 75,
           elements: {
             arc: {
                 borderWidth: 0
