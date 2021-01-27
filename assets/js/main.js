@@ -74,7 +74,86 @@ function getDashboardData(instance){
 }
 
 
+function getTransactionHistory(instance){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
 
+      firebase.firestore().collection("Instances").doc(instance).get().then(snap => {
+        var data = snap.data()
+
+        if(data){
+
+          if(data['user'] == email){
+
+            var key = data['key']
+            var secret = data['secret']
+
+            var today = new Date()
+
+            var day = today.getDate()
+
+            var month = today.getUTCMonth()
+
+            var year = today.getUTCFullYear();
+
+
+            var Http = new XMLHttpRequest();
+            const url = endpoint + `/v4/transactions?instance=${instance}&day=${day}&month=${month}&year=${year}`
+            Http.open("GET", url)
+            Http.setRequestHeader('key', key)
+            Http.setRequestHeader('secret', secret)
+            Http.setRequestHeader('content-type', "*")
+            Http.setRequestHeader('Bypass-Tunnel-Reminder', "true")
+            Http.send()
+          
+            Http.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+          
+                var response = JSON.parse(Http.responseText)
+          
+                var message = response['message']
+
+                if(response['status'] == 'success'){
+                  console.log("success")
+
+                  for(var i = 0; i <= message.length - 1; i++){
+                    var transaction = message[i]
+
+                    var symbol = message['symbol']
+                    var qty = message['filled_qty']
+                    var side = message['side']
+
+                    var date = Date.parse(message['filled_at'])
+
+                    var formattedDate = getFormattedDate(date)
+
+                    console.log(formattedDate)
+                  }
+                }
+
+                console.log(response)
+
+              }
+            }
+
+          } else {
+            toggleForbiddenPage()
+
+          }
+        } else {
+          toggleForbiddenPage()
+        }
+      })
+
+
+
+
+    }
+  })
+}
 
 function getWatchlistData(instance){
 
@@ -91,6 +170,8 @@ function getWatchlistData(instance){
 
         if(data){
           if(data['user'] == email){
+
+            document.getElementById('email').innerHTML = email
 
             getInstanceStocks(instance);
 
@@ -770,7 +851,7 @@ function getInstances(){
           var instanceHTML = `
 
 
-          <div class="instance-item">
+          <div class="instance-item" style = 'margin-top: 1rem'>
               <div style = ' display: flex; justify-content: space-between;'>
               <h4 style="color: white; font-weight: bold; font-family: Nunito; margin-top: 1rem; margin-left: 1rem; font-size: 20px;">${data['instanceName']}</h4>
   
