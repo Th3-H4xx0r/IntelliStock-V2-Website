@@ -12,6 +12,27 @@ function readTextFile(file, callback) {
   rawFile.send(null);
 }
 
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function getFormattedDate(date) {
+  let year = date.getFullYear();
+  let month = (1 + date.getMonth()).toString().padStart(2, '0');
+  let day = date.getDate().toString().padStart(2, '0');
+
+  return month + '/' + day + '/' + year;
+}
+
+
+
 //usage:
 readTextFile("config/config.json", function(text){
   var data = JSON.parse(text);
@@ -75,6 +96,9 @@ function getDashboardData(instance){
 
 
 function getTransactionHistory(instance){
+
+  document.getElementById('loading-page').style.display = "initial"
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       var name = user.displayName;
@@ -119,14 +143,24 @@ function getTransactionHistory(instance){
                 if(response['status'] == 'success'){
                   console.log("success")
 
+                  //console.log(message.length)
+
                   for(var i = 0; i <= message.length - 1; i++){
                     var transaction = message[i]
 
-                    console.log(transaction)
+                    //console.log(transaction)
 
                     var symbol = transaction['symbol']
                     var qty = transaction['filled_qty']
                     var side = transaction['side']
+
+                    var date = new Date(transaction['filled_at'])
+
+                    var formattedDate = (date.getUTCMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()
+
+                    var formattedTime = formatAMPM(date)
+
+                    //console.log(formattedDate)
 
                     var badge = ``
 
@@ -136,22 +170,27 @@ function getTransactionHistory(instance){
                       badge = 'danger'
                     }
 
-                    var element = `
-                    <tr>
-                    <td class="py-1">
-                        1/20/2021
-                    </td>
-                    <td> 10:00AM </td>
-                    <td>
-                        ${symbol}
-                    </td>
-                    <td> ${qty} </td>
-                    <td> <div class="badge badge-${badge}">${side}</div>  </td>
-                  </tr>
+                    if(transaction['status'] == 'filled'){
 
-                    `
+                      var element = `
+                      <tr>
+                      <td class="py-1">
+                          ${formattedDate}
+                      </td>
+                      <td> ${formattedTime} </td>
+                      <td>
+                          ${symbol}
+                      </td>
+                      <td> ${qty} </td>
+                      <td> <div class="badge badge-${badge}">${side}</div></td>
+                    </tr>
+  
+                      `
+  
+                      $(element).appendTo('#transactions')
+                    }
 
-                    $(element).appendTo('#transactions')
+                   
 
                     //var date = Date.parse(message['filled_at'])
 
@@ -161,7 +200,11 @@ function getTransactionHistory(instance){
                   }
                 }
 
-                console.log(response)
+                document.getElementById('loading-page').style.display = "none"
+                document.getElementById('content-main-page').style.display = "initial"
+
+
+                //console.log(response)
 
               }
             }
@@ -577,16 +620,7 @@ function getInstanceData(key, secret){
 
       }
 
-      function formatAMPM(date) {
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-      }
+
 
       var todayReturn = 0
 
@@ -1813,13 +1847,6 @@ function addStockPopup() {
 }
 
 
-function getFormattedDate(date) {
-  let year = date.getFullYear();
-  let month = (1 + date.getMonth()).toString().padStart(2, '0');
-  let day = date.getDate().toString().padStart(2, '0');
-
-  return month + '/' + day + '/' + year;
-}
 
 function addStock() {
   
