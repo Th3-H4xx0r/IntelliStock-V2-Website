@@ -288,7 +288,15 @@ function getInstanceData(key, secret){
 
 
       if(positions.length == 0){
-        $('<h4 style = "color: grey; margin-top: 1rem">No Positions</h4>').appendTo('#watchlist-list');
+
+        var noPositionsHTML = `
+        <div class="d-flex justify-content-center">
+
+          <h5 margin-top: 1rem">No Positions</h5>
+
+        </div>
+        `
+        document.getElementById('watchlist-list').innerHTML = noPositionsHTML
       } else {
 
         var positionIndex = 0;
@@ -563,7 +571,7 @@ var data = {
 var options = {
   scales: {
     yAxes: [{
-      ticks: {
+      ticks: {  
         beginAtZero: false,
 
         stepSize: equity/10
@@ -574,8 +582,12 @@ var options = {
     }],
     xAxes: [{
       gridLines: {
-        color: "rgba(204, 204, 204,0.1)"
+        display: false,
       }, 
+
+      ticks: {
+        display: false
+      }
 
     }]
   },
