@@ -148,6 +148,23 @@ router.get('/history',function(req,res){
 
 });
 
+router.get('/settings',function(req,res){
+  try{
+    var instanceID = req.query.instance
+
+    if(instanceID){
+      res.render(path.join(__dirname+'/settings.ejs'), {instance: instanceID})
+
+    } else {
+      res.send("Internal Server Error: Missing Instance ID")
+    }
+  } catch(e){
+    console.log(e)
+    res.send("Internal server error: " + e)
+  }
+
+
+});
 
 
 router.get('/create',function(req,res){

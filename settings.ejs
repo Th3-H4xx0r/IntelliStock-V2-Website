@@ -60,11 +60,10 @@
     <script>
       $( document ).ready(function() {
           init();
-          //getUserInstances('dashboard');
 
           var instance = '<%= instance %>'
-          getTransactionHistory(instance)
-          //getDashboardData(instance)
+
+          getDataSettingsPage(instance)
       });
   </script>
 
@@ -127,7 +126,7 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+            <a class="nav-link" href="/settings?instance=<%= instance %>">
               <span class="menu-icon">
                 <i class=" mdi mdi-settings"></i>
               </span>
@@ -314,7 +313,7 @@
 }
           </style>
 
-          <div id = 'loading-page' >
+          <div id = 'loading-page' style="display: none;">
             <div class="loader">
               <div class="inner one"></div>
               <div class="inner two"></div>
@@ -337,30 +336,61 @@
           <div  id = 'content-main-page' style="display: none;">
             <div class="content-wrapper" >
 
-              <div class="row">
+                <h3 class="card-title">Instance Settings</h3>
+
+
+              <div class="row" style="margin-top: 1rem;">
+
                 
-                <div class="card-body">
-                    <h4 class="card-title">Transaction History</h4>
-                    <p class="card-description">Order history for all time
-                    </p>
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th> Date </th>
-                            <th> Time </th>
-                            <th> Ticker </th>
-                            <th> Quantity </th>
-                            <th> Side </th>
-                          </tr>
-                        </thead>
-                        <tbody id = 'transactions'>
+                
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Brokerege Settings</h4>
+                        <p class="card-description">Change your alpaca credentials here </p>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Key</label>
+                            <input type="text" class="form-control" id="alpaca-key" placeholder="Key">
 
+                          </div>
 
-                        </tbody>
-                      </table>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Secret</label>
+                            <input type="password" class="form-control" id="alpaca-secret" placeholder="Secret">
+                          </div>
+
+                          <button class="btn btn-primary mr-2" onclick="">Update</button>
+                        </form>
+
+                      </div>
                     </div>
                   </div>
+
+                  <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Instance Settings</h4>
+                        <p class="card-description">Change your instance settings here </p>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Instance Name</label>
+                            <input type="text" class="form-control" id="instance-name" placeholder="Name">
+                          </div>
+
+
+
+                          <button class="btn btn-primary mr-2">Update</button>
+                        </form>
+
+                        <div id='more'>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
 
               </div>
 

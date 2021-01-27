@@ -1610,7 +1610,7 @@ function createInstancePopup() {
       <input type="radio" id="alpaca" name="alpaca" value="alpaca">
 <label for="alpaca">Alpaca</label><br>
 
-<input type="radio" id="webull" name="webull" value="webull" disabled>
+<input type="radio" id="webull" name="webull" value="webull" class = 'fromcheck'disabled>
 <label for="webull">Webull (Comming soon)</label><br>
 
 
@@ -1796,15 +1796,20 @@ function addStockPopup() {
 
       <h6 style = 'font-family: Nunito; font-weight: bold'>Watch Type</h6>
 
-      <input type="radio" id="longTerm" name="longTerm" value="longTerm" disabled>
-      <label for="alpaca">Long Term (Coming soon)</label><br>
+      <div class="form-check">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" id="webull" name="webull" value="webull" disabled=""> Long Term (Coming Soon) <i class="input-helper"></i></label>
+      </div>
 
-      <input type="radio" id="shortTerm" name="shortTerm" value="shortTerm" disabled>
-      <label for="webull">Short Term (Coming soon)</label><br>
+      <div class="form-check">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" id="webull" name="webull" value="webull" disabled=""> Short Term (Coming Soon) <i class="input-helper"></i></label>
+      </div>
 
-      <input type="radio" id="dayTrade" name="dayTrade" value="dayTrade" checked>
-      <label for="webull"> Day Trade</label><br>
-
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="" checked = ""> Day Trade <i class="input-helper"></i></label>
+      </div>
 
 
           <div class="form-group">
@@ -1815,11 +1820,15 @@ function addStockPopup() {
           
       <h6 style = 'font-family: Nunito; font-weight: bold'>Algorithm</h6>
 
-      <input type="radio" id="rsi" name="rsi" value="rsi" disabled>
-      <label for="alpaca">RSI (Coming soon)</label><br>
+      <div class="form-check">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" id="webull" name="webull" value="webull" disabled=""> RSI (Coming Soon) <i class="input-helper"></i></label>
+      </div>
 
-      <input type="radio" id="macd" name="macd" value="macd" checked>
-      <label for="webull">MACD</label><br>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="macd" id="macd" value="" checked = ""> MACD <i class="input-helper"></i></label>
+      </div>
 
 
           <div class="form-group">
@@ -2194,7 +2203,9 @@ function getDashboardStats() {
   }
 }
 
-function getDataSettingsPage(){
+function getDataSettingsPage(instance){
+  document.getElementById('loading-page').style.display = 'initial'
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
 
@@ -2203,32 +2214,41 @@ function getDataSettingsPage(){
 
       var keyInput = document.getElementById('alpaca-key')
       var secretInput = document.getElementById('alpaca-secret')
+      var instanceName = document.getElementById('instance-name')
 
-      var currentInstance = localStorage.getItem("selectedInstance");
-
-      firebase.firestore().collection('Instances').doc(currentInstance).get().then(doc => {
+      firebase.firestore().collection('Instances').doc(instance).get().then(doc => {
         var data = doc.data()
 
-        if(data){
+        if(data && data['user'] == email){
           var key = data['key']
           var secret = data['secret']
 
           keyInput.value = key
           secretInput.value = secret
+          instanceName.value = data['instanceName']
+
+          var deleteBtnHTML = `
+          <button class="btn btn-danger mr-2" style="margin-top: 3rem;" id = 'delete-btn' onclick="deleteInstancePopup('${instance}')" >Delete Instance</button>
+          `
+  
+          $(deleteBtnHTML).appendTo('#more');
+
+          document.getElementById('loading-page').style.display = 'none'
+          document.getElementById('content-main-page').style.display = 'initial'
+
+
+        } else {
+          toggleForbiddenPage()
         }
-      }).then(() => {
 
-        var deleteBtnHTML = `
-        <button class="delete-btn" id = 'delete-btn' onclick="deleteInstancePopup('${currentInstance}')" style = 'margin-top: 1rem;' >Delete Instance</button>
-        `
-
-        $(deleteBtnHTML).appendTo('#more');
       })
 
 
       //console.log(key)
       //console.log(secret)
 
+    } else {
+      toggleForbiddenPage()
     }
   })
 }
