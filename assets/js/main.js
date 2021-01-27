@@ -122,15 +122,42 @@ function getTransactionHistory(instance){
                   for(var i = 0; i <= message.length - 1; i++){
                     var transaction = message[i]
 
-                    var symbol = message['symbol']
-                    var qty = message['filled_qty']
-                    var side = message['side']
+                    console.log(transaction)
 
-                    var date = Date.parse(message['filled_at'])
+                    var symbol = transaction['symbol']
+                    var qty = transaction['filled_qty']
+                    var side = transaction['side']
 
-                    var formattedDate = getFormattedDate(date)
+                    var badge = ``
 
-                    console.log(formattedDate)
+                    if(side == 'buy'){
+                      badge = 'success'
+                    } else if(side == 'sell'){
+                      badge = 'danger'
+                    }
+
+                    var element = `
+                    <tr>
+                    <td class="py-1">
+                        1/20/2021
+                    </td>
+                    <td> 10:00AM </td>
+                    <td>
+                        ${symbol}
+                    </td>
+                    <td> ${qty} </td>
+                    <td> <div class="badge badge-${badge}">${side}</div>  </td>
+                  </tr>
+
+                    `
+
+                    $(element).appendTo('#transactions')
+
+                    //var date = Date.parse(message['filled_at'])
+
+                    //var formattedDate = getFormattedDate(date)
+
+                    //console.log(formattedDate)
                   }
                 }
 
