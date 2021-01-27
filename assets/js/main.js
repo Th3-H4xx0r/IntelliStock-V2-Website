@@ -112,6 +112,8 @@ function getTransactionHistory(instance){
 
           if(data['user'] == email){
 
+            document.getElementById('email').innerHTML = email
+
             var key = data['key']
             var secret = data['secret']
 

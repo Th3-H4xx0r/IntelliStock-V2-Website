@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Watchlist</title>
+    <title>History</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/watchlist.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
 
     <script src="https://api.intellistock.protosystems.net/init.js"></script>
 
@@ -32,7 +30,7 @@
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
-  
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -57,7 +55,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
   </head>
-  <body id="page-main">
+  <body>
 
     <script>
       $( document ).ready(function() {
@@ -65,7 +63,8 @@
           //getUserInstances('dashboard');
 
           var instance = '<%= instance %>'
-          getWatchlistData(instance)
+          getTransactionHistory(instance)
+          //getDashboardData(instance)
       });
   </script>
 
@@ -110,8 +109,6 @@
               <span class="menu-title">History</span>
             </a>
           </li>
-
-          
           <li class="nav-item menu-items">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <span class="menu-icon">
@@ -130,7 +127,7 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="/settings?instance=<%= instance %>">
+            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
               <span class="menu-icon">
                 <i class=" mdi mdi-settings"></i>
               </span>
@@ -317,7 +314,7 @@
 }
           </style>
 
-          <div id = 'loading-page'>
+          <div id = 'loading-page' >
             <div class="loader">
               <div class="inner one"></div>
               <div class="inner two"></div>
@@ -338,17 +335,32 @@
           </div>
 
           <div  id = 'content-main-page' style="display: none;">
-            <div class="content-wrapper" style="height: 200%;">
+            <div class="content-wrapper" >
+
+              <div class="row">
+                
+                <div class="card-body">
+                    <h4 class="card-title">Transaction History</h4>
+                    <p class="card-description">Order history for all time
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th> Date </th>
+                            <th> Time </th>
+                            <th> Ticker </th>
+                            <th> Quantity </th>
+                            <th> Side </th>
+                          </tr>
+                        </thead>
+                        <tbody id = 'transactions'>
 
 
-              <div class="row" style="margin-left: 0.2rem;">
-                <h2 style="margin-bottom: 2rem;">My Watchlist</h2>
-                <button class="addStockBtn" onclick = 'addStockPopup()'>Add Stock</button>
-              </div>
-
-              <div class="row" id = 'watchlist'>
-
-
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
               </div>
 
