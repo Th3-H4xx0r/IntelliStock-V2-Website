@@ -392,6 +392,8 @@ function getInstanceData(key, secret){
 
       var equityChange = accountData['equity'] - accountData['last_equity']
 
+      var transactions = message['recentTransactions']
+
 
 
       function numberWithCommas(x) {
@@ -440,6 +442,60 @@ function getInstanceData(key, secret){
       document.getElementById('today-return').className = "text-danger"
 
 
+    }
+
+
+    for(var x = 0; x <= transactions.length - 1; x++){
+      var transaction = transactions[x]
+
+      var ticker = transaction['symbol']
+      var side = transaction['side']
+      var qty = transaction['qty']
+
+      var sideText = ''
+      
+      var sideColor = ''
+
+      if(side == 'sell'){
+        sideText = `Sell ${qty} shares`
+        sideColor = 'danger'
+      } else if(side == 'buy'){
+        sideText = `Buy ${qty} shares`
+        sideColor = 'success'
+      }
+
+      var date = new Date(transaction['filled_at'])
+
+      var formattedDate = (date.getUTCMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()
+
+      var formattedTime = formatAMPM(date)
+
+
+
+
+      var transactionHTML = `
+
+      <div class="preview-item border-bottom">
+      <div class="preview-thumbnail">
+        <div class="preview-icon bg-${sideColor}">
+          <i class="mdi mdi-cart"></i>
+        </div>
+      </div>
+      <div class="preview-item-content d-sm-flex flex-grow">
+        <div class="flex-grow">
+          <h6 class="preview-subject">${ticker}</h6>
+          <p class="text-muted mb-0">${sideText}</p>
+        </div>
+        <div class="mr-auto text-sm-right pt-2 pt-sm-0">
+          <p class="text-muted">${formattedTime}</p>
+          <p class="text-muted mb-0">${formattedDate}</p>
+        </div>
+      </div>
+    </div>
+
+      `
+
+      $(transactionHTML).appendTo('#transactionsList')
     }
 
 
