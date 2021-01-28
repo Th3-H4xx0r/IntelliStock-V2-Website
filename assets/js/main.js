@@ -406,15 +406,22 @@ function getInstanceData(key, secret){
         </div>
       `
 
-      document.getElementById('equity-change-text').innerHTML = `<p class="text-success ml-2 mb-0 font-weight-medium" id = 'equityChange'>-$0</p>
-      `
+      //document.getElementById('equity-change-text').innerHTML = `<p class="text-success ml-2 mb-0 font-weight-medium" id = 'equityChange'>-$0</p>`
 
-      document.getElementById('equityChange').innerHTML = "+$" + numberWithCommas(equityChange.toFixed(2))
+      //document.getElementById('equityChange').innerHTML = "+$" + numberWithCommas(equityChange.toFixed(2))
+      document.getElementById('today-return').innerHTML = "+$" + numberWithCommas(equityChange.toFixed(2))
+      document.getElementById('today-return').className = "text-success"
+
+      document.getElementById('today-return-box-symbol').innerHTML = `
+      <div class="icon icon-box-success">
+        <span class="mdi mdi-arrow-top-right icon-item"></span>
+      </div>
+    `
+
 
     } else if(equityChange < 0){
 
-      document.getElementById('equity-change-text').innerHTML = `<p class="text-danger ml-2 mb-0 font-weight-medium" id = 'equityChange'>-$0</p>
-      `
+      //document.getElementById('equity-change-text').innerHTML = `<p class="text-danger ml-2 mb-0 font-weight-medium" id = 'equityChange'>-$0</p>`
 
       document.getElementById('equity-change-box-symbol').innerHTML = `
       <div class="icon icon-box-danger">
@@ -422,7 +429,16 @@ function getInstanceData(key, secret){
       </div>
     `
 
-      document.getElementById('equityChange').innerHTML = "-$" + numberWithCommas((equityChange * -1).toFixed(2))
+    document.getElementById('today-return-box-symbol').innerHTML = `
+    <div class="icon icon-box-danger">
+      <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+    </div>
+  `
+
+      //document.getElementById('equityChange').innerHTML = "-$" + numberWithCommas((equityChange * -1).toFixed(2))
+      document.getElementById('today-return').innerHTML = "-$" + numberWithCommas((equityChange * -1).toFixed(2))
+      document.getElementById('today-return').className = "text-danger"
+
 
     }
 
