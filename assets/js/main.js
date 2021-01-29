@@ -1511,7 +1511,7 @@ function getStockGraph(instance, stock) {
 
 }
 
-
+//DEPRICATED OLD FUNCTION
 function getUserInstances(pageType, ticker = 'TSLA') {
 
   firebase.auth().onAuthStateChanged(user => {
@@ -1647,6 +1647,8 @@ function getUserInstances(pageType, ticker = 'TSLA') {
   })
 }
 
+//DEPRICATED OLD FUNCTION
+
 function changeInstanceState(id, command){
   console.log("CHANING : " + id + " to " + command)
   firebase.firestore().collection("Instances").doc(id).update({
@@ -1654,6 +1656,7 @@ function changeInstanceState(id, command){
   })
 }
 
+//DEPRICATED OLD FUNCTION
 function changeInstanceClicked(instanceID) {
   localStorage.setItem('selectedInstance', instanceID)
   window.location = '/dashboard'
@@ -1852,7 +1855,7 @@ function createInstance() {
 
 }
 
-function addStockPopup() {
+function addStockPopup(instance) {
   var modalHTML = `
   <!-- Modal -->
   <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -1914,7 +1917,7 @@ function addStockPopup() {
       <div class="modal-footer" style = 'background-color: #313033; color: white; height: 4rem;'>
         <button type="button" class="close-btn" data-dismiss="modal" style = 'margin-bottom: 1.5rem'>Close</button>
         <div class="d-flex justify-content-center" style="margin-bottom: 0rem;">
-        <button class="create-btn" id = 'add-stock-btn' onclick="addStock()" style = 'margin-bottom: 1.5rem'>Add Stock</button>
+        <button class="create-btn" id = 'add-stock-btn' onclick="addStock('${instance}')" style = 'margin-bottom: 1.5rem'>Add Stock</button>
     </div>
       </div>
     </div>
@@ -1931,7 +1934,7 @@ function addStockPopup() {
 
 
 
-function addStock() {
+function addStock(currentInstance) {
   
   var ticker = document.getElementById('tickerInput').value
   var maxValue = document.getElementById('maxValue').value
@@ -1945,7 +1948,7 @@ function addStock() {
 
 
 
-      button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+      button.innerHTML = `Adding stock...`
 
       //console.log(key)
       //console.log(secret)
@@ -1961,8 +1964,6 @@ function addStock() {
         Http.open("GET", url)
         Http.setRequestHeader('ticker', ticker)
         Http.send()
-
-        var currentInstance = localStorage.getItem('selectedInstance')
 
         Http.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
@@ -2100,7 +2101,7 @@ function removeStock(instanceID, ticker) {
 
   var button = document.getElementById('delete-btn-modal')
 
-  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+  button.innerHTML = `Removing stock...`
 
   firebase.firestore().collection("Instances").doc(instanceID).collection("Stocks").doc(ticker).update({
     'run': false,
@@ -2126,7 +2127,7 @@ function logout() {
 
 
 
-
+// DEPRICATED FUNCTION OLD
 function getDashboardStats() {
 
   var currentInstance = localStorage.getItem('selectedInstance')
@@ -2502,7 +2503,7 @@ function deleteInstance(instanceID){
       setTimeout(function(){
         firebase.firestore().collection('Instances').doc(instanceID).delete().then(() => {
           setTimeout(function(){
-            localStorage.removeItem('selectedInstance')
+            //localStorage.removeItem('selectedInstance')
             window.location = '/instances'
            }, 1000);
         })
