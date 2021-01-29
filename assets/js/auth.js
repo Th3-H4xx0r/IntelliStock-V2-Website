@@ -2,6 +2,7 @@ function login() {
     document.getElementById('login-btn').innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
     document.getElementById('login-btn').disabled = true;
 
+
     var error = document.getElementById('error');
 
     var email = document.getElementById('email').value

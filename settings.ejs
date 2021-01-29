@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/ring-loader.css">
 
     <script src="https://api.intellistock.protosystems.net/init.js"></script>
 
@@ -55,7 +56,9 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
   </head>
-  <body>
+  <body id = 'page-main'>
+
+
 
     <script>
       $( document ).ready(function() {
@@ -362,8 +365,13 @@
                             <input type="password" class="form-control" id="alpaca-secret" placeholder="Secret">
                           </div>
 
-                          <button class="btn btn-primary mr-2" onclick="">Update</button>
+
                         </form>
+
+                        <p style="color: red; font-weight: bold" id = 'error-create-instance'></p>
+
+                        <button class="btn btn-success mr-2" style = 'background-color: #00cf98;' onclick='updateCredentials("<%= instance %>")' id = 'updateCreds-btn'>Update Credentials</button>
+
 
                       </div>
                     </div>
@@ -377,13 +385,17 @@
                         <form class="forms-sample">
                           <div class="form-group">
                             <label for="exampleInputUsername1">Instance Name</label>
-                            <input type="text" class="form-control" id="instance-name" placeholder="Name">
+                            <input type="text" class="form-control" id="instanceName" placeholder="Name" maxlength="25">
                           </div>
 
 
 
-                          <button class="btn btn-primary mr-2">Update</button>
                         </form>
+
+                        <p style="color: red;" id="update-name-error"></p>
+
+                        <button class="btn btn-primary mr-2" style="background-color: #00cf98;" onclick='updateInstanceName("<%= instance %>")' id = 'update-instance-name-btn'>Update</button>
+
 
                         <div id='more'>
                         </div>

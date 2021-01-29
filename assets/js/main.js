@@ -2286,7 +2286,7 @@ function getDataSettingsPage(instance){
 
       var keyInput = document.getElementById('alpaca-key')
       var secretInput = document.getElementById('alpaca-secret')
-      var instanceName = document.getElementById('instance-name')
+      var instanceName = document.getElementById('instanceName')
 
       firebase.firestore().collection('Instances').doc(instance).get().then(doc => {
         var data = doc.data()
@@ -2294,6 +2294,8 @@ function getDataSettingsPage(instance){
         if(data && data['user'] == email){
           var key = data['key']
           var secret = data['secret']
+
+          document.getElementById('email').innerHTML = email
 
           keyInput.value = key
           secretInput.value = secret
@@ -2325,7 +2327,47 @@ function getDataSettingsPage(instance){
   })
 }
 
-function updateCredentials(){
+function updateInstanceName(instance){
+  var button = document.getElementById('update-instance-name-btn')
+  var error = document.getElementById('update-name-error')
+
+
+  button.disabled = true
+  button.innerHTML = 'Updating...'
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+      var email = user.email;
+
+
+      var name = document.getElementById('instanceName').value
+
+
+      if(name){
+
+        firebase.firestore().collection("Instances").doc(instance).update({
+          "instanceName": name
+        }).then(() => {
+          window.location.reload()
+        })
+
+      } else {
+        error.innerHTML = "Invalid input"
+      }
+
+      
+
+    } else {
+
+    }
+  })
+
+
+}
+
+function updateCredentials(currentInstance){
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       var name = user.displayName;
@@ -2338,11 +2380,11 @@ function updateCredentials(){
 
       var error = document.getElementById('error-create-instance')
 
-      var button = document.getElementById('create-btn')
+      var button = document.getElementById('updateCreds-btn')
 
-      var currentInstance = localStorage.getItem("selectedInstance");
 
-      button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+      button.innerHTML = `Updating...`
+      button.disabled = true
 
       //console.log(key)
       //console.log(secret)
@@ -2379,17 +2421,20 @@ function updateCredentials(){
 
               })
 
-console.log("VALID")
+              console.log("VALID")
             } else {
               error.innerHTML = "Alpaca credentials are invalid"
               button.innerHTML = `Update Credentials`
+              button.disabled = false
+
             }
           }
 
         }
       } else {
         error.innerHTML = "Fields cannnot be left blank"
-        button.innerHTML = `Create Instance`
+        button.innerHTML = `Update Credentials`
+        button.disabled = false
 
 
       }
@@ -2423,9 +2468,9 @@ function deleteInstancePopup(instanceID) {
         <p id = 'delete-instance-error' style = "color: red"></p>
       </div>
       <div class="modal-footer" style = 'background-color: #272727; color: white'>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <div class="d-flex justify-content-center" style="margin-top: 1rem;">
-        <button class="delete-btn" id = 'delete-btn-modal' onclick="deleteInstance('${instanceID}')">Delete Instance</button>
+        <button type="button" class="btn btn-inverse-light" data-dismiss="modal">Close</button>
+        <div class="d-flex justify-content-center" style="margin-top: 0.2rem;">
+        <button class="btn btn-danger" id = 'delete-btn-modal' onclick="deleteInstance('${instanceID}')">Delete Instance</button>
     </div>
       </div>
     </div>
@@ -2447,7 +2492,8 @@ function deleteInstance(instanceID){
 
   var button = document.getElementById('delete-btn-modal')
 
-  button.innerHTML = `<div class="lds-ring" style = 'margin-left: 3rem; margin-right: 3rem'><div></div><div></div><div></div><div></div></div>`
+  button.innerHTML = `Deleting instance...`
+  button.disabled = true
 
   try{
     firebase.firestore().collection('Instances').doc(instanceID).update({
@@ -2457,13 +2503,15 @@ function deleteInstance(instanceID){
         firebase.firestore().collection('Instances').doc(instanceID).delete().then(() => {
           setTimeout(function(){
             localStorage.removeItem('selectedInstance')
-            window.location = '/dashboard'
+            window.location = '/instances'
            }, 1000);
         })
        }, 1000);
     })
   } catch(e){
     button.innerHTML = `Delete Instance`
+    button.disabled = false
+
 
     error.innerHTML = 'An error has occured: ' + e.toString()
 
