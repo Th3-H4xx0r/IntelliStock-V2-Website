@@ -1,4 +1,4 @@
-var endpoint = 'https://spotty-turtle-21.loca.lt'
+var endpoint = 'https://intellistockapi.loca.lt'
 
 function readTextFile(file, callback) {
   var rawFile = new XMLHttpRequest();

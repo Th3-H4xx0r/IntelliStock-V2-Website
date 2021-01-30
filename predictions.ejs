@@ -46,6 +46,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 
       <script src="assets/js/main.js"></script>
+      <script src="config/config.js"></script>
+
 
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -61,7 +63,7 @@
       $( document ).ready(function() {
           init();
           //getUserInstances('dashboard');
-
+          footerStatement()
           var instance = '<%= instance %>'
           getDashboardData(instance)
       });
@@ -349,7 +351,7 @@
             <!-- partial:partials/_footer.html -->
             <footer class="footer">
               <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Proto Systems 2021</span>
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block" id = 'footer-statement'>Copyright © Proto Systems 2021</span>
               </div>
             </footer>
 
