@@ -219,41 +219,7 @@ router.get('/instances',function(req,res){
 });
 
 //var tickertape = require('tickertape')
-const si = require('stock-info');
 
-router.get('/tickerInfo',async function(req,res){
-  
-  var ticker = req.query.ticker
-
-  if(ticker){
-
-    si.getStocksInfo([ticker]).then((info) => {
-      res.send({code: 200, status: "success", message: info})
-    });
-
-
-
-
-    /*
-
-    IEX.getStats('HD').then(stats => {
-      res.send({code: 200, status: "success", message: stats})
-    }).catch(e => {
-      console.log(e)
-      res.send({code: 200, status: "failed", message: e})
-
-    })
-    */
-
-
-
-
-  } else {
-    res.send({code: 200, status: "failed", message: "Missing Parameters"})
-
-  }
-
-});
 
 router.get('/api/registerBeta',function(req,res){
 
