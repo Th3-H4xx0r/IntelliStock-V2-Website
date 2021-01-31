@@ -352,6 +352,14 @@ function getInstanceStocks(instance){
       }
     })
 
+    if(count == 0){
+      document.getElementById('no-stocks-page').style.display = "initial"
+      document.getElementById('initial-stocks-page').style.display = "none"
+
+    } else {
+      document.getElementById('initial-stocks-page').style.display = "initial"
+    }
+
     //document.getElementById('watchlist-item-count').innerHTML = `${count}`
   })
   document.getElementById('loading-page').style.display = "none"

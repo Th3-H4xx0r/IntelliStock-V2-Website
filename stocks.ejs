@@ -347,17 +347,35 @@
           <div  id = 'content-main-page' style="display: none;">
             <div class="content-wrapper" style="min-height: 150%;">
 
+              <div id="no-stocks-page" style="display: none;">
+                <center>
+                  <img src="assets/images/no-stocks-converted.png" alt="" width="20%" style="margin-top: 16%;">
+                </center>
 
-              <div class="row" style="margin-left: 0.2rem;">
-                <h2 style="margin-bottom: 2rem;">My Watchlist</h2>
-                <button class="addStockBtn" onclick = 'addStockPopup("<%= instance %>")'>Add Stock</button>
+                <center>
+                  <h3 style="color: white; margin-top: 2rem;">No Stocks</h3>
+                  <p style="color: rgb(173, 173, 173); margin-top: 0.1rem;">No stocks here. Click the button below to add one.</p>
+
+                  <button class="addStockBtn" onclick = 'addStockPopup("<%= instance %>")'>Add Stock</button>
+
+                </center>
               </div>
 
-              <div class="row" id = 'watchlist'>
+              <div id = 'initial-stocks-page'>
 
-
-
+                <div class="row" style="margin-left: 0.2rem;">
+                  <h2 style="margin-bottom: 2rem;">My Watchlist</h2>
+                  <button class="addStockBtn" onclick = 'addStockPopup("<%= instance %>")'>Add Stock</button>
+                </div>
+  
+                <div class="row" id = 'watchlist'>
+  
+  
+  
+                </div>
               </div>
+
+
 
 
             </div>
