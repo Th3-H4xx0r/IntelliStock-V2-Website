@@ -1982,7 +1982,7 @@ function addStock(currentInstance) {
 
             if (message == 'Valid') {
 
-              var url = 'http://localhost:3012/tickerInfo?ticker=' + ticker
+              var url = endpoint + '/tickerInfo?ticker=' + ticker
 
               $.get(url, function(companyData){
                 console.log(companyData)
