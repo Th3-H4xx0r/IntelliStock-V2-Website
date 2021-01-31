@@ -971,8 +971,21 @@ function getInstances(){
           if(data['running'] == true){
             var uptime = data['uptimeStart']
 
+            var uptimeDate = new Date(uptime['seconds'] * 1000)
 
-            var diff = Math.abs(new Date() - new Date(uptime['seconds'] * 1000)) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
+
+            uptimeDate.setHours(uptimeDate.getHours() + 8)
+
+
+            var diffDate = new Date() - uptimeDate
+
+
+            
+
+
+            var diff = Math.abs(diffDate) / 1000;//timeDiffCalc(new Date(), new Date(uptime['seconds']*1000))
+
+            //diff.setHours(diff.getHours() - 8)
   
             // get hours        
             var hours = Math.floor(diff / 3600) % 24;
