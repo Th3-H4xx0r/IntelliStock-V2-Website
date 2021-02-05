@@ -909,7 +909,54 @@ new Chart(ctx, {
 
 }
 
+function closeDiscoverModal(){
+  var checked = document.getElementById('dontShow').checked
+
+  print(checked)
+}
+
+function showDiscoverPagePopup(){
+  var modalHTML = `
+  <!-- Modal -->
+  <div class="modal fade" id="discoverPageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = 'background-color: #272727; color: white'>
+        <h5 class="modal-title" id="exampleModalLabel">New update!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style = 'background-color: #272727; color: white'>
+
+      <h3>Introducing IntelliStock Explore!</h4>
+
+      <h5 style = 'font-weight: 400; color: grey'>Introducing a new addition to intellistock, intellistock explore! <br><br> With explore, you can discover new stocks that have shown promising growth over a period of time,
+      prefect for long term investments. <br><br> Using a complex algoritm, intellistock screens thousands of stocks that are avaliable in the global stock exchanges to find the top picks for you to explore!
+       <br><br> This list is updated every 24 hours so you can find new and different stocks everyday! <br><br> Get started browsing some today!</h5>
+
+      </div>
+      <div class="modal-footer" style = 'background-color: #272727; color: white'>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+
+  $(modalHTML).appendTo('#page-main')
+
+  $('#discoverPageModal').modal('toggle')
+}
+
 function getDiscoverPageData(){
+
+  var showModal = localStorage.getItem('showDiscoverStocksModal')
+
+  if(showModal == null){
+    showDiscoverPagePopup()
+  }
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
 
@@ -948,6 +995,9 @@ function getDiscoverPageData(){
                 document.getElementById('timeStatement').innerHTML = "Generated as of " + formatAMPM(date)
               }
             }).then(() => {
+
+
+              message.sort(function(a, b){return b['rating']-a['rating']});
 
               for(var i = 0; i <= message.length - 1; i++){
 
