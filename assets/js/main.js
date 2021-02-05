@@ -909,6 +909,42 @@ new Chart(ctx, {
 
 }
 
+function getDiscoverPageData(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+
+      var email = user.email
+
+      document.getElementById('email').innerHTML = email
+
+
+      var Http = new XMLHttpRequest();
+      const url = endpoint + '/discoverStocks'
+      Http.open("GET", url)
+      Http.setRequestHeader('content-type', "*")
+      Http.send()
+    
+      Http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+    
+          var response = JSON.parse(Http.responseText)
+    
+          var message = response['message']
+
+          var status = response['status']
+
+          if(status == 'success'){
+            console.log(message)
+          }
+        }
+
+    } 
+  } else {
+      console.log("Auth error")
+    }
+  })
+}
+
 function toggleForbiddenPage(){
   document.getElementById('forbidden-page').style.display = 'initial'
 
