@@ -934,6 +934,43 @@ function getDiscoverPageData(){
           var status = response['status']
 
           if(status == 'success'){
+
+            firebase.firestore().collection('Config').doc('Cache').get().then(snap => {
+              var data = snap.data();
+
+              if(data != null){
+                var lastTime = data['discoverLastUpdate']
+
+                var date = new Date(lastTime.seconds)
+
+                console.log(lastTime.seconds)
+
+                document.getElementById('timeStatement').innerHTML = "Generated as of " + formatAMPM(date)
+              }
+            }).then(() => {
+
+              for(var i = 0; i <= message.length - 1; i++){
+
+                var element = message[i]
+
+                var html = `
+                  <tr>
+                      <td class="py-1">
+                          ${element['ticker']}
+                      </td>
+                      <td> ${element['rating']} </td>
+                      <td>
+                          ${element['50dMA']}
+                      </td>
+                      <td> ${element['52WHigh']} </td>
+                      <td> ${element['52wLow']}</td>
+                    </tr>
+  
+                `
+
+                $(html).appendTo('#discoverStocks');
+              }
+            })
             console.log(message)
           }
         }
