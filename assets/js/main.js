@@ -988,9 +988,9 @@ function getDiscoverPageData(){
               if(data != null){
                 var lastTime = data['discoverLastUpdate']
 
-                var date = new Date(lastTime.seconds)
+                var date = new Date(lastTime)
 
-                console.log(lastTime.seconds)
+                console.log(lastTime)
 
                 document.getElementById('timeStatement').innerHTML = "Generated as of " + formatAMPM(date)
               }
