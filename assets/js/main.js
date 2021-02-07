@@ -1005,10 +1005,13 @@ function getDiscoverPageData(){
 
                 var html = `
                   <tr>
-                      <td class="py-1">
+                      <td class="py-1" style = ' color: white'>
                           ${element['ticker']}
                       </td>
-                      <td> ${element['rating']} </td>
+
+                      <td> ${parseInt(element['rating'])} </td>
+
+                      <td> ${parseFloat(element['price']).toFixed(2)} </td>
                       <td>
                           ${element['50dMA']}
                       </td>
