@@ -4,7 +4,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
@@ -63,71 +63,9 @@
             scroll-behavior: smooth;
         }
 
-        .gradient-header {
-  background: linear-gradient(to right, #00D1FF 0%, #00CF98 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 65px;
-  font-family: 'Raleway';
-}
-
-.gradient-get-started-btn{
-    color: white;
-    font-weight: 700;
-    font-family: 'Raleway';
-    font-size: 15px;
-    height: 45px;
-    width: 270px;
-    border-radius: 1000px;
-
-    border: none;
-
-    background: -webkit-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
-  background: linear-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
-
-  background-size: 500%;
 
 
-  border: none;
-  box-shadow: #00CF98 0px 10px 70px 0px;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: 0.05em;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-}
 
-.gradient-get-started-btn:hover {
-  animation-name: gradient;
-  -webkit-animation-name: gradient;
-  animation-duration: 2s;
-  -webkit-animation-duration: s;
-  animation-iteration-count: 1;
-  -webkit-animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-  border: none;
-}
-
-.gradient-get-started-btn:focus{
-    border: 0;
-    outline: none;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100%;
-  }
-}
 
 .beta-signup-input{
     border-radius: 100px;
@@ -182,13 +120,159 @@
 
     </style>
 
+    <!-- RESPONSIVE STYLING -->
+
+    <style>
+
+        .gradient-header {
+        background: linear-gradient(to right, #00D1FF 0%, #00CF98 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 65px;
+        font-family: 'Raleway';
+        }
+
+        .mainHeaderTitle{
+            font-size: 60px; color: white; font-family: Raleway; font-weight: 700;
+        }
+
+        .headerDescription{
+            color: #838695; font-family: Raleway; font-size: 22px; max-width: 40%; font-weight: 500
+        }
+
+        .gradient-get-started-btn{
+            color: white;
+            font-weight: 700;
+            font-family: 'Raleway';
+            font-size: 15px;
+            height: 45px;
+            width: 270px;
+            border-radius: 1000px;
+
+            border: none;
+
+            background: -webkit-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
+        background: linear-gradient(to right, #00C0EA 0%, #3cf3c2 20%, #00CF98 100%);
+
+        background-size: 500%;
+
+
+        border: none;
+        box-shadow: #00CF98 0px 10px 70px 0px;
+        cursor: pointer;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: 0.05em;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        outline: none;
+        }
+
+        .gradient-get-started-btn:hover {
+        animation-name: gradient;
+        -webkit-animation-name: gradient;
+        animation-duration: 2s;
+        -webkit-animation-duration: s;
+        animation-iteration-count: 1;
+        -webkit-animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        -webkit-animation-fill-mode: forwards;
+        border: none;
+        }
+
+        .gradient-get-started-btn:focus{
+            border: 0;
+            outline: none;
+        }
+
+        @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 100%;
+        }
+        }
+
+                /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            .mainHeaderTitle{
+                text-align: center;
+                font-size: 50px; 
+                color: white; 
+                font-family: Raleway; 
+                font-weight: 700;
+            }   
+
+            .gradient-header {
+
+                background: linear-gradient(to right, #00D1FF 0%, #00CF98 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 50px;
+                font-family: 'Raleway';
+            }
+
+            .headerDescription{
+                
+                color: #838695; 
+                font-family: 
+                Raleway; 
+                font-size: 
+                18px; 
+                margin-top: 1rem;
+                max-width: 90%; 
+                font-weight: 500
+            }
+
+            .gradient-get-started-btn{
+                color: white;
+                font-weight: 700;
+                font-family: 'Raleway';
+                font-size: 15px;
+                height: 40px;
+                width: 230px;
+            }
+
+            .second-section{
+                display: none;
+            }
+
+            .watchlist-img{
+                width: 70%;
+                margin-left: 3rem;
+            }
+
+            #beta-signup-section{
+                display: none;
+            }
+
+            .different-strategies-img{
+                width: 70%;
+                margin-left: 4rem;
+
+            }
+
+            .multipleInstancesImg{
+                width: 80%;
+                margin-left: 3rem;
+            }
+
+        }
+
+    </style>
+
     <section>
         <div class="d-flex justify-content-center" style="margin-top: 9%;">
-            <h1 style="font-size: 60px; color: white; font-family: Raleway; font-weight: 700;">Welcome to the future <br> of <span class="gradient-header"> automated</span> Trading</h1>
+            <h1 class="mainHeaderTitle">Welcome to the future <br> of <span class="gradient-header"> automated</span> Trading</h1>
         </div>
 
         <center>
-            <p style = 'color: #838695; font-family: Raleway; font-size: 22px; max-width: 40%; font-weight: 500'>IntelliStock provides a cutting-edge automated
+            <p class="headerDescription">IntelliStock provides a cutting-edge automated
                 trading experience, so you never have to trade again.</p>
         </center>
 
@@ -197,7 +281,7 @@
         </div>
 
 
-        <div class="d-flex justify-content-center" style="margin-top:5%; ">
+        <div class="d-flex justify-content-center" style="margin-top:5%;">
         <img src="assets/images/dashboard-img.svg" alt="" width='75%'></div>
     
     </section>
@@ -206,7 +290,7 @@
 
 
     <!--Second Section-->
-    <section>
+    <section class="second-section">
         <div class="d-flex justify-content-center" style="margin-top:10%; ">
             <div class="row">
 
@@ -250,7 +334,7 @@
 
         <div class="d-flex justify-content-center" style="margin-top:10%; ">
             <div class="row">
-                <img src="assets/images/watchlist-img.svg" alt="" width="40%">
+                <img src="assets/images/watchlist-img.svg" alt="" width="40%" class="watchlist-img">
 
                 <div style="margin-left: 5rem;">
                     <div>
@@ -285,7 +369,7 @@
                     <p style="color:#979797; max-width: 25rem;">Create multiple instances to invest different portfolios. For example, you could create a instance for your paper trading account and one instance for your live trading account.</p>
                 </div>
 
-                <img src="assets/images/instances-img.svg" alt="" width="40%" style="margin-left: 10rem;" class="hover">
+                <img src="assets/images/instances-img.svg" alt="" width="40%" class="multipleInstancesImg">
             </div>
         </div>
     </section>
@@ -323,7 +407,7 @@
 
     <div class="d-flex justify-content-center" style="margin-top:5%;">
         <div class="row">
-            <img src="assets/images/watchlist-img.svg" alt="" width="40%">
+            <img src="assets/images/watchlist-img.svg" alt="" width="40%" class="different-strategies-img">
 
             <div style="margin-left: 5rem;">
                 <div>
