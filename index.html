@@ -61,6 +61,7 @@
 
         html{
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
 
@@ -198,6 +199,75 @@
         }
         }
 
+        .sectionThreeHeading{
+            color: white; 
+            font-family: Lexend Deca; 
+            font-size: 40px; 
+            margin-top: 10rem; 
+            font-weight: 500; 
+            text-align: center;
+        }
+
+        .sectionThreeSubHead{
+            color: white; 
+            font-family: Lexend Deca;
+            font-size: 25px;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .sectionThreeSubText{
+            color:#979797; 
+            max-width: 40rem;
+        }
+
+        .sectionFourHead{
+            color: white; 
+            font-family: Lexend Deca; 
+            font-size: 40px; 
+            margin-top: 1rem; 
+            font-weight: 500;
+        }
+
+        .sectionFourText{
+            color:#979797; 
+            max-width: 25rem;
+        }
+
+        .sectionSixHead{
+            color: white; 
+            font-family: Lexend Deca; 
+            font-size: 40px; 
+            margin-top: 10rem; 
+            font-weight: 500; 
+            text-align: center;
+        }
+
+        .sectionSixSubHead{
+            color: white; 
+            font-family: Lexend Deca; 
+            font-size: 25px; 
+            margin-top: 1rem; 
+            font-weight: 500;
+        }
+
+        .sectionSixSubText{
+            color:#979797; 
+            max-width: 40rem;
+        }
+
+        .copyrightFooter{
+            color: white;
+        }
+
+        .sectionFour{
+            display: initial;
+        }
+
+        .sectionFourMobile{
+            display: none;
+        }
+
                 /* Extra small devices (phones, 600px and down) */
         @media only screen and (max-width: 600px) {
             .mainHeaderTitle{
@@ -258,15 +328,110 @@
             }
 
             .multipleInstancesImg{
-                width: 80%;
-                margin-left: 3rem;
+                width: 85%;
+                margin-left: 8%;
             }
+
+            .sectionThreeHeading{
+                color: white; 
+                font-family: Lexend Deca; 
+                font-size: 30px; 
+                margin-top: 10rem;
+                margin-left: 5%;
+                margin-right: 5%; 
+                font-weight: 500; 
+                text-align: center;
+            }
+
+            .sectionThreeSubHead{
+                color: white; 
+                font-family: Lexend Deca;
+                font-size: 25px;
+                margin-top: 1rem;
+                font-weight: 500;
+                margin-left: -2rem;
+            }
+
+            .sectionThreeSubText{
+                color:#979797; 
+                margin-left: -2rem;
+                max-width: 98%;
+
+            }
+
+            .sectionFourHead{
+                color: white; 
+                font-family: Lexend Deca; 
+                font-size: 40px; 
+                margin-top: 1rem; 
+                font-weight: 500;
+                text-align: center;
+                margin-left: -22%;
+            }
+
+            .sectionFourText{
+                color:#979797; 
+                max-width: 95%;
+                text-align: center;
+                margin-left: -10%;
+                margin-top: 1rem;
+            }
+
+            .sectionSixHead{
+                color: white; 
+                font-family: Lexend Deca; 
+                font-size: 28px; 
+                margin-top: 10rem; 
+                font-weight: 500; 
+                text-align: center;
+                width: 95%;
+            }
+
+            .sectionSixSubHead{
+                color: white; 
+                font-family: Lexend Deca; 
+                font-size: 25px; 
+                margin-top: 1rem; 
+                font-weight: 500;
+                margin-left: -2rem;
+            }
+
+            .sectionSixSubText{
+                color:#979797; 
+                max-width: 40rem;
+                margin-left: -2rem;
+                width: 95%;
+            }
+
+            .sectionFour{
+                display: none;
+            }
+
+            .sectionFourMobile{
+                display: initial;
+            }
+
+            .copyrightFooter{
+                color: white;
+                width: 70%;
+            }
+
+            .dashboardimg{
+                margin-top: 40%;
+                width: 90%;
+            }
+
+            .headerMain{
+                margin-top: 40%;
+            }
+
+
 
         }
 
     </style>
 
-    <section>
+    <section class="headerMain">
         <div class="d-flex justify-content-center" style="margin-top: 9%;">
             <h1 class="mainHeaderTitle">Welcome to the future <br> of <span class="gradient-header"> automated</span> Trading</h1>
         </div>
@@ -282,7 +447,7 @@
 
 
         <div class="d-flex justify-content-center" style="margin-top:5%;">
-        <img src="assets/images/dashboard-img.svg" alt="" width='75%'></div>
+        <img src="assets/images/dashboard-img.svg" alt="" width='75%' class = 'dashboardimg'></div>
     
     </section>
 
@@ -329,7 +494,7 @@
 
     <section>
         <div class="d-flex justify-content-center" style="margin-top:10%; ">
-            <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 10rem; font-weight: 500; text-align: center;">Fill your watchlist, watch <br> the magic unfold.</h2>
+            <h2 class="sectionThreeHeading">Fill your watchlist, watch <br> the magic unfold.</h2>
         </div>
 
         <div class="d-flex justify-content-center" style="margin-top:10%; ">
@@ -338,19 +503,19 @@
 
                 <div style="margin-left: 5rem;">
                     <div>
-                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 1rem; font-weight: 500;">Long Term</h2>
-                        <p style="color:#979797; max-width: 40rem;">IntelliStock allows you to configure the bot to watch stocks for long term investments. Watch for the growth or decline of stocks on a monthly timeframe. This allows it to make decisions on when to buy and sell in the long run</p>
+                        <h2 class="sectionThreeSubHead">Long Term</h2>
+                        <p class="sectionThreeSubText">IntelliStock allows you to configure the bot to watch stocks for long term investments. Watch for the growth or decline of stocks on a monthly timeframe. This allows it to make decisions on when to buy and sell in the long run</p>
                     </div>
 
                     <div>
-                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">Short Term</h2>
-                        <p style="color:#979797; max-width: 40rem;">With short term watching, the bot will watch for stocks on a weekly basis and determine when to buy and sell a symbol</p>
+                        <h2 class="sectionThreeSubHead">Short Term</h2>
+                        <p class="sectionThreeSubText">With short term watching, the bot will watch for stocks on a weekly basis and determine when to buy and sell a symbol</p>
                     </div>
 
 
                     <div>
-                        <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">Day Trading</h2>
-                        <p style="color:#979797; max-width: 40rem;">IntelliStock work well with day trading as it can make all of the trades within a day and everyday, this option works well with penny stocks that have lots of ups and downs.</p>
+                        <h2 class="sectionThreeSubHead">Day Trading</h2>
+                        <p class="sectionThreeSubText">IntelliStock work well with day trading as it can make all of the trades within a day and everyday, this option works well with penny stocks that have lots of ups and downs.</p>
                     </div>
                 </div>
             </div>
@@ -365,8 +530,8 @@
         <div class="d-flex justify-content-center" style="margin-top:15%;">
             <div class="row">
                 <div style="margin-left: 20%; margin-top: 5rem;">
-                    <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 1rem; font-weight: 500;">Manage multiple <br> instances</h2>
-                    <p style="color:#979797; max-width: 25rem;">Create multiple instances to invest different portfolios. For example, you could create a instance for your paper trading account and one instance for your live trading account.</p>
+                    <h2 class="sectionFourHead">Manage multiple <br> instances</h2>
+                    <p class="sectionFourText">Create multiple instances to invest different portfolios. For example, you could create a instance for your paper trading account and one instance for your live trading account.</p>
                 </div>
 
                 <img src="assets/images/instances-img.svg" alt="" width="40%" class="multipleInstancesImg">
@@ -379,7 +544,7 @@
 
     <!-- Fifth Section -->
 
-    <section>
+    <section class="sectionFour">
         <div class="d-flex justify-content-center" style="margin-top:15%;">
             <div class="row">
 
@@ -395,6 +560,26 @@
         </div>
     </section>
 
+    <!-- MOBILE VARIANT-->
+
+    <section class="sectionFourMobile">
+        <div class="d-flex justify-content-center" style="margin-top:15%;">
+            <div class="row">
+
+                <div style="margin-top: 5rem;">
+                    <h2 style="color: white; font-family: Lexend Deca; font-size: 30px; margin-top: 1rem; font-weight: 500; text-align: center;">View visual trade info</h2>
+                    <p style="color:#979797; width: 85%; text-align: center; margin-left: 2rem; margin-top: 1rem;">View advanced trade info about when your bot made any transactions on a graph or in a table. This can make improve your trading experience tenfold!</p>
+                </div>
+
+                <img src="assets/images/visual-trade-info.svg" alt="" width="80%" style="margin-left: 10%; margin-top: 3rem;">
+
+               
+            </div>
+        </div>
+    </section>
+
+    <!--END OF MOBILE VARIANT-->
+
     <!-- END of Fifth section -->
 
 
@@ -402,7 +587,7 @@
 
  <section>
     <div class="d-flex justify-content-center" style="margin-top:10%; ">
-        <h2 style="color: white; font-family: Lexend Deca; font-size: 40px; margin-top: 10rem; font-weight: 500; text-align: center;">Experiment with different <br> trading strategies</h2>
+        <h2 class="sectionSixHead">Experiment with different <br> trading strategies</h2>
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top:5%;">
@@ -411,19 +596,19 @@
 
             <div style="margin-left: 5rem;">
                 <div>
-                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 1rem; font-weight: 500;">MACD</h2>
-                    <p style="color:#979797; max-width: 40rem;">Configure your bot to use the MACD (Mean average convergence divergence) indicator to make intelligent trade decisions.</p>
+                    <h2 class="sectionSixSubHead">MACD</h2>
+                    <p class="sectionSixSubText">Configure your bot to use the MACD (Mean average convergence divergence) indicator to make intelligent trade decisions.</p>
                 </div>
 
                 <div>
-                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">RSI</h2>
-                    <p style="color:#979797; max-width: 40rem;">Configure your bot to use the RSI (Realtive Strength Index) indicator to decide when is the best time to buy an sell a stock.</p>
+                    <h2 class="sectionSixSubHead">RSI</h2>
+                    <p class="sectionSixSubText">Configure your bot to use the RSI (Realtive Strength Index) indicator to decide when is the best time to buy an sell a stock.</p>
                 </div>
 
 
                 <div>
-                    <h2 style="color: white; font-family: Lexend Deca; font-size: 25px; margin-top: 2rem; font-weight: 500;">And more!</h2>
-                    <p style="color:#979797; max-width: 40rem;">Coming soon!</p>
+                    <h2 class="sectionSixSubHead">And more!</h2>
+                    <p class="sectionSixSubText">Coming soon!</p>
                 </div>
             </div>
         </div>
@@ -476,7 +661,7 @@
 
     <footer style="margin-top: 10%;">
         <center>
-            <p style="color: white;">Copyright © Proto Systems 2021. All rights reserved.</p>
+            <p class="copyrightFooter">Copyright © Proto Systems 2021. All rights reserved.</p>
         </center>
     </footer>
 
