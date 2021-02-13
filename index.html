@@ -268,6 +268,15 @@
             display: none;
         }
 
+        #signupBtnDesktop{
+            display: initial;
+        }
+
+        #signupBtnMobile{
+            display: none;
+        }
+
+
                 /* Extra small devices (phones, 600px and down) */
         @media only screen and (max-width: 600px) {
             .mainHeaderTitle{
@@ -425,9 +434,18 @@
                 margin-top: 40%;
             }
 
+            #signupBtnDesktop{
+                display: none;
+            }
+
+            #signupBtnMobile{
+                display: initial;
+            }
+
 
 
         }
+
 
     </style>
 
@@ -441,9 +459,20 @@
                 trading experience, so you never have to trade again.</p>
         </center>
 
-        <div class="d-flex justify-content-center" style="margin-top:3%;">
-            <button class="gradient-get-started-btn" onClick="document.getElementById('beta-signup-section').scrollIntoView();">Get Started</button>
-        </div>
+
+        <section id= 'signupBtnDesktop'>
+            <div class="d-flex justify-content-center" style="margin-top:3%;" id="signupBtnDesktop">
+                <button class="gradient-get-started-btn" onClick="document.getElementById('beta-signup-section').scrollIntoView();">Get Started</button>
+            </div>
+        </section>
+
+
+        <section id="signupBtnMobile">
+            <div class="d-flex justify-content-center" style="margin-top:3%;" >
+                <button class="gradient-get-started-btn" onClick="document.location='/signup';">Get Started</button>
+            </div>
+        </section>
+
 
 
         <div class="d-flex justify-content-center" style="margin-top:5%;">
