@@ -437,6 +437,8 @@ http.listen(port, () => {
 
     var obj = {"apiURL": data['apiURL']}
 
+    apiServerConnected = false
+
   
     var socketURL = data['apiURL']
 
