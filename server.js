@@ -9,11 +9,15 @@ const ejs = require('ejs')
 const firebase = require('firebase');
 var mysql = require('mysql'); 
 var fs = require('fs');
+var apiServerConnected = false
 
 var http = require('http').createServer(app);
 app.use(cors())
 
 var betaCode = 'AHY8A7KL'
+
+
+
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -25,7 +29,7 @@ var con = mysql.createConnection({
 
 con.connect(function(err) {
   if (err) {
-    console.log(err)
+    console.log("Not connected to SQl server")
   } else {
     console.log("Connected!");
   }
@@ -84,17 +88,34 @@ router.get('/',function(req,res){
 
   
 router.get('/login',function(req,res){
+  if(apiServerConnected){
     res.sendFile(path.join(__dirname+'/login.html'));
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
   
 });
 
 router.get('/signup',function(req,res){
+
+  if(apiServerConnected){
+    
     res.sendFile(path.join(__dirname+'/signup.html'));
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
   
 });
 
 
 router.get('/dashboard',function(req,res){
+
+  
+  if(apiServerConnected){
+    
+      
   try{
     var instanceID = req.query.instance
 
@@ -109,112 +130,192 @@ router.get('/dashboard',function(req,res){
     res.send("Internal server error: " + e)
   }
 
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
+
 
 });
 
 router.get('/watchlist',function(req,res){
-  try{
-    var instanceID = req.query.instance
 
-    if(instanceID){
-      res.render(path.join(__dirname+'/stocks.ejs'), {instance: instanceID})
-
-    } else {
-      res.send("Internal Server Error: Missing Instance ID")
+  if(apiServerConnected){
+    
+    try{
+      var instanceID = req.query.instance
+  
+      if(instanceID){
+        res.render(path.join(__dirname+'/stocks.ejs'), {instance: instanceID})
+  
+      } else {
+        res.send("Internal Server Error: Missing Instance ID")
+      }
+    } catch(e){
+      console.log(e)
+      res.send("Internal server error: " + e)
     }
-  } catch(e){
-    console.log(e)
-    res.send("Internal server error: " + e)
+
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
   }
+
+  
 
 
 });
 
 router.get('/history',function(req,res){
-  try{
-    var instanceID = req.query.instance
 
-    if(instanceID){
-      res.render(path.join(__dirname+'/history.ejs'), {instance: instanceID})
-
-    } else {
-      res.send("Internal Server Error: Missing Instance ID")
+  if(apiServerConnected){
+    
+    try{
+      var instanceID = req.query.instance
+  
+      if(instanceID){
+        res.render(path.join(__dirname+'/history.ejs'), {instance: instanceID})
+  
+      } else {
+        res.send("Internal Server Error: Missing Instance ID")
+      }
+    } catch(e){
+      console.log(e)
+      res.send("Internal server error: " + e)
     }
-  } catch(e){
-    console.log(e)
-    res.send("Internal server error: " + e)
+
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
   }
+
 
 
 });
 
 router.get('/settings',function(req,res){
-  try{
-    var instanceID = req.query.instance
 
-    if(instanceID){
-      res.render(path.join(__dirname+'/settings.ejs'), {instance: instanceID})
-
-    } else {
-      res.send("Internal Server Error: Missing Instance ID")
+  if(apiServerConnected){
+    
+    try{
+      var instanceID = req.query.instance
+  
+      if(instanceID){
+        res.render(path.join(__dirname+'/settings.ejs'), {instance: instanceID})
+  
+      } else {
+        res.send("Internal Server Error: Missing Instance ID")
+      }
+    } catch(e){
+      console.log(e)
+      res.send("Internal server error: " + e)
     }
-  } catch(e){
-    console.log(e)
-    res.send("Internal server error: " + e)
+  
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
   }
+
 
 
 });
 
 router.get('/predictions',function(req,res){
-  try{
-    var instanceID = req.query.instance
 
-    if(instanceID){
-      res.render(path.join(__dirname+'/predictions.ejs'), {instance: instanceID})
-
-    } else {
-      res.send("Internal Server Error: Missing Instance ID")
+  if(apiServerConnected){
+    
+    try{
+      var instanceID = req.query.instance
+  
+      if(instanceID){
+        res.render(path.join(__dirname+'/predictions.ejs'), {instance: instanceID})
+  
+      } else {
+        res.send("Internal Server Error: Missing Instance ID")
+      }
+    } catch(e){
+      console.log(e)
+      res.send("Internal server error: " + e)
     }
-  } catch(e){
-    console.log(e)
-    res.send("Internal server error: " + e)
+  
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
   }
+
+
 
 
 });
 
 router.get('/explore',function(req,res){
-  try{
-    var instanceID = req.query.instance
 
-    if(instanceID){
-      res.render(path.join(__dirname+'/explore.ejs'), {instance: instanceID})
-
-    } else {
-      res.send("Internal Server Error: Missing Instance ID")
+  if(apiServerConnected){
+    
+  
+    try{
+      var instanceID = req.query.instance
+  
+      if(instanceID){
+        res.render(path.join(__dirname+'/explore.ejs'), {instance: instanceID})
+  
+      } else {
+        res.send("Internal Server Error: Missing Instance ID")
+      }
+    } catch(e){
+      console.log(e)
+      res.send("Internal server error: " + e)
     }
-  } catch(e){
-    console.log(e)
-    res.send("Internal server error: " + e)
+  
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
   }
+
+
 
 
 });
 
 
 router.get('/create',function(req,res){
-  res.sendFile(path.join(__dirname+'/createInstance.html'));
+
+  if(apiServerConnected){
+
+    res.sendFile(path.join(__dirname+'/createInstance.html'));
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
 
 });
 
 router.get('/settings',function(req,res){
-  res.sendFile(path.join(__dirname+'/settings.html'));
+
+  if(apiServerConnected){
+    
+    res.sendFile(path.join(__dirname+'/settings.html'));
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
+
 
 });
 
 router.get('/instances',function(req,res){
-  res.sendFile(path.join(__dirname+'/instances.html'));
+
+  if(apiServerConnected){
+    
+    res.sendFile(path.join(__dirname+'/instances.html'));
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
+
 
 });
 
@@ -336,8 +437,31 @@ http.listen(port, () => {
 
     var obj = {"apiURL": data['apiURL']}
 
+  
+    var socketURL = data['apiURL']
 
     var data = JSON.stringify(obj);
+
+
+
+    var io = require('socket.io-client');
+
+    var socket = io.connect(socketURL, {reconnect: true})
+
+    console.log('Connecting to socket: ' + socketURL)
+
+    // Add a connect listener
+    socket.on('connect', function (socket) {
+      console.log('Connected to socket!');
+      apiServerConnected = true
+    });
+
+    socket.on('disconnect', function (socket) {
+      console.log('Api server disconnected');
+      apiServerConnected = false
+    });
+
+
 
     fs.writeFile('config/config.json', data, 'utf8', function(err, data){
 
