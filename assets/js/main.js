@@ -992,7 +992,9 @@ function getDiscoverPageData(){
 
                 console.log(lastTime)
 
-                document.getElementById('timeStatement').innerHTML = "Generated as of " + formatAMPM(date)
+                var formattedDate = getFormattedDate(date)
+
+                document.getElementById('timeStatement').innerHTML = "Generated as of " + formatAMPM(date) + " - " + formattedDate
               }
             }).then(() => {
 
