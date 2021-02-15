@@ -910,9 +910,8 @@ new Chart(ctx, {
 }
 
 function closeDiscoverModal(){
-  var checked = document.getElementById('dontShow').checked
 
-  print(checked)
+  localStorage.setItem('showDiscoverStocksModal', false)
 }
 
 function showDiscoverPagePopup(){
@@ -937,7 +936,7 @@ function showDiscoverPagePopup(){
 
       </div>
       <div class="modal-footer" style = 'background-color: #272727; color: white'>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick = 'closeDiscoverModal()'>Close</button>
       </div>
     </div>
   </div>
