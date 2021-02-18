@@ -319,6 +319,21 @@ router.get('/instances',function(req,res){
 
 });
 
+router.get('/terminal',function(req,res){
+
+  if(apiServerConnected){
+    
+    res.sendFile(path.join(__dirname+'/terminal.html'));
+    
+  } else {
+    res.sendFile(path.join(__dirname+'/downForMaintance.html'));
+  }
+
+
+
+});
+
+
 //var tickertape = require('tickertape')
 
 
@@ -413,6 +428,7 @@ app.use('/css', express.static('css/'))
 app.use('/js', express.static('js/'))
 app.use('/terminaljs', express.static('terminalJs/'))
 app.use('/apexcharts', express.static('apexcharts/'))
+app.use('/node_modules', express.static('node_modules/'))
 
 
 //add the router

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">  
+
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
+
+    <script src="https://api.intellistock.protosystems.net/init.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>IntelliStock Status</title>
+  </head>
+  <body style="background-color: #242B48;">
+
+    <script>
+
+
+        $( document ).ready(function() {
+            init();
+            getServiceStatus()
+        });
+
+        function getServiceStatus(){
+
+            var core = false
+            var api = false
+            var discover = false
+            var price = false
+
+            var random = Math.random() * (1000000 - 0) + 0;
+            firebase.firestore().collection("Config").doc('Pings').update({
+                'corePing': random,
+                'apiServicePing': random,
+                'discoverServicePing': random,
+                'priceServicePing': random,
+                'priceBrokerPing': random,
+            }).then(() => {
+
+                setTimeout(() => {
+                    firebase.firestore().collection("Config").doc('Pings').get().then((snap) => {
+                    var data = snap.data()
+
+                    if(data){
+                        console.log(data)
+
+                        //CORE PING
+                        var coreResponse = data['coreResponse']
+
+                        if(coreResponse == random){
+                            core = true
+
+                            document.getElementById('core').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #2bac76;" id = 'core'>Operational</p>`
+                        } else {
+                            document.getElementById('core').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #e74a3b;" id = 'core'>Experiencing Issues</p>`
+
+                        }
+
+
+                        //API SERVER PING
+                        var apiResponse = data['apiServiceResponse']
+
+                        if(apiResponse == random){
+
+                            api = true
+
+                            document.getElementById('api').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #2bac76;" id = 'core'>Operational</p>`
+                        } else {
+                            document.getElementById('api').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #e74a3b;" id = 'core'>Experiencing Issues</p>`
+
+                        }
+
+
+                        //DISCOVER SERVICE PING
+                        var discoverResponse = data['discoverServiceResponse']
+
+                        if(discoverResponse == random){
+
+                            discover = true
+
+                            document.getElementById('discover').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #2bac76;" id = 'core'>Operational</p>`
+                        } else {
+                            document.getElementById('discover').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #e74a3b;" id = 'core'>Experiencing Issues</p>`
+
+                        }
+
+
+                        //Price SERVICE PING
+                        var priceServiceResponse = data['priceServiceResponse']
+                        var priceBrokerResponse = data['priceBrokerResponse']
+
+                        if(priceServiceResponse == random && priceBrokerResponse == random){
+
+                            price = true
+
+                            document.getElementById('price').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #2bac76;" id = 'core'>Operational</p>`
+                        } else {
+                            document.getElementById('price').innerHTML = `<p style="margin-top: 1rem; font-weight: bold; color: #e74a3b;" id = 'core'>Experiencing Issues</p>`
+
+                        }
+
+                        if(core && api && discover && price){
+                            document.getElementById('overallTitle').innerHTML = 'IntelliStock is Online'
+                            document.getElementById('description').innerHTML = 'We have not detected any issues with our service'
+                        } else {
+                            document.getElementById('overallTitle').innerHTML = "Some systems down"
+                            document.getElementById('description').innerHTML = 'Some IntelliStock services are facing some downtime. We will fix this as soon as possible.'
+                            document.getElementById('image').innerHTML = `<img src="assets/images/undraw_cancel_u1it.svg" alt="" width="10%" style="min-width: 150px;">`
+
+                        }
+                    }
+                })  
+                }, 2000)
+               
+                
+
+
+
+            })
+        }
+    </script>
+
+    <div>
+        <a class="navbar-brand" href="#"><img src='assets/images/Group 1.png' width="60%" style = 'margin-top: 2rem; margin-left: 2rem;'/></a>]
+    </div>
+
+
+    <div class="d-flex justify-content-center" style="margin-top: 5%; " id="image">   
+            <img src="assets/images/undraw_Security_on_ff2u.svg" alt="" width="10%" style="min-width: 150px;">
+    </div>
+
+    <center>
+        <h1 style="font-family: 'Lexend Deca'; font-weight: bold; color: white;" id = 'overallTitle'>Pinging IntelliStock Services</h1>
+        <p style="color: rgb(170, 170, 170);" id = 'description'></p>
+    </center>
+
+    <div style="width: 80%; margin-left: 10%; margin-top: 5%;">
+
+    <!-- API SERVER-->
+    <div class="card" style="background-color: #2d3555;">
+        <div class="card-body">
+            <div style="display: flex; justify-content: space-between;">
+                <p style="font-size: 20px; font-weight: bold; margin-top: 1rem; margin-left: 1rem; color: white;">Core Server</p>
+                <div id="core">
+                    <p style="margin-top: 1rem; font-weight: bold; color: #f6c23e;" id = 'core'>Pinging...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- API SERVER-->
+        <div class="card" style="background-color: #2d3555;">
+            <div class="card-body">
+              <div style="display: flex; justify-content: space-between;">
+                  <p style="font-size: 20px; font-weight: bold; margin-top: 1rem; margin-left: 1rem;  color: white;">API Server</p>
+                  <div id="api">
+                    <p style="margin-top: 1rem; font-weight: bold; color: #f6c23e;" id = 'core'>Pinging...</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <!--DISCOVER SERVICE -->
+
+        <div class="card" style="background-color: #2d3555;">
+            <div class="card-body">
+              <div style="display: flex; justify-content: space-between;">
+                  <p style="font-size: 20px; font-weight: bold; margin-top: 1rem; margin-left: 1rem;  color: white;">Discover Stocks Service</p>
+                  <div id="discover">
+                    <p style="margin-top: 1rem; font-weight: bold; color: #f6c23e;" id = 'core'>Pinging...</p>
+                </div>             
+             </div>
+            </div>
+        </div>
+
+        <!-- PRICE SERVICE -->
+
+        <div class="card" style="background-color: #2d3555;">
+            <div class="card-body">
+              <div style="display: flex; justify-content: space-between;">
+                  <p style="font-size: 20px; font-weight: bold; margin-top: 1rem; margin-left: 1rem;  color: white;">Market Data Service</p>
+                  <div id="price">
+                    <p style="margin-top: 1rem; font-weight: bold; color: #f6c23e;" id = 'core'>Pinging...</p>
+                </div>   
+              </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
