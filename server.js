@@ -334,6 +334,14 @@ router.get('/terminal',function(req,res){
 });
 
 
+router.get('/status',function(req,res){
+
+    res.sendFile(path.join(__dirname+'/status.html'));
+
+});
+
+
+
 //var tickertape = require('tickertape')
 
 
